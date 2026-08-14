@@ -1,0 +1,47 @@
+/* The OPUS palette. One file, three modules — this is the whole reason the
+   package exists.
+
+   Downloads, Library and Player used to each carry their own copy of these
+   variables, and they had already drifted: the same structure painted marine in
+   one and wine in another. Under one product that is not a choice, it is a leak.
+   Change a value here and all three follow; there is nowhere else to change it.
+
+   Structure is deliberately unchanged from what the three apps already read
+   through var(), so adopting this file is a swap, not a rewrite. Only the hues
+   moved: a neutral graphite ground with a single teal accent — legible in both
+   themes, and not the amber or the violet the obvious media servers already own.
+
+   Modules do NOT get their own accent. Which module you are in is the header's
+   job to say; a per-module hue would re-open the exact drift this closes. */
+
+:root {
+	--bg: #f3f4f5;
+	--surface: #ffffff;
+	--surface-2: #e7eaeb;
+	--border: #ccd3d4;
+	--text: #14191a;
+	--muted: #566063;
+	--brand: #0d6d68;
+	--brand-hover: #118a84;
+	--accent: #0d7c78;
+	--ok: #1e7a37;
+	--warn: #8a6a00;
+	--err: #b3261e;
+	--danger: #e5484d;
+}
+
+.dark {
+	--bg: #0e1213;
+	--surface: #161c1d;
+	--surface-2: #1e2627;
+	--border: #2d383a;
+	--text: #e9eeee;
+	--muted: #9aa7a9;
+	--brand: #0d6d68;
+	--brand-hover: #16938d;
+	--accent: #35b3ad;
+	--ok: #7fd18a;
+	--warn: #ffd479;
+	--err: #f28b82;
+	--danger: #e5484d;
+}

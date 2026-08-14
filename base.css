@@ -1,0 +1,40 @@
+/* Document defaults every OPUS module paints on. Rules that belong to no single
+   page live here; a rule only one page uses stays in that page.
+
+   Import order matters: tokens.css first, then this. */
+
+body {
+	margin: 0;
+	font-family: system-ui, sans-serif;
+	background: var(--bg);
+	color: var(--text);
+}
+
+a {
+	color: inherit;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 0.5rem 0.75rem;
+	border-bottom: 1px solid var(--border);
+}
+
+.muted {
+	color: var(--muted);
+}
+
+/* job and item state, emitted by every module's tables */
+.status-complete {
+	color: var(--ok);
+}
+
+.status-failed {
+	color: var(--err);
+}

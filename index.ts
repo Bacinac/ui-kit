@@ -1,0 +1,24 @@
+// Everything a module imports from the package, in one place, so an import line
+// never has to know which file something lives in.
+//
+// CSS is deliberately NOT re-exported here: a module imports `tokens.css` and
+// `base.css` from its own app.css, which is where a stylesheet belongs.
+
+export { theme, type Theme } from './theme.svelte';
+export { toasts, type Toast, type ToastKind } from './toasts.svelte';
+export {
+	i18n,
+	t,
+	typed,
+	formatNumber,
+	SHELL_KEYS,
+	type Locale,
+	type ShellKey
+} from './i18n.svelte';
+
+export { default as Shell } from './Shell.svelte';
+export { default as Toasts } from './Toasts.svelte';
+export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';
+export { default as LanguageSwitcher } from './LanguageSwitcher.svelte';
+export { default as SettingField } from './SettingField.svelte';
+export type { FieldSetting } from './SettingField.svelte';
