@@ -43,15 +43,5 @@
 	}
 	input {
 		width: 100%;
-		padding: 0.5rem 0.7rem;
-		border-radius: 8px;
-		border: 1px solid var(--border);
-		background: var(--surface);
-		color: var(--text);
-		font: inherit;
-	}
-	input:focus {
-		outline: none;
-		border-color: var(--accent);
 	}
 </style>

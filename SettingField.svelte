@@ -68,18 +68,5 @@
 	input,
 	select {
 		width: 100%;
-		box-sizing: border-box;
-		padding: 0.55rem 0.8rem;
-		border-radius: 8px;
-		border: 1px solid var(--border);
-		background: var(--bg);
-		color: inherit;
-		font: inherit;
-		font-size: 0.95rem;
-	}
-	input:focus,
-	select:focus {
-		outline: none;
-		border-color: var(--accent);
 	}
 </style>

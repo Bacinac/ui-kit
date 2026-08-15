@@ -23,6 +23,28 @@ a {
 	color: inherit;
 }
 
+/* Every control the product types into looks the same because it is the same
+   rule, not because four pages happened to copy it. A component may still say
+   how wide it is; none of them says what it looks like. */
+input,
+select,
+textarea {
+	padding: 0.5rem 0.75rem;
+	border-radius: 8px;
+	border: 1px solid var(--border);
+	background: var(--surface);
+	color: var(--text);
+	font: inherit;
+	font-size: 0.95rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
