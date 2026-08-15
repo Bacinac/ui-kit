@@ -20,10 +20,14 @@
 	// Labels are keyed by the field's suffix, so every engine reuses one catalog.
 
 	import { t } from './i18n.svelte';
+	import Chips from './Chips.svelte';
 
 	let { setting, value = $bindable() }: { setting: FieldSetting; value: string } = $props();
 </script>
 
+{#if setting.kind === 'list'}
+	<Chips id={setting.key} label={t(`field.${setting.label}`)} bind:value />
+{:else}
 <div class="row">
 	<label class="label" for={setting.key}>
 		{t(`field.${setting.label}`)}
@@ -53,6 +57,7 @@
 		<input id={setting.key} type="text" bind:value autocomplete="off" />
 	{/if}
 </div>
+{/if}
 
 <style>
 	.row {
