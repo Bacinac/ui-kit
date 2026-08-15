@@ -104,6 +104,20 @@ td.wrap {
 	}
 }
 
+/* What a page can do, on one line under its totals. Every button is the same
+   width whatever its label, so the row reads as a set of equals and does not
+   re-shuffle when a label changes with the language. */
+.action-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 1.25rem 0 1.5rem;
+}
+
+.action-row > .btn {
+	flex: 0 0 10rem;
+}
+
 .muted {
 	color: var(--muted);
 }
