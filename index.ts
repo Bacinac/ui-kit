@@ -27,6 +27,8 @@ export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
 export { default as Login } from './Login.svelte';
 export { default as Shell } from './Shell.svelte';
+export { default as Stats } from './Stats.svelte';
+export type { Stat } from './Stats.svelte';
 export type { Alert, NavItem, ModuleLink } from './Shell.svelte';
 export { default as Wordmark } from './Wordmark.svelte';
 export { default as SaveBar } from './SaveBar.svelte';
