@@ -27,6 +27,7 @@ export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
 export { default as Shell } from './Shell.svelte';
 export type { Alert, NavItem, ModuleLink } from './Shell.svelte';
+export { default as SaveBar } from './SaveBar.svelte';
 export { default as Toasts } from './Toasts.svelte';
 export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';
 export { default as LanguageSwitcher } from './LanguageSwitcher.svelte';
