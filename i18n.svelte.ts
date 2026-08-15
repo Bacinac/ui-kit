@@ -17,6 +17,8 @@ export const SHELL_KEYS = [
 	'theme.dark',
 	'theme.system',
 	'lang.switch',
+	'prefs.language',
+	'prefs.theme',
 	'login.username',
 	'login.password',
 	'login.submit',
