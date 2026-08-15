@@ -16,17 +16,18 @@ Under one product that is not a variation, it is a leak. So exactly one thing
 lives here: the layer that must be identical everywhere.
 
 - `tokens.css` — the palette, light and dark
-- `base.css` — document defaults (body, links, tables, state colours)
+- `base.css` — document defaults (body, links, tables, state colours, the
+  four-slot `.fields` grid every card of settings lays its fields on)
 - `Shell.svelte` — the header: wordmark and module letter, module nav, module
   switcher
 - `theme.svelte.ts` — light / dark / system, stored under one key for the whole
   product so switching modules keeps the theme you chose
 - `i18n.svelte.ts` — the translation runtime; **catalogues stay in each module**
-- `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField`
-- `marks/` — the favicon family: the O of OPUS with the module's own letter
-  beside it — D, L, P — the same lockup the header wordmark makes in type. A
-  module does not keep its own copy; its `static/favicon.svg` is a symlink into
-  here, so the family cannot drift one mark at a time.
+- `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField` / `SaveBar`
+- `marks/` — the favicon family: the header wordmark exactly, with the O
+  standing in for the whole word and the module's small raised letter beside it
+  — D, L, P. A module does not keep its own copy; its `static/favicon.svg` is a
+  symlink into here, so the family cannot drift one mark at a time.
 
 Domain UI does not belong here. If only one module would ever render it, it is
 that module's.
