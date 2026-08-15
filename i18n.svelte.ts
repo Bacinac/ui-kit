@@ -16,7 +16,13 @@ export const SHELL_KEYS = [
 	'theme.light',
 	'theme.dark',
 	'theme.system',
-	'lang.switch'
+	'lang.switch',
+	'login.username',
+	'login.password',
+	'login.submit',
+	'login.working',
+	'login.missing',
+	'login.failed'
 ] as const;
 export type ShellKey = (typeof SHELL_KEYS)[number];
 
