@@ -86,3 +86,10 @@ export function typed<K extends string>() {
 export function formatNumber(n: number, opts?: Intl.NumberFormatOptions): string {
 	return new Intl.NumberFormat(INTL_LOCALES[i18n.locale], opts).format(n);
 }
+
+/** A moment, in the reader's language rather than the server's. Every module
+    shows times from a database that keeps them in UTC; none of them should be
+    deciding on its own how a date reads. */
+export function formatDateTime(iso: string): string {
+	return new Date(iso).toLocaleString(INTL_LOCALES[i18n.locale]);
+}
