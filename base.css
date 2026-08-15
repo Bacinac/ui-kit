@@ -45,6 +45,14 @@ textarea:focus {
 	border-color: var(--accent);
 }
 
+/* A table of releases or jobs has more columns than a phone has width, and
+   there is no honest way to fold one — a row is a row. So it scrolls sideways
+   inside its own frame instead of widening the page under it. */
+.table-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -52,9 +60,20 @@ table {
 
 th,
 td {
+	white-space: nowrap;
+}
+
+th,
+td {
 	text-align: left;
 	padding: 0.5rem 0.75rem;
 	border-bottom: 1px solid var(--border);
+}
+
+/* the one column that must be allowed to wrap: a release title is the row */
+td.wrap {
+	white-space: normal;
+	min-width: 18rem;
 }
 
 .muted {
