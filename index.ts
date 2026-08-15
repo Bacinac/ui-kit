@@ -25,6 +25,7 @@ export { default as Chips } from './Chips.svelte';
 export { default as Field } from './Field.svelte';
 export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
+export { default as Account } from './Account.svelte';
 export { default as Login } from './Login.svelte';
 export { default as Preferences } from './Preferences.svelte';
 export { default as Shell } from './Shell.svelte';

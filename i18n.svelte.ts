@@ -24,7 +24,19 @@ export const SHELL_KEYS = [
 	'login.submit',
 	'login.working',
 	'login.missing',
-	'login.failed'
+	'login.failed',
+	'account.password',
+	'account.current',
+	'account.new',
+	'account.repeat',
+	'account.changed',
+	'account.token',
+	'account.tokenShow',
+	'account.err.blank',
+	'account.err.mismatch',
+	'account.err.rejected',
+	'common.save',
+	'common.saving'
 ] as const;
 export type ShellKey = (typeof SHELL_KEYS)[number];
 
