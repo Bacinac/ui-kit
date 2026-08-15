@@ -3,6 +3,15 @@
 
    Import order matters: tokens.css first, then this. */
 
+/* Width means the width you see. Without this an input at `width: 100%` is its
+   container plus its own padding and border, so it overhangs everything stacked
+   with it — which is what made a form of fields and a button look ragged. */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 body {
 	margin: 0;
 	font-family: system-ui, sans-serif;
