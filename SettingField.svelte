@@ -46,12 +46,20 @@
 			{/each}
 		</select>
 	{:else if setting.secret}
+		<!-- new-password, not off: a browser fills a saved password into any
+		     password box that does not claim to be a new one, and here that
+		     writes somebody's own password over an engine's the moment the form
+		     is saved — and leaves the form dirty forever until it is. The name
+		     is deliberately not the field's, so nothing has a label to match. -->
 		<input
 			id={setting.key}
+			name={`s-${setting.key}`}
 			type="password"
 			bind:value
 			placeholder={setting.is_set ? t('settings.secretSet') : t('settings.secretUnset')}
-			autocomplete="off"
+			autocomplete="new-password"
+			data-1p-ignore
+			data-lpignore="true"
 		/>
 	{:else}
 		<input id={setting.key} type="text" bind:value autocomplete="off" />

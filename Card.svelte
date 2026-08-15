@@ -9,6 +9,8 @@
 		title,
 		heading,
 		actions,
+		collapsible = false,
+		open = false,
 		children
 	}: {
 		/** the panel's heading, when a line of text is all it is */
@@ -17,18 +19,40 @@
 		heading?: Snippet;
 		/** whatever belongs opposite it: a status, a control */
 		actions?: Snippet;
+		/** the card folds, and its heading is what unfolds it */
+		collapsible?: boolean;
+		open?: boolean;
 		children: Snippet;
 	} = $props();
+
+	// the prop is where it starts, not where it stays: after the first click the
+	// card is showing what the person chose, not what the caller suggested
+	let shown = $state(false);
+	$effect(() => {
+		shown = open;
+	});
 </script>
 
 <section class="card">
 	{#if title || heading || actions}
-		<header>
-			{#if heading}{@render heading()}{:else}<h2>{title}</h2>{/if}
+		<header class:folded={collapsible && !shown}>
+			{#if collapsible}
+				<button type="button" class="toggle" aria-expanded={shown}
+					onclick={() => (shown = !shown)}>
+					<span class="caret" class:down={shown}>›</span>
+					{#if heading}{@render heading()}{:else}<h2>{title}</h2>{/if}
+				</button>
+			{:else if heading}
+				{@render heading()}
+			{:else}
+				<h2>{title}</h2>
+			{/if}
 			{@render actions?.()}
 		</header>
 	{/if}
-	{@render children()}
+	{#if !collapsible || shown}
+		{@render children()}
+	{/if}
 </section>
 
 <style>
@@ -40,6 +64,34 @@
 		border: 1px solid var(--border);
 		border-radius: 12px;
 		padding: 1.2rem 1.35rem 1.35rem;
+	}
+	header.folded {
+		padding-bottom: 0;
+		border-bottom: none;
+	}
+	.toggle {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		flex: 1;
+		min-width: 0;
+		padding: 0;
+		border: none;
+		background: none;
+		color: inherit;
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+	}
+	.caret {
+		display: inline-block;
+		color: var(--muted);
+		font-size: 1.1rem;
+		line-height: 1;
+		transition: transform 0.12s ease;
+	}
+	.caret.down {
+		transform: rotate(90deg);
 	}
 	header {
 		display: flex;
