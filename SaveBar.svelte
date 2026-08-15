@@ -21,14 +21,16 @@
 	} = $props();
 </script>
 
-<div class="save-bar">
-	{#if dirty}
+<!-- nothing to save is nothing to show: the bar arrives with the first edit and
+     leaves with the save -->
+{#if dirty}
+	<div class="save-bar">
 		<span class="unsaved">{unsavedLabel}</span>
-	{/if}
-	<Button type="submit" tone="primary" disabled={saving || !dirty}>
-		{saving ? savingLabel : saveLabel}
-	</Button>
-</div>
+		<Button type="submit" tone="primary" disabled={saving}>
+			{saving ? savingLabel : saveLabel}
+		</Button>
+	</div>
+{/if}
 
 <style>
 	.save-bar {
