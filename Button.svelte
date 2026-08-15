@@ -16,6 +16,7 @@
 		selected = false,
 		title,
 		onclick,
+		onmouseleave,
 		children
 	}: {
 		tone?: Tone;
@@ -25,11 +26,14 @@
 		selected?: boolean;
 		title?: string;
 		onclick?: (event: MouseEvent) => void;
+		/** a button that arms on the first click disarms when the pointer leaves,
+		 * so a half-pressed confirm does not sit there waiting to be finished */
+		onmouseleave?: (event: MouseEvent) => void;
 		children: Snippet;
 	} = $props();
 </script>
 
-<button class="btn {tone}" class:selected {type} {disabled} {title} {onclick}>
+<button class="btn {tone}" class:selected {type} {disabled} {title} {onclick} {onmouseleave}>
 	{@render children()}
 </button>
 

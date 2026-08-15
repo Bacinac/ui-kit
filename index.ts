@@ -12,6 +12,7 @@ export {
 	typed,
 	formatNumber,
 	formatDateTime,
+	plural,
 	SHELL_KEYS,
 	type Locale,
 	type ShellKey
