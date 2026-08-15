@@ -24,6 +24,7 @@ lives here: the layer that must be identical everywhere.
   door, so the signature cannot drift between them
 - `Login.svelte` — the one door, posting to `/api/auth/login`
 - `Preferences.svelte` — language and theme, set once for the whole product
+- `Account.svelte` — the account page: password, preferences, service token
 - `theme.svelte.ts` — light / dark / system, stored under one key for the whole
   product so switching modules keeps the theme you chose
 - `i18n.svelte.ts` — the translation runtime; **catalogues stay in each module**
@@ -90,7 +91,8 @@ export { i18n, formatNumber } from '$lib/opus';
 ## The one contract
 
 Every module's message catalogue **must** carry the keys the shell renders —
-`theme.*`, `lang.switch`, the `login.*` set the door reads, and, if it uses
+`theme.*`, `lang.switch`, the `login.*` and `account.*` sets the door and the
+account page read, and, if it uses
 `SettingField`, `settings.bool.on|off`, `settings.secretSet|secretUnset` plus a
 `field.<name>` per field. `SHELL_KEYS` names the first group. A missing key
 renders as the key itself rather than throwing: a visible gap beats a blank page.
