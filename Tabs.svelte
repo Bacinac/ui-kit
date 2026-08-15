@@ -41,10 +41,14 @@
 	.tabs {
 		display: flex;
 		gap: 0.4rem;
-		flex-wrap: wrap;
 	}
 	button {
-		padding: 0.45rem 1.1rem;
+		/* one width for all of them: a strip of tabs is a set of equals, and
+		   letting each take the width of its own word makes the set look
+		   accidental */
+		flex: 1 1 0;
+		min-width: 0;
+		padding: 0.45rem 0.9rem;
 		border-radius: 8px 8px 0 0;
 		border: 1px solid var(--border);
 		border-bottom: none;
@@ -62,14 +66,14 @@
 		color: var(--warn);
 	}
 	.badge {
-		margin-left: 0.45rem;
-		padding: 0.05rem 0.4rem;
+		margin-left: 0.3rem;
+		padding: 0 0.3rem;
 		border-radius: 999px;
 		border: 1px solid currentColor;
-		font-size: 0.68rem;
+		font-size: 0.6rem;
 		font-weight: 700;
-		letter-spacing: 0.04em;
-		vertical-align: 0.05em;
+		letter-spacing: 0.03em;
+		vertical-align: 0.1em;
 	}
 	.badge.ok {
 		color: var(--ok);
