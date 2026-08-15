@@ -3,7 +3,7 @@
 	   package exists. Three tones, because three is what the product actually
 	   distinguishes: the one action a screen is for, everything else beside it,
 	   and the one you want somebody to think about first. */
-	export type Tone = 'primary' | 'quiet' | 'danger';
+	export type Tone = 'primary' | 'accent' | 'quiet' | 'danger';
 </script>
 
 <script lang="ts">
@@ -62,6 +62,17 @@
 		background: var(--accent);
 		color: var(--bg);
 		font-weight: 600;
+	}
+	/* tinted rather than filled: a row of four filled buttons reads as four
+	   things demanding to be pressed */
+	.accent {
+		border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+		background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+		color: var(--accent);
+		font-weight: 600;
+	}
+	.accent:hover:not(:disabled) {
+		background: color-mix(in srgb, var(--accent) 22%, var(--surface));
 	}
 	.quiet {
 		color: var(--muted);

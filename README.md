@@ -23,6 +23,7 @@ lives here: the layer that must be identical everywhere.
 - `Wordmark.svelte` — OPUS and the module's initial; worn by the header and the
   door, so the signature cannot drift between them
 - `Login.svelte` — the one door, posting to `/api/auth/login`
+- `Preferences.svelte` — language and theme, set once for the whole product
 - `theme.svelte.ts` — light / dark / system, stored under one key for the whole
   product so switching modules keeps the theme you chose
 - `i18n.svelte.ts` — the translation runtime; **catalogues stay in each module**
