@@ -38,3 +38,15 @@ td {
 .status-failed {
 	color: var(--err);
 }
+
+/* Chrome paints an autofilled field with its own light background and refuses a
+   background property for it — the inset shadow is what covers it. Without this
+   a remembered password sits in a dark form as a white box. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-text-fill-color: var(--text);
+	-webkit-box-shadow: 0 0 0 100px var(--surface) inset;
+	caret-color: var(--text);
+}
