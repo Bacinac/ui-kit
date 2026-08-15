@@ -18,7 +18,10 @@ export {
 
 export { default as Button } from './Button.svelte';
 export type { Tone } from './Button.svelte';
+export { default as Card } from './Card.svelte';
 export { default as Field } from './Field.svelte';
+export { default as Tabs } from './Tabs.svelte';
+export type { Tab } from './Tabs.svelte';
 export { default as Shell } from './Shell.svelte';
 export { default as Toasts } from './Toasts.svelte';
 export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';
