@@ -17,15 +17,16 @@ lives here: the layer that must be identical everywhere.
 
 - `tokens.css` — the palette, light and dark
 - `base.css` — document defaults (body, links, tables, state colours)
-- `Shell.svelte` — the header: wordmark, module name, module nav, module switcher
+- `Shell.svelte` — the header: wordmark and module letter, module nav, module
+  switcher
 - `theme.svelte.ts` — light / dark / system, stored under one key for the whole
   product so switching modules keeps the theme you chose
 - `i18n.svelte.ts` — the translation runtime; **catalogues stay in each module**
 - `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField`
-- `marks/` — the favicon family: one shape language, one glyph per module (an
-  arrow arriving for Downloads, works on a shelf for Library, a play triangle for
-  Player). A module does not keep its own copy; its `static/favicon.svg` is a
-  symlink into here, so the family cannot drift one mark at a time.
+- `marks/` — the favicon family: the O of OPUS with the module's own letter
+  beside it — D, L, P — the same lockup the header wordmark makes in type. A
+  module does not keep its own copy; its `static/favicon.svg` is a symlink into
+  here, so the family cannot drift one mark at a time.
 
 Domain UI does not belong here. If only one module would ever render it, it is
 that module's.
