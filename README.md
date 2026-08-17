@@ -33,6 +33,10 @@ lives here: the layer that must be identical everywhere.
   a D-pad can reach
 - `Meter.svelte` — how full something is: a disk, a quota, a share against a
   ceiling, with the colour changing before the room runs out
+- `SeriesHead.svelte` / `SeasonCard.svelte` / `EpisodeRow.svelte` — the shape
+  two modules render a series in: the head, the drawer, the numbered line. Only
+  the shape — what may be *done* to any of them is a snippet the module fills,
+  because that is where an operator's console and a viewing surface differ
 - `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField` / `SaveBar`
 - `marks/` — the favicon family: the header wordmark exactly, with the O
   standing in for the whole word and the module's small raised letter beside it
