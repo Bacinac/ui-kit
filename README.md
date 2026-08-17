@@ -33,6 +33,8 @@ lives here: the layer that must be identical everywhere.
   a D-pad can reach
 - `Meter.svelte` — how full something is: a disk, a quota, a share against a
   ceiling, with the colour changing before the room runs out
+- `Tag.svelte` — the small pill a list hangs a fact or a state on: a resolution,
+  a language, a size, a status, in the product's four state colours
 - `SeriesHead.svelte` / `SeasonCard.svelte` / `EpisodeRow.svelte` — the shape
   two modules render a series in: the head, the drawer, the numbered line. Only
   the shape — what may be *done* to any of them is a snippet the module fills,

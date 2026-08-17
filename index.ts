@@ -30,6 +30,8 @@ export { default as Meter } from './Meter.svelte';
 export { default as Picks } from './Picks.svelte';
 export { default as SeasonCard } from './SeasonCard.svelte';
 export { default as SeriesHead } from './SeriesHead.svelte';
+export { default as Tag } from './Tag.svelte';
+export type { Tone as TagTone } from './Tag.svelte';
 export type { Pick } from './Picks.svelte';
 export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
