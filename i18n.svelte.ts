@@ -131,3 +131,9 @@ export function formatNumber(n: number, opts?: Intl.NumberFormatOptions): string
 export function formatDateTime(iso: string): string {
 	return new Date(iso).toLocaleString(INTL_LOCALES[i18n.locale]);
 }
+
+/** A day, without the hour nobody asked about: an air date, a release, a due
+    date. Same rule as above — the reader's language, not the server's. */
+export function formatDate(iso: string): string {
+	return new Date(iso).toLocaleDateString(INTL_LOCALES[i18n.locale]);
+}
