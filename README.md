@@ -31,6 +31,8 @@ lives here: the layer that must be identical everywhere.
 - `Stats.svelte` — the row of totals a library page opens with
 - `Picks.svelte` — a small set chosen among, one or many, as a row of pills that
   a D-pad can reach
+- `Meter.svelte` — how full something is: a disk, a quota, a share against a
+  ceiling, with the colour changing before the room runs out
 - `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField` / `SaveBar`
 - `marks/` — the favicon family: the header wordmark exactly, with the O
   standing in for the whole word and the module's small raised letter beside it

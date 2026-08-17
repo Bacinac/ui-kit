@@ -132,6 +132,21 @@ export function formatDateTime(iso: string): string {
 	return new Date(iso).toLocaleString(INTL_LOCALES[i18n.locale]);
 }
 
+/** A size in the unit a person would have said it in. Every module shows bytes
+    from somewhere — a file, a disk, a download — and none of them should be
+    deciding on its own where the decimal point goes. */
+export function formatBytes(bytes: number): string {
+	const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
+	let n = Math.max(bytes, 0);
+	let unit = 0;
+	while (n >= 1024 && unit < units.length - 1) {
+		n /= 1024;
+		unit++;
+	}
+	const digits = unit < 2 || n >= 100 ? 0 : 1;
+	return `${formatNumber(n, { maximumFractionDigits: digits })} ${units[unit]}`;
+}
+
 /** A day, without the hour nobody asked about: an air date, a release, a due
     date. Same rule as above — the reader's language, not the server's. */
 export function formatDate(iso: string): string {
