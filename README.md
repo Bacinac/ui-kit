@@ -35,10 +35,13 @@ lives here: the layer that must be identical everywhere.
   ceiling, with the colour changing before the room runs out
 - `Tag.svelte` — the small pill a list hangs a fact or a state on: a resolution,
   a language, a size, a status, in the product's four state colours
-- `SeriesHead.svelte` / `SeasonCard.svelte` / `EpisodeRow.svelte` — the shape
-  two modules render a series in: the head, the drawer, the numbered line. Only
-  the shape — what may be *done* to any of them is a snippet the module fills,
-  because that is where an operator's console and a viewing surface differ
+- `SeriesPage.svelte` — a series, whole: head, drawers, lines, and the control
+  that opens or closes the lot. Both modules render this one page; each maps its
+  own payload onto `PageSeason`/`PageEpisode` and fills the action snippets, so
+  the difference between operating on a series and watching it stays a
+  difference in buttons rather than a second page that drifts
+- `SeriesHead.svelte` / `SeasonCard.svelte` / `EpisodeRow.svelte` — its parts,
+  usable on their own where a module needs one without the others
 - `Toasts` / `ThemeSwitcher` / `LanguageSwitcher` / `SettingField` / `SaveBar`
 - `marks/` — the favicon family: the header wordmark exactly, with the O
   standing in for the whole word and the module's small raised letter beside it
