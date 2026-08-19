@@ -45,6 +45,22 @@ textarea:focus {
 	border-color: var(--accent);
 }
 
+/* Ten feet from a television there is no pointer to say where you are, and the
+   ring the browser draws by itself is a different colour on every platform —
+   orange on one, blue on the next, ours on none. Everything a remote can land
+   on gets the same ring. Fields keep the border they already change, so they
+   are not ringed twice. */
+:focus-visible {
+	outline: 3px solid var(--accent);
+	outline-offset: 2px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: none;
+}
+
 /* A table of releases or jobs has more columns than a phone has width, and
    there is no honest way to fold one — a row is a row. So it scrolls sideways
    inside its own frame instead of widening the page under it. */
