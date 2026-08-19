@@ -47,3 +47,16 @@
 	--err: #f28b82;
 	--danger: #e5484d;
 }
+
+/* Shape, said once. Four radii were in use across the three modules — eight,
+   ten, twelve, fourteen — chosen a component at a time, which is how a product
+   stops looking like one thing. A card is a card wherever it is drawn. */
+:root {
+	--radius-s: 8px;
+	--radius-m: 12px;
+	--radius-l: 16px;
+	--radius-pill: 999px;
+	/* what says the remote is here, and it says it the same way everywhere */
+	--focus-ring: 3px solid var(--accent);
+	--focus-offset: 3px;
+}
