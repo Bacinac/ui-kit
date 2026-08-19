@@ -76,7 +76,7 @@
 		align-items: baseline;
 		gap: 0.4rem;
 		padding: 0.35rem 0.9rem;
-		border-radius: 999px;
+		border-radius: var(--radius-pill);
 		border: 1px solid var(--border);
 		background: transparent;
 		color: inherit;
