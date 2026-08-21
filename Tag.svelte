@@ -29,12 +29,17 @@
 <span class="tag {tone}" {title}>{@render children()}</span>
 
 <style>
+	/* Sized from one variable and spaced in ems, so a surface that is read from
+	   ten feet away sets --tag-font once and the pill grows with its words. */
 	.tag {
 		flex: none;
-		display: inline-block;
-		padding: 0.12rem 0.45rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		vertical-align: middle;
+		padding: 0.2em 0.7em;
 		border-radius: 999px;
-		font-size: 0.72rem;
+		font-size: var(--tag-font, 0.72rem);
 		font-weight: 700;
 		letter-spacing: 0.01em;
 		white-space: nowrap;
@@ -54,6 +59,18 @@
 	.warn {
 		background: color-mix(in srgb, var(--warn) 18%, transparent);
 		color: var(--warn);
+	}
+	.film {
+		background: color-mix(in srgb, var(--kind-film) 18%, transparent);
+		color: var(--kind-film);
+	}
+	.series {
+		background: color-mix(in srgb, var(--kind-series) 18%, transparent);
+		color: var(--kind-series);
+	}
+	.music {
+		background: color-mix(in srgb, var(--kind-music) 18%, transparent);
+		color: var(--kind-music);
 	}
 	.busy {
 		background: color-mix(in srgb, var(--accent) 18%, transparent);

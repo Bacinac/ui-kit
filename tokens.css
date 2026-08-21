@@ -29,6 +29,12 @@
 	--warn: #8a6a00;
 	--err: #b3261e;
 	--danger: #e5484d;
+	/* the three kinds of thing OPUS keeps. A count of films and a count of
+	   records are both facts, and a screen that paints them the same asks the
+	   eye to read before it can tell them apart */
+	--kind-film: #a35a12;
+	--kind-series: #1f5fbf;
+	--kind-music: #7b3fa8;
 }
 
 .dark {
@@ -46,6 +52,9 @@
 	--warn: #ffd479;
 	--err: #f28b82;
 	--danger: #e5484d;
+	--kind-film: #f0a868;
+	--kind-series: #8ab4f8;
+	--kind-music: #c792ea;
 }
 
 /* Shape, said once. Four radii were in use across the three modules — eight,
