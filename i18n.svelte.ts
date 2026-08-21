@@ -98,7 +98,9 @@ export function t(key: string, params?: Record<string, string | number>): string
 }
 
 /** Croatian counts in three: one file, two files, five files. English counts in
-    two. A number and three keys, so a module never writes the rule out again. */
+    two. A number and three keys, so a module never writes the rule out again.
+    The number arrives written the way the reader writes numbers — the form is
+    chosen from the count, and the count is not what is printed. */
 export function plural(n: number, one: string, few: string, many: string): string {
 	const mod10 = n % 10;
 	const mod100 = n % 100;
@@ -112,7 +114,7 @@ export function plural(n: number, one: string, few: string, many: string): strin
 				: mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)
 					? few
 					: many;
-	return t(key, { n });
+	return t(key, { n: formatNumber(n) });
 }
 
 /** A module narrows `t` to its own catalogue's keys, so a typo is caught at
