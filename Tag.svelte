@@ -2,8 +2,17 @@
 	/** What the tag says about the thing it is stuck to. `fact` is the neutral
 	    one — a resolution, a size, a codec: true regardless of how anyone feels
 	    about it. The rest are states, and their colours are the product's, not
-	    each module's guess at them. */
-	export type Tone = 'fact' | 'ok' | 'warn' | 'busy' | 'quiet';
+	    each module's guess at them. `film`, `series` and `music` are not states
+	    at all: they say which of the three kinds of thing is being counted. */
+	export type Tone =
+		| 'fact'
+		| 'ok'
+		| 'warn'
+		| 'busy'
+		| 'quiet'
+		| 'film'
+		| 'series'
+		| 'music';
 </script>
 
 <script lang="ts">
