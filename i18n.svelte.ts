@@ -149,6 +149,28 @@ export function formatBytes(bytes: number): string {
 	return `${formatNumber(n, { maximumFractionDigits: digits })} ${units[unit]}`;
 }
 
+/** How long something runs, written the way a listener reads it: minutes and
+    seconds, and hours only when there are any.
+
+    It was written seven times across the two modules — in the player, in the
+    sleeve, in the bar, in the film's overlay, in the library's track list — and
+    three of those copies had no hours in them, so a long track came out as
+    "74:12". A time is written one way in this product, and this is where that
+    is decided. Nothing at all is returned when there is no length to state: a
+    song the catalogue never measured says so by saying nothing, rather than by
+    claiming to last no time. */
+export function duration(seconds: number | null | undefined): string {
+	if (seconds === null || seconds === undefined) return '';
+	if (!isFinite(seconds)) return '0:00';
+	const whole = Math.max(0, Math.floor(seconds));
+	const h = Math.floor(whole / 3600);
+	const m = Math.floor((whole % 3600) / 60);
+	const s = whole % 60;
+	return h
+		? `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+		: `${m}:${String(s).padStart(2, '0')}`;
+}
+
 /** A day, without the hour nobody asked about: an air date, a release, a due
     date. Same rule as above — the reader's language, not the server's. */
 export function formatDate(iso: string): string {
