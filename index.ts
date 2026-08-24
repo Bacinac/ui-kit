@@ -14,6 +14,7 @@ export {
 	formatDateTime,
 	formatDate,
 	formatBytes,
+	duration,
 	plural,
 	SHELL_KEYS,
 	type Locale,
