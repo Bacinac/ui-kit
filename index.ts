@@ -3,6 +3,12 @@
 //
 // CSS is deliberately NOT re-exported here: a module imports `tokens.css` and
 // `base.css` from its own app.css, which is where a stylesheet belongs.
+//
+// Neither are PhotoTimeline and PhotoViewer, for a related reason: they need
+// `thumbhash`, and a barrel is resolved whole by whoever imports from it. Listed
+// here, a module that will never draw a photograph fails to build for want of a
+// package it has no use for. They are imported by path —
+// `$lib/opus/PhotoTimeline.svelte` — by the two modules that draw them.
 
 export { theme, type Theme } from './theme.svelte';
 export { toasts, type Toast, type ToastKind } from './toasts.svelte';
@@ -41,8 +47,6 @@ export type { Tab } from './Tabs.svelte';
 export { default as Account } from './Account.svelte';
 export { default as Login } from './Login.svelte';
 export { default as People } from './People.svelte';
-export { default as PhotoTimeline } from './PhotoTimeline.svelte';
-export { default as PhotoViewer } from './PhotoViewer.svelte';
 export { default as Preferences } from './Preferences.svelte';
 export { default as Shell } from './Shell.svelte';
 export { default as Stats } from './Stats.svelte';
