@@ -12,7 +12,8 @@
 		| 'quiet'
 		| 'film'
 		| 'series'
-		| 'music';
+		| 'music'
+		| 'photos';
 </script>
 
 <script lang="ts">
@@ -72,6 +73,10 @@
 	.film {
 		background: color-mix(in srgb, var(--kind-film) 18%, transparent);
 		color: var(--kind-film);
+	}
+	.photos {
+		background: color-mix(in srgb, var(--kind-photos) 18%, transparent);
+		color: var(--kind-photos);
 	}
 	.series {
 		background: color-mix(in srgb, var(--kind-series) 18%, transparent);
