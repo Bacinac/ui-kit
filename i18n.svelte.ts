@@ -25,6 +25,7 @@ export const SHELL_KEYS = [
 	'login.working',
 	'login.missing',
 	'login.failed',
+	'account.yours',
 	'account.password',
 	'account.current',
 	'account.new',
