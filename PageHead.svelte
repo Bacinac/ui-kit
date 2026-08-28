@@ -49,6 +49,15 @@
 	} = $props();
 
 	let tall = $state(0);
+
+	// Written onto the document and not only onto this element: what wants to sit
+	// clear of the head — a rail down the side of a shelf, a column of its own —
+	// is a sibling, and a custom property inherits downwards only.
+	$effect(() => {
+		const root = document.documentElement;
+		root.style.setProperty('--opus-page-head', `${sticky ? tall : 0}px`);
+		return () => root.style.removeProperty('--opus-page-head');
+	});
 </script>
 
 <div
