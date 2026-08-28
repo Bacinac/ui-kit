@@ -18,6 +18,14 @@ function isDark(theme: Theme): boolean {
 
 function applyToDom(dark: boolean) {
 	document.documentElement.classList.toggle('dark', dark);
+	// installed, the window has no address bar and the system paints its bars from
+	// this tag — it has to follow the theme the app renders, not the one the OS
+	// prefers. Read back from the token so the ground is defined in one file.
+	const meta = document.querySelector('meta[name="theme-color"]');
+	if (meta) {
+		const bg = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+		if (bg) meta.setAttribute('content', bg);
+	}
 }
 
 class ThemeStore {
