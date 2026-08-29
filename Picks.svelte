@@ -20,7 +20,8 @@
 		picks,
 		chosen = $bindable(),
 		many = false,
-		all = ''
+		all = '',
+		onpick
 	}: {
 		picks: Pick[];
 		/** the keys chosen, in the order they were chosen */
@@ -28,16 +29,18 @@
 		many?: boolean;
 		/** the label of the take-everything pill; absent means no such pill */
 		all?: string;
+		/** told which pill was pressed, for a choice that acts rather than
+		 *  merely being recorded. A row that saves as you press it cannot use
+		 *  the bound value: that fires on the way in as well. */
+		onpick?: (key: string) => void;
 	} = $props();
 
 	let every = $derived(picks.length > 0 && chosen.length === picks.length);
 
 	function press(key: string) {
-		if (!many) {
-			chosen = [key];
-			return;
-		}
-		chosen = chosen.includes(key) ? chosen.filter((k) => k !== key) : [...chosen, key];
+		if (!many) chosen = [key];
+		else chosen = chosen.includes(key) ? chosen.filter((k) => k !== key) : [...chosen, key];
+		onpick?.(key);
 	}
 </script>
 
