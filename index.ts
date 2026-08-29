@@ -46,6 +46,7 @@ export type { Tab } from './Tabs.svelte';
 export { default as Account } from './Account.svelte';
 export { default as Login } from './Login.svelte';
 export { default as Icon } from './Icon.svelte';
+export { settle } from './settle';
 export { default as PageHead } from './PageHead.svelte';
 export type { Fact } from './PageHead.svelte';
 export { default as People } from './People.svelte';
