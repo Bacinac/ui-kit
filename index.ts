@@ -22,9 +22,8 @@ export {
 	formatBytes,
 	duration,
 	plural,
-	SHELL_KEYS,
 	type Locale,
-	type ShellKey
+	type Word
 } from './i18n.svelte';
 
 export { default as Button } from './Button.svelte';

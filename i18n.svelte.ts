@@ -1,14 +1,25 @@
-/* The i18n runtime, shared; the message catalogues stay with each module.
+/* The i18n runtime, shared — and, since the components in this package say
+   words of their own, the words for those components too.
 
-   Splitting it that way is the point: how translation works is identical in
-   Downloads, Library and Player (same two locales, same storage, same {param}
-   interpolation, same Intl formatting), while WHAT is translated is entirely
-   each module's own. So the machinery lives here once and every module
-   registers its own hr/en catalogue on boot.
+   How translation works is identical in Downloads, Library and Player (same two
+   locales, same storage, same {param} interpolation, same Intl formatting), and
+   so is what the shell SAYS: a login form is a login form in all three. What
+   differs is each module's domain, and that stays with the module.
 
-   Each module's catalogue MUST carry the shell keys below, because the header
-   this package renders asks for them. A missing key renders as the key itself
-   rather than throwing — a visible gap beats a blank page. */
+   This used to be a list of keys the package obliged every module to carry.
+   Three modules satisfying that contract independently is not one vocabulary,
+   it is three that happen to agree until they do not — which they had already
+   stopped doing. A module that redefines one of these now fails at boot rather
+   than quietly winning. */
+
+import { hr as wordsHr } from './words/hr';
+import { en as wordsEn } from './words/en';
+
+const WORDS = { hr: wordsHr, en: wordsEn } as const;
+
+/** A word the package says. Modules widen their own key type with it, so a typo
+    is still a build error on either side of the line. */
+export type Word = keyof typeof wordsHr;
 
 export type Locale = 'hr' | 'en';
 
@@ -65,8 +76,6 @@ export const SHELL_KEYS = [
 	'common.save',
 	'common.saving'
 ] as const;
-export type ShellKey = (typeof SHELL_KEYS)[number];
-
 const STORAGE_KEY = 'opus.locale';
 const INTL_LOCALES: Record<Locale, string> = { hr: 'hr-HR', en: 'en-US' };
 
@@ -77,9 +86,20 @@ class I18n {
 	#catalogs: Catalogs = { hr: {}, en: {} };
 	#fallback: Locale = 'hr';
 
-	/** Called once per module, before anything renders. */
+	/** Called once per module, before anything renders. The package's own words
+	    go underneath the module's, and a module that says one of them again is a
+	    bug loud enough to stop the boot: a silent override is how three modules
+	    drift apart while every one of them looks correct on its own. */
 	register(catalogs: Catalogs, fallback: Locale = 'hr') {
-		this.#catalogs = catalogs;
+		for (const locale of ['hr', 'en'] as Locale[]) {
+			const said = Object.keys(catalogs[locale]).filter((k) => k in WORDS[locale]);
+			if (said.length) {
+				throw new Error(
+					`i18n: the package already says ${said.join(', ')} — a module must not say it again`
+				);
+			}
+			this.#catalogs[locale] = { ...WORDS[locale], ...catalogs[locale] };
+		}
 		this.#fallback = fallback;
 	}
 
