@@ -49,6 +49,7 @@ export { default as Icon } from './Icon.svelte';
 export { default as PageHead } from './PageHead.svelte';
 export type { Fact } from './PageHead.svelte';
 export { default as People } from './People.svelte';
+export { default as Devices } from './Devices.svelte';
 export { default as Preferences } from './Preferences.svelte';
 export { default as Shell } from './Shell.svelte';
 export { default as Stats } from './Stats.svelte';
