@@ -1,6 +1,14 @@
 <script lang="ts" module>
-	/** one number the page opens with, and what it counts */
-	export type Stat = { label: string; value: number | string; tone?: 'ok' | 'warn' };
+	/** one number the page opens with, and what it counts. `href` is where the
+	 * things it counted can be seen: a number that names a set the person can
+	 * be shown is a way in, and one that names nothing they could look at is
+	 * just a number. */
+	export type Stat = {
+		label: string;
+		value: number | string;
+		tone?: 'ok' | 'warn';
+		href?: string;
+	};
 </script>
 
 <script lang="ts">
@@ -16,10 +24,17 @@
 
 <div class="stats">
 	{#each stats as stat (stat.label)}
-		<div class="tile {stat.tone ?? ''}">
-			<b>{typeof stat.value === 'number' ? formatNumber(stat.value) : stat.value}</b>
-			<span>{stat.label}</span>
-		</div>
+		{#if stat.href}
+			<a class="tile {stat.tone ?? ''}" href={stat.href}>
+				<b>{typeof stat.value === 'number' ? formatNumber(stat.value) : stat.value}</b>
+				<span>{stat.label}</span>
+			</a>
+		{:else}
+			<div class="tile {stat.tone ?? ''}">
+				<b>{typeof stat.value === 'number' ? formatNumber(stat.value) : stat.value}</b>
+				<span>{stat.label}</span>
+			</div>
+		{/if}
 	{/each}
 </div>
 
@@ -51,5 +66,13 @@
 	}
 	.tile.warn b {
 		color: var(--warn);
+	}
+	a.tile {
+		color: inherit;
+		text-decoration: none;
+	}
+	a.tile:hover,
+	a.tile:focus-visible {
+		border-color: var(--accent);
 	}
 </style>
