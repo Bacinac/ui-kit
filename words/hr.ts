@@ -68,6 +68,8 @@ export const hr = {
 	'people.title': 'Ljudi',
 	'people.wasAdded': 'Osoba {name} je dodana.',
 	'people.you': 'vi',
+	'head.less': 'Prikaži manje',
+	'head.more': 'Prikaži više',
 	'photos.close': 'Zatvori',
 	'photos.confirmDiscard': 'Potvrdi brisanje',
 	'photos.count': '{n} fotografija',

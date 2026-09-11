@@ -62,6 +62,8 @@ export const en = {
 	'people.title': 'People',
 	'people.wasAdded': '{name} has been added.',
 	'people.you': 'you',
+	'head.less': 'Show less',
+	'head.more': 'Show more',
 	'photos.close': 'Close',
 	'photos.confirmDiscard': 'Confirm deletion',
 	'photos.count': '{n} photos',
