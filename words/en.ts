@@ -16,6 +16,7 @@ export const en = {
 	'common.save': 'Save',
 	'common.saving': 'Saving…',
 	'lang.switch': 'Prebaci na hrvatski',
+	'letters.label': 'Letters',
 	'devices.asking': 'A box that is asking',
 	'devices.askingNow': 'asking to be let in — type the code from its screen',
 	'devices.code': 'Code from the screen',

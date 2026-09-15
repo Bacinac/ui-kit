@@ -31,6 +31,7 @@ export const SHELL_KEYS = [
 	'theme.pick.dark',
 	'theme.pick.system',
 	'lang.switch',
+	'letters.label',
 	'prefs.language',
 	'prefs.theme',
 	'login.username',

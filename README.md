@@ -33,6 +33,10 @@ lives here: the layer that must be identical everywhere.
   a D-pad can reach
 - `Meter.svelte` — how full something is: a disk, a quota, a share against a
   ceiling, with the colour changing before the room runs out
+- `Letters.svelte` / `letters.ts` — the letters down the edge of a wall of names,
+  for going straight to one: a finger slides along them, a pointer clicks. With
+  the Croatian alphabet the names file under (digraphs, accents), so a wall and
+  its rail read the same way in every module
 - `Tag.svelte` — the small pill a list hangs a fact or a state on: a resolution,
   a language, a size, a status, in the product's four state colours
 - `SeriesPage.svelte` — a series, whole: head, drawers, lines, and the control
