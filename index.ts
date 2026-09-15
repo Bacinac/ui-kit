@@ -39,6 +39,8 @@ export { default as SeriesHead } from './SeriesHead.svelte';
 export { default as SeriesPage } from './SeriesPage.svelte';
 export type { PageEpisode, PageSeason, PageTag } from './SeriesPage.svelte';
 export { default as Tag } from './Tag.svelte';
+export { default as Letters } from './Letters.svelte';
+export { initialOf, compareHr, lettersOf } from './letters';
 export type { Tone as TagTone } from './Tag.svelte';
 export type { Pick } from './Picks.svelte';
 export { default as Tabs } from './Tabs.svelte';

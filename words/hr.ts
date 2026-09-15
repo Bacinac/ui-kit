@@ -22,6 +22,7 @@ export const hr = {
 	'common.save': 'Spremi',
 	'common.saving': 'Spremam…',
 	'lang.switch': 'Switch to English',
+	'letters.label': 'Slova',
 	'devices.asking': 'Uređaj koji čeka',
 	'devices.askingNow': 'traži pristup — upišite kôd s njegovog zaslona',
 	'devices.code': 'Kôd sa zaslona',
