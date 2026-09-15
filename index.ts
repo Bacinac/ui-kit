@@ -18,6 +18,7 @@ export {
 	typed,
 	formatNumber,
 	formatDateTime,
+	formatTime,
 	formatDate,
 	formatBytes,
 	duration,

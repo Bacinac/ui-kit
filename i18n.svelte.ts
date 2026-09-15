@@ -199,6 +199,11 @@ export function formatDateTime(iso: string): string {
 	return new Date(iso).toLocaleString(INTL_LOCALES[i18n.locale]);
 }
 
+/** A time of day as a clock on the wall shows it: hours and minutes. */
+export function formatTime(when: Date): string {
+	return when.toLocaleTimeString(INTL_LOCALES[i18n.locale], { hour: '2-digit', minute: '2-digit' });
+}
+
 /** A size in the unit a person would have said it in. Every module shows bytes
     from somewhere — a file, a disk, a download — and none of them should be
     deciding on its own where the decimal point goes. */
