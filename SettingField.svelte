@@ -6,7 +6,7 @@
 	export type FieldSetting = {
 		key: string;
 		label: string;
-		kind: string; // text | bool | select | number
+		kind: string; // text | bool | select | number | list
 		secret?: boolean;
 		options?: string[];
 		is_set?: boolean | null;
@@ -21,6 +21,7 @@
 
 	import { t } from './i18n.svelte';
 	import Chips from './Chips.svelte';
+	import Picks from './Picks.svelte';
 
 	let {
 		setting,
@@ -31,18 +32,41 @@
 		value: string;
 		/** what the setting can point at when the list is not the module's to
 		 *  word — the devices another service knows by name. Already worded;
-		 *  a stored value the list no longer offers stays chosen and visible. */
+		 *  a stored value the list no longer offers stays chosen and visible.
+		 *  On a list, several of them are chosen. */
 		choices?: { value: string; label: string }[];
 	} = $props();
 
+	const listed = $derived(
+		setting.kind === 'list'
+			? value
+					.split(',')
+					.map((v) => v.trim())
+					.filter(Boolean)
+			: value
+				? [value]
+				: []
+	);
 	const offered = $derived(
-		choices && value && !choices.some((c) => c.value === value)
-			? [...choices, { value, label: value }]
-			: choices
+		choices && [
+			...choices,
+			...listed
+				.filter((v) => !choices.some((c) => c.value === v))
+				.map((v) => ({ value: v, label: v }))
+		]
 	);
 </script>
 
-{#if setting.kind === 'list'}
+{#if setting.kind === 'list' && offered}
+	<div class="row">
+		<span class="label">{t(`field.${setting.label}`)}</span>
+		<Picks
+			picks={offered.map((c) => ({ key: c.value, label: c.label }))}
+			bind:chosen={() => listed, (next) => (value = next.join(','))}
+			many
+		/>
+	</div>
+{:else if setting.kind === 'list'}
 	<Chips id={setting.key} label={t(`field.${setting.label}`)} bind:value />
 {:else}
 <div class="row">

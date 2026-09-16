@@ -87,6 +87,7 @@ export const hr = {
 	'photos.placeSpread.many': 'upisano na {n} fotografija',
 	'photos.placeSpread.one': 'upisano na {n} fotografiju',
 	'photos.prev': 'Prethodna',
+	'photos.regrouping': 'Lica se upravo ponovno grupiraju. Pokušajte ponovno za nekoliko minuta.',
 	'photos.thisOne': 'samo ova',
 	'photos.undated.n': '{n} bez datuma',
 	'photos.unknownFace': 'Neimenovano lice',

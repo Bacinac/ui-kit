@@ -85,6 +85,7 @@ export const en = {
 	'photos.placeSpread.many': 'written on {n} photos',
 	'photos.placeSpread.one': 'written on {n} photo',
 	'photos.prev': 'Previous',
+	'photos.regrouping': 'The faces are being regrouped right now. Try again in a few minutes.',
 	'photos.thisOne': 'just this one',
 	'photos.undated.n': '{n} without a date',
 	'photos.unknownFace': 'An unnamed face',
