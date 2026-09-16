@@ -156,11 +156,14 @@
 		position: sticky;
 		top: var(--opus-header, 0px);
 		z-index: 5;
-		/* Where it comes to rest is where it starts. The page keeps a margin
-		   above its content; pinned, the head rises through it, and the shelf
-		   under it moves by that much the moment anybody scrolls. So the head
-		   takes that space off the page and keeps it as its own padding: the
-		   same gap to look at, and nothing to travel. */
+	}
+	/* Where it comes to rest is where it starts. The page keeps a margin above
+	   its content; pinned, a head at the top of the page rises through it, and
+	   the shelf under it moves by that much the moment anybody scrolls. So that
+	   head takes the space off the page and keeps it as its own padding. A head
+	   with something above it has no such margin to take, and taking it anyway
+	   drew it over whatever stands there. */
+	.pinned:first-child {
 		margin-top: calc(-1 * var(--opus-main-top, 0px));
 		padding-top: calc(var(--opus-main-top, 0px) + 0.9rem);
 	}

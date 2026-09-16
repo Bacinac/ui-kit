@@ -133,7 +133,7 @@
 		height: 3.4rem;
 		border-radius: 50%;
 		background: var(--accent);
-		color: var(--on-accent, #fff);
+		color: var(--bg);
 		font-size: 1.6rem;
 		font-weight: 700;
 		box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);

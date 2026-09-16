@@ -5,6 +5,7 @@
 	// rather than drawn again in each module that owns a number.
 
 	import { formatBytes, formatNumber } from './i18n.svelte';
+	import Progress from './Progress.svelte';
 
 	let {
 		label,
@@ -33,14 +34,9 @@
 			<span class="share">{formatNumber(share * 100, { maximumFractionDigits: 0 })} %</span>
 		</span>
 	</div>
-	<div class="track">
-		<div
-			class="fill"
-			class:tight={share >= 0.8}
-			class:full={share >= 0.92}
-			style={`width:${share * 100}%`}
-		></div>
-	</div>
+	<!-- a disk is not a problem until it nearly is, and then it is only a problem
+	     if somebody notices — so the colour changes before the room runs out -->
+	<Progress value={share} tone={share >= 0.92 ? 'danger' : share >= 0.8 ? 'warn' : 'accent'} />
 	{#if note}<p class="note">{note}</p>{/if}
 </div>
 
@@ -66,26 +62,6 @@
 	.share {
 		margin-left: 0.4rem;
 		font-variant-numeric: tabular-nums;
-	}
-	.track {
-		height: 0.55rem;
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--muted) 22%, transparent);
-		overflow: hidden;
-	}
-	.fill {
-		height: 100%;
-		border-radius: 999px;
-		background: var(--accent);
-		transition: width 200ms ease;
-	}
-	/* a disk is not a problem until it nearly is, and then it is only a problem
-	   if somebody notices — so the colour changes before the room runs out */
-	.fill.tight {
-		background: var(--caution, #c9a227);
-	}
-	.fill.full {
-		background: var(--warn);
 	}
 	.note {
 		margin: 0;

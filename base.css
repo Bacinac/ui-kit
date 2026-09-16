@@ -147,7 +147,7 @@ td.wrap {
 }
 
 .status-failed {
-	color: var(--err);
+	color: var(--danger);
 }
 
 /* Chrome paints an autofilled field with its own light background and refuses a

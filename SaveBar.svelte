@@ -4,20 +4,15 @@
 	// drift this package exists to stop.
 
 	import Button from './Button.svelte';
+	import { t } from './i18n.svelte';
 
 	let {
 		dirty = false,
-		saving = false,
-		unsavedLabel,
-		saveLabel,
-		savingLabel
+		saving = false
 	}: {
 		/** the draft differs from what is stored — the bar says so, and the button opens */
 		dirty?: boolean;
 		saving?: boolean;
-		unsavedLabel: string;
-		saveLabel: string;
-		savingLabel: string;
 	} = $props();
 </script>
 
@@ -25,9 +20,9 @@
      leaves with the save -->
 {#if dirty}
 	<div class="save-bar">
-		<span class="unsaved">{unsavedLabel}</span>
+		<span class="unsaved">{t('settings.unsaved')}</span>
 		<Button type="submit" tone="primary" disabled={saving}>
-			{saving ? savingLabel : saveLabel}
+			{saving ? t('common.saving') : t('common.save')}
 		</Button>
 	</div>
 {/if}

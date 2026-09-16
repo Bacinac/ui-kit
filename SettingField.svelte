@@ -22,7 +22,24 @@
 	import { t } from './i18n.svelte';
 	import Chips from './Chips.svelte';
 
-	let { setting, value = $bindable() }: { setting: FieldSetting; value: string } = $props();
+	let {
+		setting,
+		value = $bindable(),
+		choices
+	}: {
+		setting: FieldSetting;
+		value: string;
+		/** what the setting can point at when the list is not the module's to
+		 *  word — the devices another service knows by name. Already worded;
+		 *  a stored value the list no longer offers stays chosen and visible. */
+		choices?: { value: string; label: string }[];
+	} = $props();
+
+	const offered = $derived(
+		choices && value && !choices.some((c) => c.value === value)
+			? [...choices, { value, label: value }]
+			: choices
+	);
 </script>
 
 {#if setting.kind === 'list'}
@@ -32,7 +49,14 @@
 	<label class="label" for={setting.key}>
 		{t(`field.${setting.label}`)}
 	</label>
-	{#if setting.kind === 'bool'}
+	{#if offered}
+		<select id={setting.key} bind:value>
+			<option value="">—</option>
+			{#each offered as choice (choice.value)}
+				<option value={choice.value}>{choice.label}</option>
+			{/each}
+		</select>
+	{:else if setting.kind === 'bool'}
 		<select id={setting.key} bind:value>
 			<option value="false">{t('settings.bool.off')}</option>
 			<option value="true">{t('settings.bool.on')}</option>
