@@ -21,14 +21,14 @@
 	--border: #ccd3d4;
 	--text: #14191a;
 	--muted: #566063;
+	/* the wordmark's own colour, and nothing else's: controls take --accent */
 	--brand: #0d6d68;
-	--brand-hover: #118a84;
 	--brand-soft: #4aada7;
 	--accent: #0d7c78;
 	--ok: #1e7a37;
 	--warn: #8a6a00;
-	--err: #b3261e;
-	--danger: #e5484d;
+	/* the one red: what failed, and what cannot be taken back */
+	--danger: #b3261e;
 	/* the kinds of thing OPUS keeps. A count of films and a count of records are
 	   both facts, and a screen that paints them the same asks the eye to read
 	   before it can tell them apart */
@@ -39,7 +39,6 @@
 	   amber, series blue, music violet, and photographs are the one kind that
 	   was made here rather than acquired. */
 	--kind-photos: #1f7a4d;
-	--kind-photo: #a8324f;
 }
 
 .dark {
@@ -50,18 +49,15 @@
 	--text: #e9eeee;
 	--muted: #9aa7a9;
 	--brand: #0d6d68;
-	--brand-hover: #16938d;
 	--brand-soft: #8ce3dd;
 	--accent: #35b3ad;
 	--ok: #7fd18a;
 	--warn: #ffd479;
-	--err: #f28b82;
-	--danger: #e5484d;
+	--danger: #f28b82;
 	--kind-film: #f0a868;
 	--kind-series: #8ab4f8;
 	--kind-music: #c792ea;
 	--kind-photos: #6ed0a0;
-	--kind-photo: #f4a0b5;
 }
 
 /* Shape, said once. Four radii were in use across the three modules — eight,

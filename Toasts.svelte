@@ -38,7 +38,7 @@
 		border-left-color: var(--ok);
 	}
 	.toast.error {
-		border-left-color: var(--err);
+		border-left-color: var(--danger);
 	}
 	.toast.info {
 		border-left-color: var(--accent);

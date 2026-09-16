@@ -1,10 +1,11 @@
+import { keep, recall } from './stored';
+
 export type Theme = 'light' | 'dark' | 'system';
 
 const STORAGE_KEY = 'opus.theme';
-const ORDER: Theme[] = ['light', 'dark', 'system'];
 
 function readStored(): Theme {
-	const v = localStorage.getItem(STORAGE_KEY);
+	const v = recall(STORAGE_KEY);
 	return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark';
 }
 
@@ -34,12 +35,8 @@ class ThemeStore {
 
 	setTheme(t: Theme) {
 		this.theme = t;
-		localStorage.setItem(STORAGE_KEY, t);
+		keep(STORAGE_KEY, t);
 		applyToDom(isDark(t));
-	}
-
-	cycle() {
-		this.setTheme(ORDER[(ORDER.indexOf(this.theme) + 1) % ORDER.length]);
 	}
 
 	sync() {

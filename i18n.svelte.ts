@@ -12,6 +12,7 @@
    stopped doing. A module that redefines one of these now fails at boot rather
    than quietly winning. */
 
+import { keep, recall } from './stored';
 import { hr as wordsHr } from './words/hr';
 import { en as wordsEn } from './words/en';
 
@@ -23,77 +24,6 @@ export type Word = keyof typeof wordsHr;
 
 export type Locale = 'hr' | 'en';
 
-export const SHELL_KEYS = [
-	'theme.light',
-	'theme.dark',
-	'theme.system',
-	'theme.pick.light',
-	'theme.pick.dark',
-	'theme.pick.system',
-	'lang.switch',
-	'letters.label',
-	'prefs.language',
-	'prefs.theme',
-	'login.username',
-	'login.password',
-	'login.submit',
-	'login.working',
-	'login.missing',
-	'login.failed',
-	'account.yours',
-	'account.password',
-	'account.current',
-	'account.new',
-	'account.repeat',
-	'account.changed',
-	'account.token',
-	'account.tokenShow',
-	'account.err.blank',
-	'account.err.mismatch',
-	'account.err.rejected',
-	'devices.title',
-	'devices.asking',
-	'devices.askingNow',
-	'devices.notCollected',
-	'devices.lastSeen',
-	'devices.letInBy',
-	'devices.takeBack',
-	'devices.none',
-	'devices.letIn',
-	'devices.hint',
-	'devices.code',
-	'devices.name',
-	'devices.wasLetIn',
-	'devices.err.blank',
-	'devices.err.noCode',
-	'devices.err.failed',
-	'people.title',
-	'people.add',
-	'people.name',
-	'people.display',
-	'people.password',
-	'people.newPassword',
-	'people.repeat',
-	'people.you',
-	'people.wasAdded',
-	'people.role',
-	'people.role.admin',
-	'people.role.user',
-	'people.role.guest',
-	'people.disabled',
-	'people.disable',
-	'people.enable',
-	'people.reset',
-	'people.remove',
-	'people.err.mismatch',
-	'people.err.short',
-	'people.err.refused',
-	'people.err.blank',
-	'people.err.notAdmin',
-	'people.err.failed',
-	'common.save',
-	'common.saving'
-] as const;
 const STORAGE_KEY = 'opus.locale';
 const INTL_LOCALES: Record<Locale, string> = { hr: 'hr-HR', en: 'en-US' };
 
@@ -102,13 +32,12 @@ type Catalogs = Record<Locale, Record<string, string>>;
 class I18n {
 	locale = $state<Locale>('hr');
 	#catalogs: Catalogs = { hr: {}, en: {} };
-	#fallback: Locale = 'hr';
 
 	/** Called once per module, before anything renders. The package's own words
 	    go underneath the module's, and a module that says one of them again is a
 	    bug loud enough to stop the boot: a silent override is how three modules
 	    drift apart while every one of them looks correct on its own. */
-	register(catalogs: Catalogs, fallback: Locale = 'hr') {
+	register(catalogs: Catalogs) {
 		for (const locale of ['hr', 'en'] as Locale[]) {
 			const said = Object.keys(catalogs[locale]).filter((k) => k in WORDS[locale]);
 			if (said.length) {
@@ -118,31 +47,22 @@ class I18n {
 			}
 			this.#catalogs[locale] = { ...WORDS[locale], ...catalogs[locale] };
 		}
-		this.#fallback = fallback;
 	}
 
 	get catalogs(): Catalogs {
 		return this.#catalogs;
 	}
 
-	get fallback(): Locale {
-		return this.#fallback;
-	}
-
 	init() {
-		const stored = localStorage.getItem(STORAGE_KEY);
+		const stored = recall(STORAGE_KEY);
 		if (stored === 'hr' || stored === 'en') this.locale = stored;
 		this.#applyLang();
 	}
 
 	set(locale: Locale) {
 		this.locale = locale;
-		localStorage.setItem(STORAGE_KEY, locale);
+		keep(STORAGE_KEY, locale);
 		this.#applyLang();
-	}
-
-	toggle() {
-		this.set(this.locale === 'hr' ? 'en' : 'hr');
 	}
 
 	#applyLang() {
@@ -155,7 +75,7 @@ export const i18n = new I18n();
 // Reads i18n.locale ($state), so every template calling t() re-renders on switch.
 export function t(key: string, params?: Record<string, string | number>): string {
 	const catalogs = i18n.catalogs;
-	let s: string = catalogs[i18n.locale][key] ?? catalogs[i18n.fallback][key] ?? key;
+	let s: string = catalogs[i18n.locale][key] ?? catalogs.hr[key] ?? key;
 	if (params) {
 		for (const [k, v] of Object.entries(params)) s = s.split(`{${k}}`).join(String(v));
 	}
@@ -182,10 +102,16 @@ export function plural(n: number, one: string, few: string, many: string): strin
 	return t(key, { n: formatNumber(n) });
 }
 
-/** A module narrows `t` to its own catalogue's keys, so a typo is caught at
-    build time in the module rather than surfacing as a raw key at runtime. */
-export function typed<K extends string>() {
-	return t as (key: K, params?: Record<string, string | number>) => string;
+/** A module hands its two catalogues over once, before anything renders, and
+    gets back a `t` narrowed to its own keys and the package's. English has to
+    carry exactly the keys Croatian does, so a word written in one language only
+    is a build error rather than a gap on screen. */
+export function registerModule<K extends string>(catalogs: {
+	hr: Record<K, string>;
+	en: Record<K, string>;
+}) {
+	i18n.register(catalogs);
+	return t as (key: K | Word, params?: Record<string, string | number>) => string;
 }
 
 export function formatNumber(n: number, opts?: Intl.NumberFormatOptions): string {
@@ -241,8 +167,21 @@ export function duration(seconds: number | null | undefined): string {
 		: `${m}:${String(s).padStart(2, '0')}`;
 }
 
+/** How long a film runs, the way a listing says it: hours and minutes, and
+    nothing at all for a film nobody measured. */
+export function formatRuntime(minutes: number | null | undefined): string {
+	if (!minutes) return '';
+	const h = Math.floor(minutes / 60);
+	const m = minutes % 60;
+	return [h ? t('runtime.hours', { h: formatNumber(h) }) : '', m ? t('runtime.minutes', { m: formatNumber(m) }) : '']
+		.filter(Boolean)
+		.join(' ');
+}
+
 /** A day, without the hour nobody asked about: an air date, a release, a due
-    date. Same rule as above — the reader's language, not the server's. */
+    date. Same rule as above — the reader's language, not the server's. A
+    catalogue that knows only the year of something says only the year. */
 export function formatDate(iso: string): string {
+	if (/^\d{4}$/.test(iso)) return iso;
 	return new Date(iso).toLocaleDateString(INTL_LOCALES[i18n.locale]);
 }

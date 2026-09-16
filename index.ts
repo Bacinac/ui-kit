@@ -8,42 +8,56 @@
 // `thumbhash`, and a barrel is resolved whole by whoever imports from it. Listed
 // here, a module that will never draw a photograph fails to build for want of a
 // package it has no use for. They are imported by path —
-// `$lib/opus/PhotoTimeline.svelte` — by the two modules that draw them.
+// `$lib/opus/PhotoTimeline.svelte` — by the modules that draw them.
 
 export { theme, type Theme } from './theme.svelte';
 export { toasts, type Toast, type ToastKind } from './toasts.svelte';
 export {
 	i18n,
 	t,
-	typed,
+	registerModule,
 	formatNumber,
 	formatDateTime,
 	formatTime,
 	formatDate,
 	formatBytes,
+	formatRuntime,
 	duration,
 	plural,
 	type Locale,
 	type Word
 } from './i18n.svelte';
+export { request, bytes, json, onUnauthorized, Latest, type Asking } from './http';
+export { me, type Role, type Session } from './me.svelte';
+export { withLang } from './lang';
+export { modulesFor, moduleName, type ModuleKey } from './modules';
+export { recall, keep, forget } from './stored';
+export { SettingsDraft, type StoredSetting } from './settings.svelte';
+export { episodeCode, videoStateTone } from './media';
+export { tileOf, previewOf, playOf, aboutOf, cropOf, portraitOf, morphOf } from './photos';
 
+export { default as ArmedButton } from './ArmedButton.svelte';
 export { default as Button } from './Button.svelte';
 export type { Tone } from './Button.svelte';
 export { default as Card } from './Card.svelte';
 export { default as Chips } from './Chips.svelte';
+export { default as Dialog } from './Dialog.svelte';
 export { default as Field } from './Field.svelte';
 export { default as EpisodeRow } from './EpisodeRow.svelte';
+export { default as MediaHead } from './MediaHead.svelte';
 export { default as Meter } from './Meter.svelte';
+export { default as Notice } from './Notice.svelte';
 export { default as Picks } from './Picks.svelte';
+export type { Pick } from './Picks.svelte';
+export { default as Progress } from './Progress.svelte';
+export { default as SearchBox } from './SearchBox.svelte';
 export { default as SeasonCard } from './SeasonCard.svelte';
-export { default as SeriesHead } from './SeriesHead.svelte';
 export { default as SeriesPage } from './SeriesPage.svelte';
 export type { PageEpisode, PageSeason, PageTag } from './SeriesPage.svelte';
 export { default as Tag } from './Tag.svelte';
+export type { Tone as TagTone } from './Tag.svelte';
 export { default as Letters } from './Letters.svelte';
 export { initialOf, compareHr, lettersOf } from './letters';
-export type { Tone as TagTone } from './Tag.svelte';
-export type { Pick } from './Picks.svelte';
 export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
 export { default as Account } from './Account.svelte';
@@ -56,13 +70,11 @@ export { default as People } from './People.svelte';
 export { default as Devices } from './Devices.svelte';
 export { default as Preferences } from './Preferences.svelte';
 export { default as Shell } from './Shell.svelte';
+export type { Alert, NavItem, ModuleLink } from './Shell.svelte';
 export { default as Stats } from './Stats.svelte';
 export type { Stat } from './Stats.svelte';
-export type { Alert, NavItem, ModuleLink } from './Shell.svelte';
 export { default as Wordmark } from './Wordmark.svelte';
 export { default as SaveBar } from './SaveBar.svelte';
 export { default as Toasts } from './Toasts.svelte';
-export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';
-export { default as LanguageSwitcher } from './LanguageSwitcher.svelte';
 export { default as SettingField } from './SettingField.svelte';
 export type { FieldSetting } from './SettingField.svelte';
