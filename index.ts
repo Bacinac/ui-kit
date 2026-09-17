@@ -30,6 +30,7 @@ export {
 export { request, bytes, json, onUnauthorized, Latest, type Asking } from './http';
 export { me, type Role, type Session } from './me.svelte';
 export { withLang } from './lang';
+export { cssUrl } from './css';
 export { modulesFor, moduleName, type ModuleKey } from './modules';
 export { recall, keep, forget } from './stored';
 export { SettingsDraft, type StoredSetting } from './settings.svelte';

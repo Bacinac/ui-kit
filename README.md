@@ -25,7 +25,10 @@ Ground
 - `app.html` — the page template; a module links `src/app.html` to it
 - `server.mjs` — the production server: the built app, `/api` proxied to
   `OPUS_API_URL` (required), websocket upgrades, and upstream streams dropped
-  when the reader leaves. A module's Dockerfile copies it beside the build
+  when the reader leaves, and the client address the backend is told: from a
+  proxy in `OPUS_TRUSTED_PROXIES` its `cf-connecting-ip` or first
+  `x-forwarded-for`, from anybody else the socket. A module's Dockerfile copies
+  it beside the build; `node --test server.test.mjs` checks the address rule
 
 Frame
 - `Shell` — header, module nav, the way across to the other modules, the
@@ -66,7 +69,7 @@ Behaviour
   number, size, date and length on a screen goes through: `formatNumber`,
   `formatBytes`, `formatDate`, `formatDateTime`, `formatTime`, `formatRuntime`,
   `duration`, `plural`
-- `modules.ts` (`modulesFor`, `moduleName`), `lang.ts` (`withLang`),
+- `modules.ts` (`modulesFor`, `moduleName`), `lang.ts` (`withLang`), `css.ts` (`cssUrl`),
   `media.ts` (`episodeCode`, `videoStateTone`), `photos.ts` (`tileOf`,
   `previewOf`, `playOf`, `aboutOf`, `cropOf`, `portraitOf`, `morphOf`),
   `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`

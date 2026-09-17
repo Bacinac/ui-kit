@@ -104,6 +104,8 @@ export const en = {
 	'settings.bool.off': 'Off',
 	'settings.bool.on': 'On',
 	'settings.err.bad_value': 'value not allowed',
+	'settings.err.not_editable': 'this setting cannot be changed',
+	'settings.err.unknown_key': 'unknown setting',
 	'settings.saveFailed': 'Settings not saved — {field}: {reason}',
 	'settings.saved': 'Settings saved.',
 	'settings.secretSet': '•••••••• (set — leave blank to keep)',

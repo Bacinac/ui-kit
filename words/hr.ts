@@ -106,6 +106,8 @@ export const hr = {
 	'settings.bool.off': 'Isključeno',
 	'settings.bool.on': 'Uključeno',
 	'settings.err.bad_value': 'nedozvoljena vrijednost',
+	'settings.err.not_editable': 'postavka se ne može mijenjati',
+	'settings.err.unknown_key': 'nepoznata postavka',
 	'settings.saveFailed': 'Postavke nisu spremljene — {field}: {reason}',
 	'settings.saved': 'Postavke su spremljene.',
 	'settings.secretSet': '•••••••• (postavljeno — ostavite prazno za nepromijenjeno)',
