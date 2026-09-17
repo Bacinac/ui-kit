@@ -14,6 +14,7 @@
 	// same way, so a rail or a column inside the page can sit under both.
 
 	import type { Snippet } from 'svelte';
+	import { cssUrl } from './css';
 	import Icon from './Icon.svelte';
 	import Tag, { type Tone } from './Tag.svelte';
 
@@ -69,7 +70,7 @@
 >
 	{#if behind}
 		{#key behind}
-			<div class="behind" style={`background-image:url(${behind})`}></div>
+			<div class="behind" style:background-image={cssUrl(behind)}></div>
 		{/key}
 		<div class="scrim"></div>
 	{/if}
