@@ -7,12 +7,10 @@
    Change a value here and all three follow; there is nowhere else to change it.
 
    Structure is deliberately unchanged from what the three apps already read
-   through var(), so adopting this file is a swap, not a rewrite. Only the hues
-   moved: a neutral graphite ground with a single teal accent — legible in both
-   themes, and not the amber or the violet the obvious media servers already own.
-
-   Modules do NOT get their own accent. Which module you are in is the header's
-   job to say; a per-module hue would re-open the exact drift this closes. */
+   through var(), so adopting this file is a swap, not a rewrite. The product
+   signature is a pair: a marine/aqua primary and a warm apricot module accent.
+   Interactive controls remain teal, so the apricot stays reserved for the
+   product mark rather than competing with controls, warnings, or media kinds. */
 
 :root {
 	--bg: #f3f4f5;
@@ -21,9 +19,10 @@
 	--border: #ccd3d4;
 	--text: #14191a;
 	--muted: #566063;
-	/* the wordmark's own colour, and nothing else's: controls take --accent */
+	/* the wordmark pair; controls deliberately keep their own teal --accent */
 	--brand: #0d6d68;
 	--brand-soft: #4aada7;
+	--brand-module: #9a5908;
 	--accent: #0d7c78;
 	--ok: #1e7a37;
 	--warn: #8a6a00;
@@ -48,8 +47,9 @@
 	--border: #2d383a;
 	--text: #e9eeee;
 	--muted: #9aa7a9;
-	--brand: #35b3ad;
-	--brand-soft: #8ce3dd;
+	--brand: #8ce3dd;
+	--brand-soft: #4ba9a3;
+	--brand-module: #f3b56b;
 	--accent: #35b3ad;
 	--ok: #7fd18a;
 	--warn: #ffd479;
