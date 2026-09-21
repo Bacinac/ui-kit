@@ -74,7 +74,8 @@ Behaviour
 - `modules.ts` (`modulesFor`, `moduleName`), `lang.ts` (`withLang`), `css.ts` (`cssUrl`),
   `media.ts` (`episodeCode`, `videoStateMark`), `photos.ts` (`tileOf`,
   `previewOf`, `playOf`, `aboutOf`, `cropOf`, `portraitOf`, `morphOf`),
-  `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`
+  `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`, `hold.ts` (`use:hold` — what a
+  line offers on a long press or a right click; `EpisodeRow` takes it as `onhold`)
 - `words/` — the words these components say, in Croatian and English, and
   `check.mjs`, the checker every module runs its own catalogues through
 - `marks/` — every OPUS mark, derived by `marks/build.sh` from the accepted
