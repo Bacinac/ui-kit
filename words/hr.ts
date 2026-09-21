@@ -89,6 +89,7 @@ export const hr = {
 	'photos.prev': 'Prethodna',
 	'photos.regrouping': 'Lica se upravo ponovno grupiraju. Pokušajte ponovno za nekoliko minuta.',
 	'photos.thisOne': 'samo ova',
+	'photos.turn': 'Zakreni',
 	'photos.undated.n': '{n} bez datuma',
 	'photos.unknownFace': 'Neimenovano lice',
 	'photos.unknownFaces': 'još lica: {n}',

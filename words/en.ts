@@ -87,6 +87,7 @@ export const en = {
 	'photos.prev': 'Previous',
 	'photos.regrouping': 'The faces are being regrouped right now. Try again in a few minutes.',
 	'photos.thisOne': 'just this one',
+	'photos.turn': 'Rotate',
 	'photos.undated.n': '{n} without a date',
 	'photos.unknownFace': 'An unnamed face',
 	'photos.unknownFaces': '{n} more faces',
