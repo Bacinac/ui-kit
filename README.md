@@ -18,8 +18,7 @@ package is made here, never improvised in a module.
 Ground
 - `tokens.css` — the palette, light and dark, and the radii. One red
   (`--danger`), one colour per kind of thing kept (`--kind-film`,
-  `--kind-series`, `--kind-music`, `--kind-photos`), `--brand` for the wordmark
-  alone
+  `--kind-series`, `--kind-music`, `--kind-photos`)
 - `base.css` — document defaults: body, links, fields, tables, `.fields`,
   `.action-row`, `.muted`
 - `app.html` — the page template; a module links `src/app.html` to it
@@ -77,7 +76,13 @@ Behaviour
   `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`
 - `words/` — the words these components say, in Croatian and English, and
   `check.mjs`, the checker every module runs its own catalogues through
-- `marks/` — the favicon family; a module's `static/` links into it
+- `marks/` — every OPUS mark, derived by `marks/build.sh` from the accepted
+  family sheet: one cut O for the tab (`favicon.*`) and the home screen
+  (`icons/`), shared by all three modules; the full lockups
+  `opus-{downloads,library,player}.svg`, which `Wordmark` shows; and the
+  Android vectors (`android/`) the Player's TV app copies in. A module's
+  `static/` links into it; bump `?v=` in `app.html` and the manifest when the
+  marks change
 
 ## How a module consumes it
 
