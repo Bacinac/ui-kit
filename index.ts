@@ -52,7 +52,6 @@ export { default as Picks } from './Picks.svelte';
 export type { Pick } from './Picks.svelte';
 export { default as Progress } from './Progress.svelte';
 export { default as SearchBox } from './SearchBox.svelte';
-export { default as SeasonCard } from './SeasonCard.svelte';
 export { default as SeriesPage } from './SeriesPage.svelte';
 export type { PageEpisode, PageSeason, PageTag } from './SeriesPage.svelte';
 export { default as Tag } from './Tag.svelte';
