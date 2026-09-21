@@ -117,6 +117,15 @@
 			'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.2 8.2h2.4V17h-2.4v-6.8Zm1.2-4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z'
 		],
 		check: ['M9.2 16.2 4.9 11.9l-1.7 1.7 6 6L21 7.8l-1.7-1.7L9.2 16.2Z'],
+		// states of something that should be on a shelf, one family with the
+		// clock: a disc with the sign cut out of it
+		missing: [
+			'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.2 4.5h2.4v7.2h-2.4V6.5Zm1.2 9.3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z'
+		],
+		ignored: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM6 10.8v2.4h12v-2.4H6Z'],
+		fetching: [
+			'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.2 4.5v6.6l-2.5-2.5-1.7 1.7 5.4 5.4 5.4-5.4-1.7-1.7-2.5 2.5V6.5h-2.4Z'
+		],
 		// a saved song, filled when it is one of the account's favourites
 		heart: ['M12 20.8 4.4 13.7A5.3 5.3 0 0 1 12 6.3a5.3 5.3 0 0 1 7.6 7.4L12 20.8Z']
 	};
