@@ -40,7 +40,8 @@ Frame
 - `MediaHead` — the top of a page about one thing: a film, a series, a record, a
   person. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
   time behind a picker, each line with its still, running time and how far the
-  profile got
+  profile got. `StateMark` says a state as one tinted icon, its words on the
+  pointer; `Tally` says a season as icon-and-number counts
 - `Dialog` — a window over the page: heading, way out, Escape, and the keyboard
   kept inside it
 
@@ -71,7 +72,7 @@ Behaviour
   `formatBytes`, `formatDate`, `formatDateTime`, `formatTime`, `formatRuntime`,
   `duration`, `plural`
 - `modules.ts` (`modulesFor`, `moduleName`), `lang.ts` (`withLang`), `css.ts` (`cssUrl`),
-  `media.ts` (`episodeCode`, `videoStateTone`), `photos.ts` (`tileOf`,
+  `media.ts` (`episodeCode`, `videoStateMark`), `photos.ts` (`tileOf`,
   `previewOf`, `playOf`, `aboutOf`, `cropOf`, `portraitOf`, `morphOf`),
   `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`
 - `words/` — the words these components say, in Croatian and English, and
