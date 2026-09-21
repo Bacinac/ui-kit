@@ -34,7 +34,7 @@ export { cssUrl } from './css';
 export { modulesFor, moduleName, type ModuleKey } from './modules';
 export { recall, keep, forget } from './stored';
 export { SettingsDraft, type StoredSetting } from './settings.svelte';
-export { episodeCode, videoStateTone } from './media';
+export { episodeCode, videoStateMark } from './media';
 export { tileOf, previewOf, playOf, aboutOf, cropOf, portraitOf, morphOf, regrouping, unlessRegrouping } from './photos';
 
 export { default as ArmedButton } from './ArmedButton.svelte';
