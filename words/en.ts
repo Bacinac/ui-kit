@@ -99,8 +99,6 @@ export const en = {
 	'prefs.theme': 'Theme',
 	'runtime.hours': '{h} h',
 	'runtime.minutes': '{m} min',
-	'series.collapseAll': 'Close every season',
-	'series.expandAll': 'Open every season',
 	'settings.bool.off': 'Off',
 	'settings.bool.on': 'On',
 	'settings.err.bad_value': 'value not allowed',

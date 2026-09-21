@@ -101,8 +101,6 @@ export const hr = {
 	'prefs.theme': 'Tema',
 	'runtime.hours': '{h} h',
 	'runtime.minutes': '{m} min',
-	'series.collapseAll': 'Zatvori sve sezone',
-	'series.expandAll': 'Otvori sve sezone',
 	'settings.bool.off': 'Isključeno',
 	'settings.bool.on': 'Uključeno',
 	'settings.err.bad_value': 'nedozvoljena vrijednost',

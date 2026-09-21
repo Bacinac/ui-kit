@@ -39,7 +39,9 @@ Frame
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
   header
 - `MediaHead` — the top of a page about one thing: a film, a series, a record, a
-  person. `SeriesPage`, `SeasonCard` and `EpisodeRow` build a series on it
+  person. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
+  time behind a picker, each line with its still, running time and how far the
+  profile got
 - `Dialog` — a window over the page: heading, way out, Escape, and the keyboard
   kept inside it
 
