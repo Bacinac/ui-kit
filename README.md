@@ -38,7 +38,7 @@ Frame
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
   header
 - `MediaHead` — the top of a page about one thing: a film, a series, a record, a
-  person. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
+  person; `amount` puts how many it holds in brackets after the name. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
   time behind a picker, each line with its still, running time and how far the
   profile got. `StateMark` says a state as one tinted icon, its words on the
   pointer; `Tally` says a season as icon-and-number counts
