@@ -54,11 +54,11 @@
 		gap: 0.2rem;
 	}
 	.tile b {
-		font-size: 1.4rem;
+		font-size: var(--fs-2xl);
 		font-variant-numeric: tabular-nums;
 	}
 	.tile span {
-		font-size: 0.8rem;
+		font-size: var(--fs-s);
 		color: var(--muted);
 	}
 	.tile.ok b {

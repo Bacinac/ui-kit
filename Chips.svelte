@@ -67,7 +67,7 @@
 		min-width: 0;
 	}
 	label {
-		font-size: 0.82rem;
+		font-size: var(--fs-s);
 		color: var(--muted);
 	}
 	.box {
@@ -90,7 +90,7 @@
 		padding: 0.15rem 0.2rem 0.15rem 0.55rem;
 		border-radius: 999px;
 		border: 1px solid var(--border);
-		font-size: 0.85rem;
+		font-size: var(--fs-m);
 	}
 	.chip button {
 		display: grid;
@@ -101,7 +101,7 @@
 		border-radius: 999px;
 		background: none;
 		color: var(--muted);
-		font-size: 0.9rem;
+		font-size: var(--fs-m);
 		line-height: 1;
 		cursor: pointer;
 	}

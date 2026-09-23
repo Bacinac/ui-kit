@@ -55,7 +55,7 @@
 		background: var(--surface);
 		color: var(--muted);
 		font: inherit;
-		font-size: 0.92rem;
+		font-size: var(--fs-m);
 		cursor: pointer;
 	}
 	button.active {
@@ -70,7 +70,7 @@
 		padding: 0 0.3rem;
 		border-radius: 999px;
 		border: 1px solid currentColor;
-		font-size: 0.6rem;
+		font-size: var(--fs-2xs);
 		font-weight: 700;
 		letter-spacing: 0.03em;
 		vertical-align: 0.1em;

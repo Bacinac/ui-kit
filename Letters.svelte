@@ -113,7 +113,7 @@
 		background: none;
 		color: var(--muted);
 		font: inherit;
-		font-size: 0.72rem;
+		font-size: var(--fs-xs);
 		font-weight: 600;
 		line-height: 1;
 		cursor: pointer;
@@ -134,7 +134,7 @@
 		border-radius: 50%;
 		background: var(--accent);
 		color: var(--bg);
-		font-size: 1.6rem;
+		font-size: var(--fs-2xl);
 		font-weight: 700;
 		box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
 		pointer-events: none;
@@ -143,7 +143,7 @@
 		.letters button {
 			width: 1.3rem;
 			min-height: 1rem;
-			font-size: 0.66rem;
+			font-size: var(--fs-xs);
 		}
 	}
 </style>

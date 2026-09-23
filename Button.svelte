@@ -74,7 +74,7 @@
 		background: var(--surface);
 		color: var(--text);
 		font: inherit;
-		font-size: 0.9rem;
+		font-size: var(--fs-m);
 		line-height: 1.35;
 		text-decoration: none;
 		white-space: nowrap;
@@ -84,7 +84,7 @@
 	.small {
 		padding: 0.2rem 0.6rem;
 		border-radius: 6px;
-		font-size: 0.8rem;
+		font-size: var(--fs-s);
 	}
 	.btn:hover:not(:disabled) {
 		border-color: var(--accent);

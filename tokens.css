@@ -65,3 +65,17 @@
 	--focus-ring: 3px solid var(--accent);
 	--focus-offset: 3px;
 }
+
+/* Type: seven steps an eye can tell apart, the same in every module. Sizes a
+   hundredth of a rem apart are differences nobody sees, and each one invites
+   the next, so the check refuses a size that is not one of these. What is
+   larger than the top step is a glyph fitted to its box, not text. */
+:root {
+	--fs-2xs: 0.6rem; /* marks laid over a picture */
+	--fs-xs: 0.7rem; /* tags, badges, a line under a line */
+	--fs-s: 0.8rem; /* what is said about the thing: meta, captions */
+	--fs-m: 0.875rem; /* dense text: lists, tables, controls */
+	--fs-l: 1rem; /* reading text */
+	--fs-xl: 1.2rem; /* the head of a section */
+	--fs-2xl: 1.5rem; /* the name of the page */
+}

@@ -86,7 +86,7 @@
 	.caret {
 		display: inline-block;
 		color: var(--muted);
-		font-size: 1.1rem;
+		font-size: var(--fs-xl);
 		line-height: 1;
 		transition: transform 0.12s ease;
 	}
@@ -103,6 +103,6 @@
 	}
 	h2 {
 		margin: 0;
-		font-size: 1.1rem;
+		font-size: var(--fs-xl);
 	}
 </style>

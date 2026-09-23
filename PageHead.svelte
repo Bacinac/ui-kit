@@ -147,7 +147,7 @@
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		color: var(--muted);
-		font-size: 0.9rem;
+		font-size: var(--fs-m);
 		line-height: 1.35;
 		/* two lines whether it has two or none, so the shelf under it does not
 		   move as the remote walks along a row */
@@ -176,7 +176,7 @@
 	}
 	h1 {
 		margin: 0;
-		font-size: 1.5rem;
+		font-size: var(--fs-2xl);
 		line-height: 1.1;
 	}
 	.aside {
