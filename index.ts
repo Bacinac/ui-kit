@@ -69,6 +69,7 @@ export { default as Login } from './Login.svelte';
 export { default as Icon } from './Icon.svelte';
 export { settle } from './settle';
 export { hold } from './hold';
+export { default as Heading } from './Heading.svelte';
 export { default as PageHead } from './PageHead.svelte';
 export type { Fact } from './PageHead.svelte';
 export { default as People } from './People.svelte';
