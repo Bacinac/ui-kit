@@ -41,6 +41,8 @@ Frame
   `Preferences`
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
   header
+- `Heading` — what introduces a block within a page: a mark, a word, an
+  optional count and a line out to the edge (`--heading-gap` below it)
 - `MediaHead` — the top of a page about one thing: a film, a series, a record, a
   person; `amount` puts how many it holds in brackets after the name. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
   time behind a picker, each line with its still, running time and how far the
