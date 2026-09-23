@@ -16,9 +16,11 @@ package is made here, never improvised in a module.
 ## What is in it
 
 Ground
-- `tokens.css` — the palette, light and dark, and the radii. One red
-  (`--danger`), one colour per kind of thing kept (`--kind-film`,
-  `--kind-series`, `--kind-music`, `--kind-photos`)
+- `tokens.css` — the palette, light and dark, the radii and the type scale.
+  One red (`--danger`), one colour per kind of thing kept (`--kind-film`,
+  `--kind-series`, `--kind-music`, `--kind-photos`), seven sizes
+  (`--fs-2xs` … `--fs-2xl`) and no other: opus-core's check refuses a
+  `font-size` below 2rem that is not one of them
 - `base.css` — document defaults: body, links, fields, tables, `.fields`,
   `.action-row`, `.muted`
 - `app.html` — the page template; a module links `src/app.html` to it

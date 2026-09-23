@@ -38,7 +38,7 @@
 		width: 100%;
 	}
 	label {
-		font-size: 0.82rem;
+		font-size: var(--fs-s);
 		color: var(--muted);
 	}
 	input {

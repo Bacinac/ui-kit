@@ -24,7 +24,7 @@
 	.toast {
 		text-align: left;
 		font: inherit;
-		font-size: 0.95rem;
+		font-size: var(--fs-l);
 		color: var(--text);
 		background: var(--surface-2);
 		border: 1px solid var(--border);

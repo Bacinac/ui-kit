@@ -35,7 +35,7 @@ textarea {
 	background: var(--surface);
 	color: var(--text);
 	font: inherit;
-	font-size: 0.95rem;
+	font-size: var(--fs-l);
 }
 
 input:focus,

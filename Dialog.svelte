@@ -179,11 +179,11 @@
 	}
 	h2 {
 		margin: 0;
-		font-size: 1.05rem;
+		font-size: var(--fs-l);
 	}
 	.subtitle {
 		color: var(--muted);
-		font-size: 0.85rem;
+		font-size: var(--fs-m);
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
@@ -202,7 +202,7 @@
 		background: color-mix(in srgb, var(--surface) 70%, transparent);
 		color: var(--muted);
 		font: inherit;
-		font-size: 1.4rem;
+		font-size: var(--fs-2xl);
 		line-height: 1;
 		cursor: pointer;
 	}

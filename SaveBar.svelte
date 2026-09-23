@@ -45,6 +45,6 @@
 	}
 	.unsaved {
 		color: var(--warn);
-		font-size: 0.9rem;
+		font-size: var(--fs-m);
 	}
 </style>

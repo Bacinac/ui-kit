@@ -89,7 +89,7 @@
 		border: 1px solid transparent;
 		border-radius: 999px;
 		font: inherit;
-		font-size: var(--tag-font, 0.72rem);
+		font-size: var(--tag-font, var(--fs-xs));
 		font-weight: 700;
 		letter-spacing: 0.01em;
 		white-space: nowrap;
