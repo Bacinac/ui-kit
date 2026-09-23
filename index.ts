@@ -64,6 +64,7 @@ export { initialOf, compareHr, lettersOf } from './letters';
 export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
 export { default as Account } from './Account.svelte';
+export { default as Tokens } from './Tokens.svelte';
 export { default as Login } from './Login.svelte';
 export { default as Icon } from './Icon.svelte';
 export { settle } from './settle';
