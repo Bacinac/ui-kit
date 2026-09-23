@@ -22,6 +22,8 @@ Ground
 - `base.css` — document defaults: body, links, fields, tables, `.fields`,
   `.action-row`, `.muted`
 - `app.html` — the page template; a module links `src/app.html` to it
+- `csp.js` — the page policy (`kit.csp` in every module's `svelte.config.js`):
+  scripts only from the module itself or under the per-request nonce
 - `server.mjs` — the production server: the built app, `/api` proxied to
   `OPUS_API_URL` (required), websocket upgrades, and upstream streams dropped
   when the reader leaves, and the client address the backend is told: from a
@@ -32,7 +34,7 @@ Ground
 Frame
 - `Shell` — header, module nav, the way across to the other modules, the
   account menu, alerts; it says its own words
-- `Wordmark`, `Login`, `Account` (password, preferences, the service token and
+- `Wordmark`, `Login`, `Account` (password, preferences, the tokens of the machines that call the module and
   — for an admin of the module that keeps the roster — `People` and `Devices`),
   `Preferences`
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
