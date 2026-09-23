@@ -16,11 +16,14 @@ package is made here, never improvised in a module.
 ## What is in it
 
 Ground
-- `tokens.css` — the palette, light and dark, the radii and the type scale.
+- `tokens.css` — the palette, light and dark, what is laid over a picture, the
+  radii, the shadows and the type scale.
   One red (`--danger`), one colour per kind of thing kept (`--kind-film`,
   `--kind-series`, `--kind-music`, `--kind-photos`), seven sizes
   (`--fs-2xs` … `--fs-2xl`) and no other: opus-core's check refuses a
-  `font-size` below 2rem that is not one of them
+  `font-size` below 2rem that is not one of them, and a hex, `rgb()` or
+  `hsl()` colour anywhere but here and a module's `colours.ts` palette. A
+  mask names `black`, since only its opacity counts
 - `base.css` — document defaults: body, links, fields, tables, `.fields`,
   `.action-row`, `.muted`
 - `app.html` — the page template; a module links `src/app.html` to it

@@ -136,7 +136,7 @@
 		color: var(--bg);
 		font-size: var(--fs-2xl);
 		font-weight: 700;
-		box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+		box-shadow: var(--shadow-m);
 		pointer-events: none;
 	}
 	@media (max-width: 700px) {

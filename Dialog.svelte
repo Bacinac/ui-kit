@@ -119,7 +119,7 @@
 		position: absolute;
 		inset: 0;
 		border: none;
-		background: rgb(0 0 0 / 0.55);
+		background: var(--veil);
 		cursor: pointer;
 	}
 	.panel {
@@ -131,7 +131,7 @@
 		background: var(--surface);
 		border: 1px solid var(--border);
 		border-radius: var(--radius-m);
-		box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+		box-shadow: var(--shadow-xl);
 		overflow: hidden;
 	}
 	.panel:focus {

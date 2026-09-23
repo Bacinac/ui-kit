@@ -79,3 +79,30 @@
 	--fs-xl: 1.2rem; /* the head of a section */
 	--fs-2xl: 1.5rem; /* the name of the page */
 }
+
+/* What is drawn over a picture. A picture is not themed, so nothing laid on it
+   is: white words on a black veil in every theme, at the few strengths the
+   product uses — thin to dim what is around a thing, the veil a label sits on,
+   thick where the words are there to be read. */
+:root {
+	--on-picture: #fff;
+	--on-picture-muted: rgb(255 255 255 / 0.72);
+	--on-picture-line: rgb(255 255 255 / 0.3);
+	--on-picture-faint: rgb(255 255 255 / 0.12);
+	--veil-thin: rgb(0 0 0 / 0.35);
+	--veil: rgb(0 0 0 / 0.55);
+	--veil-thick: rgb(0 0 0 / 0.72);
+	/* behind a film or a photograph shown whole */
+	--picture-ground: #000;
+	/* somebody else's logo is set on paper, whatever it was drawn for */
+	--logo-ground: #fff;
+}
+
+/* Shadows: how far a thing stands off what is under it, in four heights, for
+   the same reason as the type scale. */
+:root {
+	--shadow-s: 0 1px 4px rgb(0 0 0 / 0.6); /* a mark lifted off a picture */
+	--shadow-m: 0 6px 24px rgb(0 0 0 / 0.3); /* what floats over the page: a toast, a bar */
+	--shadow-l: 0 12px 32px rgb(0 0 0 / 0.55); /* what stands out of a row */
+	--shadow-xl: 0 24px 60px rgb(0 0 0 / 0.55); /* what is held up over everything */
+}

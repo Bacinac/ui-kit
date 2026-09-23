@@ -148,12 +148,12 @@
 	/* A picture is its own ground and it is never the page's colour, so a tag
 	   laid over one brings a ground of its own in both themes. */
 	.onpicture {
-		background: rgb(0 0 0 / 0.6);
-		color: #fff;
+		background: var(--veil);
+		color: var(--on-picture);
 		font-weight: 600;
 	}
 	.onpicture.quiet {
-		color: rgb(255 255 255 / 0.7);
+		color: var(--on-picture-muted);
 	}
 	.onpicture.busy {
 		background: var(--accent);
