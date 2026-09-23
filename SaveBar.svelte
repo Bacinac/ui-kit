@@ -41,7 +41,7 @@
 		border-radius: 12px;
 		background: color-mix(in srgb, var(--surface) 88%, transparent);
 		backdrop-filter: blur(10px);
-		box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
+		box-shadow: var(--shadow-m);
 	}
 	.unsaved {
 		color: var(--warn);

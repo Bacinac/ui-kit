@@ -32,7 +32,7 @@
 		border-radius: 8px;
 		padding: 0.7rem 1rem;
 		cursor: pointer;
-		box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+		box-shadow: var(--shadow-m);
 	}
 	.toast.success {
 		border-left-color: var(--ok);
