@@ -2,19 +2,10 @@
 	/** What the tag says about the thing it is stuck to. `fact` is the neutral
 	    one — a resolution, a size, a codec: true regardless of how anyone feels
 	    about it. The rest are states, and their colours are the product's, not
-	    each module's guess at them. `film`, `series`, `music` and `photos` are
-	    not states at all: they say which kind of thing is being counted. */
-	export type Tone =
-		| 'fact'
-		| 'ok'
-		| 'warn'
-		| 'err'
-		| 'busy'
-		| 'quiet'
-		| 'film'
-		| 'series'
-		| 'music'
-		| 'photos';
+	    each module's guess at them. A kind is not a state at all: it says which
+	    kind of thing is being counted, in the colour the product's palette gives
+	    it as --kind-<name>. */
+	export type Tone = 'fact' | 'ok' | 'warn' | 'err' | 'busy' | 'quiet';
 </script>
 
 <script lang="ts">
@@ -27,6 +18,7 @@
 
 	let {
 		tone = 'fact',
+		kind,
 		title = '',
 		onpicture = false,
 		dashed = false,
@@ -36,6 +28,8 @@
 		children
 	}: {
 		tone?: Tone;
+		/** which kind of thing is counted; paints over the tone */
+		kind?: string;
 		/** the long form, for a tag whose short form needs one */
 		title?: string;
 		/** laid over a photograph or a poster, where the page's own ground is not
@@ -54,7 +48,8 @@
 {#if onclick}
 	<button
 		type="button"
-		class="tag {tone}"
+		class="tag {kind ? 'kind' : tone}"
+		style:--hue={kind ? `var(--kind-${kind})` : undefined}
 		class:onpicture
 		class:dashed
 		{title}
@@ -66,7 +61,8 @@
 	</button>
 {:else}
 	<span
-		class="tag {tone}"
+		class="tag {kind ? 'kind' : tone}"
+		style:--hue={kind ? `var(--kind-${kind})` : undefined}
 		class:onpicture
 		class:dashed
 		{title}
@@ -120,21 +116,9 @@
 		background: color-mix(in srgb, var(--danger) 16%, transparent);
 		color: var(--danger);
 	}
-	.film {
-		background: color-mix(in srgb, var(--kind-film) 18%, transparent);
-		color: var(--kind-film);
-	}
-	.photos {
-		background: color-mix(in srgb, var(--kind-photos) 18%, transparent);
-		color: var(--kind-photos);
-	}
-	.series {
-		background: color-mix(in srgb, var(--kind-series) 18%, transparent);
-		color: var(--kind-series);
-	}
-	.music {
-		background: color-mix(in srgb, var(--kind-music) 18%, transparent);
-		color: var(--kind-music);
+	.kind {
+		background: color-mix(in srgb, var(--hue) 18%, transparent);
+		color: var(--hue);
 	}
 	.busy {
 		background: color-mix(in srgb, var(--accent) 18%, transparent);

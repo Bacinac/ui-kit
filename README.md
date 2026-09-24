@@ -1,59 +1,38 @@
-# opus-ui
+# ui-kit
 
-The interface shared by every OPUS module — **Downloads**, **Library** and
-**Player**.
+The interface every product shares — the OPUS modules, DIDA and BABA — with no
+brand of its own.
 
 ## Why this exists
 
-Each module's application is its own: separate services, deployed to different
-hosts on different cadences, and their domain code has no business being
-coupled. The interface is the opposite case. Forked, it drifts by construction —
-and it had: the same button drawn sixteen ways, a dialog five ways, a request
-helper three ways that disagreed about what a failure is. So what a person
-touches in every module lives here once, and a primitive missing from this
-package is made here, never improvised in a module.
+A button is a button in every product, and a dialog, a toast and a request
+helper are the same thing wherever they are drawn. Forked, they drift by
+construction: in OPUS alone the same button had been drawn sixteen ways and a
+request helper written three ways that disagreed about what a failure is. So
+what a person touches lives here once, and a primitive missing from the kit is
+made here, never improvised in a product.
+
+What differs between products is their brand — the palette, the marks, the
+frame around a page, the door a person signs in through — and that stays with
+each product's own layer (`opus-ui` for OPUS).
 
 ## What is in it
 
 Ground
-- `tokens.css` — the palette, light and dark, what is laid over a picture, the
-  radii, the shadows and the type scale.
-  One red (`--danger`), one colour per kind of thing kept (`--kind-film`,
-  `--kind-series`, `--kind-music`, `--kind-photos`), seven sizes
-  (`--fs-2xs` … `--fs-2xl`) and no other: opus-core's check refuses a
-  `font-size` below 2rem that is not one of them, and a hex, `rgb()` or
-  `hsl()` colour anywhere but here and a module's `colours.ts` palette. A
-  mask names `black`, since only its opacity counts
+- `tokens.css` — shape, type scale, what is laid over a picture, shadows. The
+  palette is not here: the product defines it (below). Seven text sizes
+  (`--fs-2xs` … `--fs-2xl`) and no other
 - `base.css` — document defaults: body, links, fields, tables, `.fields`,
   `.action-row`, `.muted`
-- `app.html` — the page template; a module links `src/app.html` to it
-- `csp.js` — the page policy (`kit.csp` in every module's `svelte.config.js`):
-  scripts only from the module itself or under the per-request nonce
-- `server.mjs` — the production server: the built app, `/api` proxied to
-  `OPUS_API_URL` (required), websocket upgrades, and upstream streams dropped
-  when the reader leaves, and the client address the backend is told: from a
-  proxy in `OPUS_TRUSTED_PROXIES` its `cf-connecting-ip` or first
-  `x-forwarded-for`, from anybody else the socket. A module's Dockerfile copies
-  it beside the build; `node --test server.test.mjs` checks the address rule
 - `names.mjs` — every button, link and clicked element has a name a screen
   reader can say: words on its face, or `aria-label` (`label` on `Button`)
-  when the face is a sign. Every module's check runs it over its `src`
+  when the face is a sign. Every product's check runs it over its `src`
 
 Frame
-- `Shell` — header, module nav, the way across to the other modules, the
-  account menu, alerts; it says its own words
-- `Wordmark`, `Login`, `Account` (password, preferences, the tokens of the machines that call the module and
-  — for an admin of the module that keeps the roster — `People` and `Devices`),
-  `Preferences`
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
-  header
-- `Heading` — what introduces a block within a page: a mark, a word, an
-  optional count and a line out to the edge (`--heading-gap` below it)
-- `MediaHead` — the top of a page about one thing: a film, a series, a record, a
-  person; `amount` puts how many it holds in brackets after the name. `SeriesPage` and `EpisodeRow` build a series on it: one season at a
-  time behind a picker, each line with its still, running time and how far the
-  profile got. `StateMark` says a state as one tinted icon, its words on the
-  pointer; `Tally` says a season as icon-and-number counts
+  header. It reads the header's height from `--shell-header` and the frame's top
+  padding from `--shell-main-top`, and writes its own height to `--page-head`
+- `Heading` — what introduces a block within a page
 - `Dialog` — a window over the page: heading, way out, Escape, and the keyboard
   kept inside it
 
@@ -62,112 +41,68 @@ Controls
   what does not come back
 - `Picks` — the one row of choices, one or many
 - `Tabs`, `SearchBox`, `Field`, `SettingField`, `Chips`, `SaveBar`
-- `Tag` — the pill a list hangs a fact or a state on (`err`, `onpicture`,
-  `dashed`, and the kinds)
+- `Tag` — the pill a list hangs a fact or a state on (`tone`, `onpicture`,
+  `dashed`), or a kind of thing (`kind`, painted by the palette's
+  `--kind-<name>`)
 - `Notice`, `Progress`, `Meter`, `Stats`, `Letters`, `Icon`, `Toasts`
-
-Photographs (imported by path — they need `thumbhash`)
-- `PhotoTimeline`, `PhotoViewer`
 
 Behaviour
 - `http.ts` — `request()`: the one way a page asks its backend. A refusal is a
   toast with the backend's detail, a server that does not answer is said, a 204
   is a success, `on` handles the statuses a call expects, `Latest` keeps a
-  superseded answer off the screen, `onUnauthorized` lets the module show its
+  superseded answer off the screen, `onUnauthorized` lets the product show its
   door on a 401. `json()` builds a JSON body
-- `me.svelte.ts` — who is signed in and at what standing: `me.check()`,
-  `me.logout()`, `me.admin`, `me.guest`
 - `settings.svelte.ts` — `SettingsDraft`: what is stored, the draft over it,
   `dirty`, and a save that sends only what changed
 - `i18n.svelte.ts` — the runtime, `registerModule()`, and the formatters every
   number, size, date and length on a screen goes through: `formatNumber`,
   `formatBytes`, `formatDate`, `formatDateTime`, `formatTime`, `formatRuntime`,
   `duration`, `plural`
-- `modules.ts` (`modulesFor`, `moduleName`), `lang.ts` (`withLang`), `css.ts` (`cssUrl`),
-  `media.ts` (`episodeCode`, `videoStateMark`), `photos.ts` (`tileOf`,
-  `previewOf`, `playOf`, `aboutOf`, `cropOf`, `portraitOf`, `morphOf`, `placeholderOf`,
-  `groundOf`),
-  `layers.ts`, `stored.ts`, `letters.ts`, `settle.ts`, `hold.ts` (`use:hold` — what a
-  line offers on a long press or a right click; `EpisodeRow` takes it as `onhold`)
+- `theme.svelte.ts` (light, dark, system — the `.dark` class on the document),
+  `toasts.svelte.ts`, `lang.ts` (`withLang`), `css.ts` (`cssUrl`), `layers.ts`,
+  `stored.ts`, `letters.ts`, `settle.ts`, `hold.ts` (`use:hold` — what a line
+  offers on a long press or a right click)
 - `words/` — the words these components say, in Croatian and English, and
-  `check.mjs`, the checker every module runs its own catalogues through
-- `marks/` — every OPUS mark, derived by `marks/build.sh` from the accepted
-  family sheet: one cut O for the tab (`favicon.*`) and the home screen
-  (`icons/`), shared by all three modules; the full lockups
-  `opus-{downloads,library,player}.svg`, which `Wordmark` shows; and the
-  Android vectors (`android/`) the Player's TV app copies in. A module's
-  `static/` links into it; bump `?v=` in `app.html` and the manifest when the
-  marks change
+  `check.mjs`, the checker every product runs its own catalogues through
 
-## How a module consumes it
+## The palette a product brings
 
-Checked out as a git submodule at `frontend/src/lib/opus`, so Vite compiles it as
-ordinary source: no registry, no network at build time, and the deploy carries
-it like any other file. The pinned submodule commit is the version.
+A product defines, for light in `:root` and for dark in `.dark`: `--bg`,
+`--surface`, `--surface-2`, `--border`, `--text`, `--muted`, `--accent`, `--ok`,
+`--warn`, `--danger`, and one `--kind-<name>` for every kind its tags paint.
+Nothing in the kit falls back to a colour of its own, so a palette that forgets
+one shows it at once.
 
-```bash
-git submodule add git@github.com:Bacinac/opus-ui.git frontend/src/lib/opus
-ln -s lib/opus/app.html frontend/src/app.html
-```
+## How a product consumes it
+
+Checked out as a git submodule at `src/lib/kit` of the product's frontend, so
+Vite compiles it as ordinary source: no registry, no network at build time, and
+the deploy carries it like any other file. The pinned submodule commit is the
+version. There is no standalone clone: change it inside one product's
+submodule, commit and push there, then bump the pointer in every product.
 
 `src/app.css`:
 
 ```css
-@import './lib/opus/tokens.css';
-@import './lib/opus/base.css';
+@import './lib/kit/tokens.css';
+@import './<the product's palette>.css';
+@import './lib/kit/base.css';
 ```
 
-`src/lib/i18n/index.ts`:
+The product's words, registered once before anything renders, with the words
+of any package it is built on beneath them:
 
 ```ts
-import { hr } from './hr';
-import { en } from './en';
-import { registerModule, type Word } from '$lib/opus';
+import { registerModule, type Word } from '$lib/kit';
 
-export type MessageKey = keyof typeof hr | Word;
-export const t = registerModule({ hr, en });
+export const t = registerModule({ hr, en }, [/* a package's { hr, en } */]);
 ```
 
-`src/routes/+layout.svelte`:
+## The contract with a product's words
 
-```svelte
-<script lang="ts">
-	import '../app.css';
-	import { page } from '$app/state';
-	import { Login, Shell, Toasts, me, onUnauthorized } from '$lib/opus';
-	import { MODULE, MODULES } from '$lib/core/modules';
-
-	let { children } = $props();
-	onUnauthorized(() => (me.open = false));
-	$effect(() => {
-		me.check();
-	});
-</script>
-
-{#if me.open === false}
-	<Login module={MODULE} onin={() => me.check()} />
-	<Toasts />
-{:else if me.open}
-	<Shell module={MODULE} nav={[]} pathname={page.url.pathname} modules={MODULES}
-		account={me.name ? { username: me.name, href: '/account', onlogout: () => me.logout() } : undefined}>
-		{@render children()}
-	</Shell>
-{:else}
-	<Toasts />
-{/if}
-```
-
-## The contract with a module's words
-
-The words a package component says are the package's (`words/hr.ts`,
-`words/en.ts`), and a module that says one of them again fails at boot. A module
-carries only what it alone knows: its domain, and the `field.*`,
-`settings.opt.*` and `settings.err.*` words for its own settings, which
-`SettingField` and `SettingsDraft` build keys for. Its catalogues are one word
-per line, Croatian first, English in the same order, and `words/check.mjs` —
-run with the module's own families — holds them to that.
-
-## Updating
-
-Change something here, commit, then in each module bump the submodule and commit
-the new pointer, and run that module's check and build.
+The words a kit component says are the kit's (`words/hr.ts`, `words/en.ts`).
+A package above the kit says its own, and a product carries only what it alone
+knows. A layer that says a word already said beneath it fails at boot. The
+catalogues are one word per line, Croatian first, English in the same order,
+and `words/check.mjs` — given the product's families and the directories of the
+packages it is built on — holds them to that.

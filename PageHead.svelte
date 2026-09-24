@@ -10,7 +10,7 @@
 	// otherwise, and takes the way between its views with it.
 	//
 	// It pins itself under whatever the shell keeps at the top, which the shell
-	// measures onto the page as `--opus-header`. Its own height goes back the
+	// measures onto the page as `--shell-header`. Its own height goes back the
 	// same way, so a rail or a column inside the page can sit under both.
 
 	import type { Snippet } from 'svelte';
@@ -18,7 +18,7 @@
 	import Icon from './Icon.svelte';
 	import Tag, { type Tone } from './Tag.svelte';
 
-	export type Fact = { text: string; tone?: Tone; icon?: string };
+	export type Fact = { text: string; tone?: Tone; kind?: string; icon?: string };
 
 	let {
 		title = '',
@@ -56,8 +56,8 @@
 	// is a sibling, and a custom property inherits downwards only.
 	$effect(() => {
 		const root = document.documentElement;
-		root.style.setProperty('--opus-page-head', `${sticky ? tall : 0}px`);
-		return () => root.style.removeProperty('--opus-page-head');
+		root.style.setProperty('--page-head', `${sticky ? tall : 0}px`);
+		return () => root.style.removeProperty('--page-head');
 	});
 </script>
 
@@ -66,7 +66,7 @@
 	class:pinned={sticky}
 	class:lit={Boolean(behind)}
 	bind:clientHeight={tall}
-	style:--opus-page-head="{tall}px"
+	style:--page-head="{tall}px"
 >
 	{#if behind}
 		{#key behind}
@@ -88,7 +88,7 @@
 	{#if facts.length}
 		<div class="facts">
 			{#each facts as f (f.text)}
-				<Tag tone={f.tone ?? 'fact'}>
+				<Tag tone={f.tone ?? 'fact'} kind={f.kind}>
 					{#if f.icon}<Icon name={f.icon} />{/if}
 					{f.text}
 				</Tag>
@@ -155,7 +155,7 @@
 	}
 	.pinned {
 		position: sticky;
-		top: var(--opus-header, 0px);
+		top: var(--shell-header, 0px);
 		z-index: 5;
 	}
 	/* Where it comes to rest is where it starts. The page keeps a margin above
@@ -165,8 +165,8 @@
 	   with something above it has no such margin to take, and taking it anyway
 	   drew it over whatever stands there. */
 	.pinned:first-child {
-		margin-top: calc(-1 * var(--opus-main-top, 0px));
-		padding-top: calc(var(--opus-main-top, 0px) + 0.9rem);
+		margin-top: calc(-1 * var(--shell-main-top, 0px));
+		padding-top: calc(var(--shell-main-top, 0px) + 0.9rem);
 	}
 	.line {
 		display: flex;
