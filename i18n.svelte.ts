@@ -1,15 +1,15 @@
 /* The i18n runtime, shared — and, since the components in this package say
    words of their own, the words for those components too.
 
-   How translation works is identical in Downloads, Library and Player (same two
+   How translation works is identical in every product on the kit (same two
    locales, same storage, same {param} interpolation, same Intl formatting), and
-   so is what the shell SAYS: a login form is a login form in all three. What
-   differs is each module's domain, and that stays with the module.
+   so is what its components SAY: a dialog closes with the same word everywhere.
+   What differs is each product's domain, and that stays with the product.
 
    This used to be a list of keys the package obliged every module to carry.
    Three modules satisfying that contract independently is not one vocabulary,
    it is three that happen to agree until they do not — which they had already
-   stopped doing. A module that redefines one of these now fails at boot rather
+   stopped doing. A product that redefines one of these now fails at boot rather
    than quietly winning. */
 
 import { keep, recall } from './stored';
@@ -124,6 +124,7 @@ export function registerModule<K extends string>(
 }
 
 export function formatNumber(n: number, opts?: Intl.NumberFormatOptions): string {
+	if (!isFinite(n)) return '—';
 	return new Intl.NumberFormat(INTL_LOCALES[i18n.locale], opts).format(n);
 }
 

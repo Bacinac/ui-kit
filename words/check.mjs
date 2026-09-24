@@ -34,8 +34,12 @@ const spoken = (said) =>
  *  for would otherwise live on behind it, and counts a word as asked for only
  *  where code asks for it rather than where a comment mentions it. */
 /** `packages` are the directories, under `root`, of what the module is built on
- *  and what says words of its own: the kit first, then any package above it. */
-export function checkWords({ root, packages, families = {}, leftovers = false }) {
+ *  and what says words of its own: the kit first, then any package above it.
+ *  `src` is the frontend's source directory under `root`; its catalogues are
+ *  `lib/i18n/hr.ts` and `lib/i18n/en.ts`. `named` are the words a server hands
+ *  over whole — the label of a knob sent with the knob — each list with where
+ *  it is read from; they must be said in both catalogues, and are asked for. */
+export function checkWords({ root, src = 'frontend/src', packages, families = {}, named = [], leftovers = false }) {
 	const problems = [];
 	const fail = (said) => problems.push(said);
 	const read = (p) => readFileSync(join(root, p), 'utf8');
@@ -61,8 +65,8 @@ export function checkWords({ root, packages, families = {}, leftovers = false })
 		return words;
 	}
 
-	const hr = catalogue('frontend/src/lib/i18n/hr.ts');
-	const en = catalogue('frontend/src/lib/i18n/en.ts');
+	const hr = catalogue(`${src}/lib/i18n/hr.ts`);
+	const en = catalogue(`${src}/lib/i18n/en.ts`);
 	const packs = packages.map((dir) => ({
 		dir,
 		hr: catalogue(`${dir}/words/hr.ts`),
@@ -130,7 +134,7 @@ export function checkWords({ root, packages, families = {}, leftovers = false })
 	}
 
 	const packageDirs = packages.map((dir) => dir.split('/').pop());
-	const own = sources('frontend/src', [...packageDirs, 'node_modules', 'i18n']).map((p) => [
+	const own = sources(src, [...packageDirs, 'node_modules', 'i18n']).map((p) => [
 		p,
 		leftovers ? spoken(read(p)) : read(p)
 	]);
@@ -138,56 +142,70 @@ export function checkWords({ root, packages, families = {}, leftovers = false })
 
 	const quoted = new Set();
 	for (const [, said] of own)
-		for (const [, key] of said.matchAll(/['"`]([a-z][\w]*(?:\.[\w]+)+)['"`]/gi)) quoted.add(key);
+		for (const [, key] of said.matchAll(/['"`]([a-z][\w.]*)['"`]/gi)) quoted.add(key);
 
+	// a built key joins its family and its member with a dot, or in a catalogue
+	// of snake_case keys with an underscore
 	const builtIn = (files) => {
 		const found = new Map();
 		for (const [path, said] of files) {
-			for (const [, prefix] of said.matchAll(/`([a-zA-Z][\w.]*)\.\$\{/g)) {
-				if (!found.has(prefix)) found.set(prefix, new Set());
-				found.get(prefix).add(relative('frontend/src', path));
+			for (const [, prefix, sep] of said.matchAll(/`([a-zA-Z][\w.]*?)([._])\$\{/g)) {
+				if (!found.has(prefix)) found.set(prefix, { sep, where: new Set() });
+				found.get(prefix).where.add(relative(src, path));
 			}
 		}
 		return found;
 	};
+	const sepOf = (prefix) => (builtHere.get(prefix) ?? builtThere.get(prefix))?.sep ?? '.';
 	const builtHere = builtIn(own);
 	const builtThere = builtIn(theirs);
 
 	for (const [path, said] of own) {
-		for (const [, key] of said.matchAll(/\bt\(\s*'([^']+)'/g))
+		for (const [, , key] of said.matchAll(/\bt\(\s*(['"])([^'"]+)\1/g))
 			if (!hr.has(key) && !packHr.has(key))
-				fail(`${relative('frontend/src', path)} asks for ${key}, and nothing says it`);
+				fail(`${relative(src, path)} asks for ${key}, and nothing says it`);
 		for (const [built] of said.matchAll(/`\$\{[^}]*\}\.[\w.]*\$\{/g))
-			fail(`${relative('frontend/src', path)} builds a key that starts with a variable (${built}) — no family can say what it is`);
+			fail(`${relative(src, path)} builds a key that starts with a variable (${built}) — no family can say what it is`);
 	}
 
 	// ─── the families ────────────────────────────────────────────────────────
 
 	const declared = new Set();
-	for (const [prefix, where] of builtHere)
+	for (const [prefix, { sep, where }] of builtHere)
 		if (!families[prefix])
-			fail(`${[...where].join(', ')} builds ${prefix}.* and no family says what those can be`);
+			fail(`${[...where].join(', ')} builds ${prefix}${sep}* and no family says what those can be`);
 	// the package builds some keys on the module's behalf — a field's label, a
 	// reason a setting was refused — and the words for those are the module's
-	for (const [prefix, where] of builtThere)
-		if (!families[prefix] && hrKeys.some((k) => k.startsWith(`${prefix}.`)))
-			fail(`${[...where].join(', ')} builds ${prefix}.* for this module, and no family says what those can be`);
+	for (const [prefix, { sep, where }] of builtThere)
+		if (!families[prefix] && hrKeys.some((k) => k.startsWith(`${prefix}${sep}`)))
+			fail(`${[...where].join(', ')} builds ${prefix}${sep}* for this module, and no family says what those can be`);
 
 	for (const [prefix, family] of Object.entries(families)) {
 		if (!builtHere.has(prefix) && !builtThere.has(prefix))
 			fail(`the family ${prefix} is declared and nothing builds it — it keeps dead words alive`);
+		const sep = sepOf(prefix);
 		if (family.open) {
-			for (const key of hrKeys) if (key.startsWith(`${prefix}.`)) declared.add(key);
+			for (const key of hrKeys) if (key.startsWith(`${prefix}${sep}`)) declared.add(key);
 			continue;
 		}
 		const members = family.members();
 		if (!members.length) fail(`${prefix}: ${family.where} yielded nothing — the source has moved`);
 		for (const member of new Set(members)) {
-			const key = `${prefix}.${member}`;
+			const key = `${prefix}${sep}${member}`;
 			declared.add(key);
 			if (packHr.has(key)) continue;
 			if (!hr.has(key)) fail(`hr.ts says nothing for ${key} (${family.where})`);
 			if (!en.has(key)) fail(`en.ts says nothing for ${key} (${family.where})`);
+		}
+	}
+
+	for (const { where, keys } of named) {
+		const list = keys();
+		if (!list.length) fail(`${where} yielded nothing — the source has moved`);
+		for (const key of list) {
+			declared.add(key);
+			if (!hr.has(key)) fail(`hr.ts says nothing for ${key} (${where})`);
+			if (!en.has(key)) fail(`en.ts says nothing for ${key} (${where})`);
 		}
 	}
 
@@ -211,13 +229,13 @@ export function checkWords({ root, packages, families = {}, leftovers = false })
 				const word = new RegExp(`\\b${name}\\b`, 'g');
 				const elsewhere = own.some(([other, text]) => other !== path && word.test(text));
 				if (!elsewhere && (said.match(word) ?? []).length < 2)
-					fail(`${relative('frontend/src', path)} exports ${name}, and nothing uses it`);
+					fail(`${relative(src, path)} exports ${name}, and nothing uses it`);
 			}
 		}
 		for (const [path] of lib.filter(([p]) => p.endsWith('.svelte'))) {
 			const file = path.split('/').pop();
-			if (!own.some(([, text]) => text.includes(`/${file}'`)))
-				fail(`${relative('frontend/src', path)} is drawn by nothing`);
+			if (!own.some(([, text]) => text.includes(`/${file}'`) || text.includes(`/${file}"`)))
+				fail(`${relative(src, path)} is drawn by nothing`);
 		}
 	}
 

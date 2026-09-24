@@ -25,8 +25,10 @@ a {
 
 /* Every control the product types into looks the same because it is the same
    rule, not because four pages happened to copy it. A component may still say
-   how wide it is; none of them says what it looks like. */
-input,
+   how wide it is; none of them says what it looks like. Only what is typed
+   into: a slider or a tick box framed and padded like a text field grows a
+   row of them twice as tall, and loses its focus ring below. */
+input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])),
 select,
 textarea {
 	padding: 0.5rem 0.75rem;
@@ -38,7 +40,7 @@ textarea {
 	font-size: var(--fs-l);
 }
 
-input:focus,
+input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])):focus,
 select:focus,
 textarea:focus {
 	outline: none;
@@ -55,7 +57,7 @@ textarea:focus {
 	outline-offset: 2px;
 }
 
-input:focus-visible,
+input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])):focus-visible,
 select:focus-visible,
 textarea:focus-visible {
 	outline: none;

@@ -22,11 +22,12 @@ Ground
 - `tokens.css` — shape, type scale, what is laid over a picture, shadows. The
   palette is not here: the product defines it (below). Seven text sizes
   (`--fs-2xs` … `--fs-2xl`) and no other
-- `base.css` — document defaults: body, links, fields, tables, `.fields`,
-  `.action-row`, `.muted`
+- `base.css` — document defaults: body, links, fields (what is typed into —
+  not sliders, tick boxes or pickers), tables, `.fields`, `.action-row`, `.muted`
 - `names.mjs` — every button, link and clicked element has a name a screen
   reader can say: words on its face, or `aria-label` (`label` on `Button`)
-  when the face is a sign. Every product's check runs it over its `src`
+  when the face is a sign. A surface drawn on with the pointer says
+  `role="presentation"` instead. Every product's check runs it over its `src`
 
 Frame
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
@@ -40,7 +41,9 @@ Controls
 - `Button` (`tone`, `size="small"`, `href`), `ArmedButton` — the one confirm for
   what does not come back
 - `Picks` — the one row of choices, one or many
-- `Tabs`, `SearchBox`, `Field`, `SettingField`, `Chips`, `SaveBar`
+- `Field` — a labelled control: its own input (`value`, `type`), or a label and
+  hint around a control handed to it
+- `Tabs`, `SearchBox`, `SettingField`, `Chips`, `SaveBar`
 - `Tag` — the pill a list hangs a fact or a state on (`tone`, `onpicture`,
   `dashed`), or a kind of thing (`kind`, painted by the palette's
   `--kind-<name>`)
@@ -71,7 +74,8 @@ A product defines, for light in `:root` and for dark in `.dark`: `--bg`,
 `--surface`, `--surface-2`, `--border`, `--text`, `--muted`, `--accent`, `--ok`,
 `--warn`, `--danger`, and one `--kind-<name>` for every kind its tags paint.
 Nothing in the kit falls back to a colour of its own, so a palette that forgets
-one shows it at once.
+one shows it at once. A product may add names of its own beside them — a
+fainter text, the colour written on the accent — the kit paints only with these.
 
 ## How a product consumes it
 
@@ -89,6 +93,10 @@ submodule, commit and push there, then bump the pointer in every product.
 @import './lib/kit/base.css';
 ```
 
+A product on Tailwind imports `base.css` into `layer(base)`, so a utility on an
+element still has the last word over a document default, and maps its own
+colour utilities onto the palette with `@theme inline`.
+
 The product's words, registered once before anything renders, with the words
 of any package it is built on beneath them:
 
@@ -105,4 +113,6 @@ A package above the kit says its own, and a product carries only what it alone
 knows. A layer that says a word already said beneath it fails at boot. The
 catalogues are one word per line, Croatian first, English in the same order,
 and `words/check.mjs` — given the product's families and the directories of the
-packages it is built on — holds them to that.
+packages it is built on — holds them to that. `src` names the frontend's source
+under the repository (`frontend/src` unless said), and `named` lists the words a
+server hands over whole, each with where they are read from.

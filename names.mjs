@@ -64,6 +64,10 @@ function words(node) {
 }
 
 function clicked(node) {
+	// A surface drawn on with the pointer — a zone traced over a camera frame —
+	// has no keyboard or spoken form, and says so by stepping out of the tree.
+	const role = attribute(node, 'role')?.value;
+	if (Array.isArray(role) && ['presentation', 'none'].includes(role[0]?.data)) return false;
 	if (node.type === 'RegularElement') {
 		if (node.name === 'button') return true;
 		if (node.name === 'a' && attribute(node, 'href')) return true;
