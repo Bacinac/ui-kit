@@ -35,6 +35,9 @@ Ground
   proxy in `OPUS_TRUSTED_PROXIES` its `cf-connecting-ip` or first
   `x-forwarded-for`, from anybody else the socket. A module's Dockerfile copies
   it beside the build; `node --test server.test.mjs` checks the address rule
+- `names.mjs` — every button, link and clicked element has a name a screen
+  reader can say: words on its face, or `aria-label` (`label` on `Button`)
+  when the face is a sign. Every module's check runs it over its `src`
 
 Frame
 - `Shell` — header, module nav, the way across to the other modules, the
