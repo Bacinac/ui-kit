@@ -24,28 +24,33 @@ export type Word = keyof typeof wordsHr;
 
 export type Locale = 'hr' | 'en';
 
-const STORAGE_KEY = 'opus.locale';
+const STORAGE_KEY = 'locale';
 const INTL_LOCALES: Record<Locale, string> = { hr: 'hr-HR', en: 'en-US' };
 
-type Catalogs = Record<Locale, Record<string, string>>;
+export type Catalogs = Record<Locale, Record<string, string>>;
 
 class I18n {
 	locale = $state<Locale>('hr');
 	#catalogs: Catalogs = { hr: {}, en: {} };
 
-	/** Called once per module, before anything renders. The package's own words
-	    go underneath the module's, and a module that says one of them again is a
-	    bug loud enough to stop the boot: a silent override is how three modules
-	    drift apart while every one of them looks correct on its own. */
-	register(catalogs: Catalogs) {
+	/** Called once per module, before anything renders. The kit's own words go
+	    at the bottom, then the words of each package the module is built on,
+	    then the module's. A layer that says a word again is a bug loud enough to
+	    stop the boot: a silent override is how three modules drift apart while
+	    every one of them looks correct on its own. */
+	register(catalogs: Catalogs, beneath: Catalogs[] = []) {
 		for (const locale of ['hr', 'en'] as Locale[]) {
-			const said = Object.keys(catalogs[locale]).filter((k) => k in WORDS[locale]);
-			if (said.length) {
-				throw new Error(
-					`i18n: the package already says ${said.join(', ')} — a module must not say it again`
-				);
+			const merged: Record<string, string> = { ...WORDS[locale] };
+			for (const layer of [...beneath, catalogs]) {
+				const said = Object.keys(layer[locale]).filter((k) => k in merged);
+				if (said.length) {
+					throw new Error(
+						`i18n: ${said.join(', ')} is already said beneath — a module must not say it again`
+					);
+				}
+				Object.assign(merged, layer[locale]);
 			}
-			this.#catalogs[locale] = { ...WORDS[locale], ...catalogs[locale] };
+			this.#catalogs[locale] = merged;
 		}
 	}
 
@@ -102,15 +107,19 @@ export function plural(n: number, one: string, few: string, many: string): strin
 	return t(key, { n: formatNumber(n) });
 }
 
-/** A module hands its two catalogues over once, before anything renders, and
-    gets back a `t` narrowed to its own keys and the package's. English has to
-    carry exactly the keys Croatian does, so a word written in one language only
-    is a build error rather than a gap on screen. */
-export function registerModule<K extends string>(catalogs: {
-	hr: Record<K, string>;
-	en: Record<K, string>;
-}) {
-	i18n.register(catalogs);
+/** A module hands its two catalogues over once, before anything renders, with
+    the catalogues of any package it is built on, and gets back a `t` narrowed
+    to its own keys and the kit's. English has to carry exactly the keys
+    Croatian does, so a word written in one language only is a build error
+    rather than a gap on screen. */
+export function registerModule<K extends string>(
+	catalogs: {
+		hr: Record<K, string>;
+		en: Record<K, string>;
+	},
+	beneath: Catalogs[] = []
+) {
+	i18n.register(catalogs, beneath);
 	return t as (key: K | Word, params?: Record<string, string | number>) => string;
 }
 

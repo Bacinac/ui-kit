@@ -1,7 +1,7 @@
-/* Document defaults every OPUS module paints on. Rules that belong to no single
+/* Document defaults every product on the kit paints on. Rules that belong to no single
    page live here; a rule only one page uses stays in that page.
 
-   Import order matters: tokens.css first, then this. */
+   Import order matters: tokens.css, then the palette, then this. */
 
 /* Width means the width you see. Without this an input at `width: 100%` is its
    container plus its own padding and border, so it overhangs everything stacked

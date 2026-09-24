@@ -1,57 +1,11 @@
-/* The OPUS palette. One file, three modules — this is the whole reason the
-   package exists.
+/* What every product built on the kit shares: shape, type, what is laid over a
+   picture, and how far a thing stands off the page. Import it first, then the
+   product's palette, then base.css.
 
-   Downloads, Library and Player used to each carry their own copy of these
-   variables, and they had already drifted: the same structure painted marine in
-   one and wine in another. Under one product that is not a choice, it is a leak.
-   Change a value here and all three follow; there is nowhere else to change it.
-
-   Structure is deliberately unchanged from what the three apps already read
-   through var(), so adopting this file is a swap, not a rewrite. The product
-   signature is a pair: a marine/aqua primary and a warm apricot module accent.
-   Interactive controls remain teal, so the apricot stays reserved for the
-   product mark rather than competing with controls, warnings, or media kinds. */
-
-:root {
-	--bg: #f3f4f5;
-	--surface: #ffffff;
-	--surface-2: #e7eaeb;
-	--border: #ccd3d4;
-	--text: #14191a;
-	--muted: #566063;
-	--accent: #0d7c78;
-	--ok: #1e7a37;
-	--warn: #8a6a00;
-	/* the one red: what failed, and what cannot be taken back */
-	--danger: #b3261e;
-	/* the kinds of thing OPUS keeps. A count of films and a count of records are
-	   both facts, and a screen that paints them the same asks the eye to read
-	   before it can tell them apart */
-	--kind-film: #a35a12;
-	--kind-series: #1f5fbf;
-	--kind-music: #7b3fa8;
-	/* the fourth kind the library holds. A green that is nobody else's: film is
-	   amber, series blue, music violet, and photographs are the one kind that
-	   was made here rather than acquired. */
-	--kind-photos: #1f7a4d;
-}
-
-.dark {
-	--bg: #0e1213;
-	--surface: #161c1d;
-	--surface-2: #1e2627;
-	--border: #2d383a;
-	--text: #e9eeee;
-	--muted: #9aa7a9;
-	--accent: #35b3ad;
-	--ok: #7fd18a;
-	--warn: #ffd479;
-	--danger: #f28b82;
-	--kind-film: #f0a868;
-	--kind-series: #8ab4f8;
-	--kind-music: #c792ea;
-	--kind-photos: #6ed0a0;
-}
+   The palette is the product's, not the kit's. A brand defines, for light in
+   :root and for dark in .dark: --bg, --surface, --surface-2, --border, --text,
+   --muted, --accent, --ok, --warn, --danger, and one --kind-<name> for every
+   kind a Tag is asked to paint. */
 
 /* Shape, said once. Four radii were in use across the three modules — eight,
    ten, twelve, fourteen — chosen a component at a time, which is how a product

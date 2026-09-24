@@ -12,7 +12,7 @@
 // on the screen. An OPEN family is a vocabulary that is not ours to complete —
 // the world's genres — and is checked only for the two languages agreeing.
 //
-// The core is the package's; each module declares only its families and where
+// The core is the kit's; each module declares only its families and where
 // their members come from. It runs over the whole repository, because half of
 // what the screens say is a vocabulary the backend owns.
 
@@ -33,7 +33,9 @@ const spoken = (said) =>
  *  imports, a component nobody draws — because the words such code alone asks
  *  for would otherwise live on behind it, and counts a word as asked for only
  *  where code asks for it rather than where a comment mentions it. */
-export function checkWords({ root, families = {}, leftovers = false }) {
+/** `packages` are the directories, under `root`, of what the module is built on
+ *  and what says words of its own: the kit first, then any package above it. */
+export function checkWords({ root, packages, families = {}, leftovers = false }) {
 	const problems = [];
 	const fail = (said) => problems.push(said);
 	const read = (p) => readFileSync(join(root, p), 'utf8');
@@ -59,11 +61,20 @@ export function checkWords({ root, families = {}, leftovers = false }) {
 		return words;
 	}
 
-	const PACKAGE = 'frontend/src/lib/opus';
 	const hr = catalogue('frontend/src/lib/i18n/hr.ts');
 	const en = catalogue('frontend/src/lib/i18n/en.ts');
-	const packHr = catalogue(`${PACKAGE}/words/hr.ts`);
-	const packEn = catalogue(`${PACKAGE}/words/en.ts`);
+	const packs = packages.map((dir) => ({
+		dir,
+		hr: catalogue(`${dir}/words/hr.ts`),
+		en: catalogue(`${dir}/words/en.ts`)
+	}));
+	const packHr = new Map();
+	for (const pack of packs) {
+		for (const [key, said] of pack.hr) {
+			if (packHr.has(key)) fail(`${pack.dir}/words/hr.ts says ${key}, which a package beneath it already says`);
+			packHr.set(key, said);
+		}
+	}
 
 	// ─── the catalogues ──────────────────────────────────────────────────────
 
@@ -98,7 +109,7 @@ export function checkWords({ root, families = {}, leftovers = false }) {
 		}
 	}
 	pair('hr.ts', hr, 'en.ts', en);
-	pair('words/hr.ts', packHr, 'words/en.ts', packEn);
+	for (const pack of packs) pair(`${pack.dir}/words/hr.ts`, pack.hr, `${pack.dir}/words/en.ts`, pack.en);
 
 	const hrKeys = [...hr.keys()];
 	// the runtime throws at boot on this; here it is said before the boot
@@ -118,11 +129,12 @@ export function checkWords({ root, families = {}, leftovers = false }) {
 		return out;
 	}
 
-	const own = sources('frontend/src', ['opus', 'node_modules', 'i18n']).map((p) => [
+	const packageDirs = packages.map((dir) => dir.split('/').pop());
+	const own = sources('frontend/src', [...packageDirs, 'node_modules', 'i18n']).map((p) => [
 		p,
 		leftovers ? spoken(read(p)) : read(p)
 	]);
-	const theirs = sources(PACKAGE, ['words', 'node_modules']).map((p) => [p, read(p)]);
+	const theirs = packages.flatMap((dir) => sources(dir, ['words', 'node_modules'])).map((p) => [p, read(p)]);
 
 	const quoted = new Set();
 	for (const [, said] of own)

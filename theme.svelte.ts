@@ -2,7 +2,7 @@ import { keep, recall } from './stored';
 
 export type Theme = 'light' | 'dark' | 'system';
 
-const STORAGE_KEY = 'opus.theme';
+const STORAGE_KEY = 'theme';
 
 function readStored(): Theme {
 	const v = recall(STORAGE_KEY);
