@@ -19,6 +19,13 @@
 			'M2.5 4h19A1.5 1.5 0 0 1 23 5.5v10a1.5 1.5 0 0 1-1.5 1.5h-19A1.5 1.5 0 0 1 1 15.5v-10A1.5 1.5 0 0 1 2.5 4Z',
 			'M8 19h8a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2Z'
 		],
+		// a screen with waves rising from its corner, for sending the picture to it
+		cast: [
+			'M3 4h18a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7v-2h7V6H3v3H1V6a2 2 0 0 1 2-2Z',
+			'M1 18a3 3 0 0 1 3 3H1v-3Z',
+			'M1 14a7 7 0 0 1 7 7H6a5 5 0 0 0-5-5v-2Z',
+			'M1 10a11 11 0 0 1 11 11h-2a9 9 0 0 0-9-9v-2Z'
+		],
 		// a photograph: a frame with a horizon and a sun in it
 		photo: [
 			'M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 11.4h14.8l-4.6-5.9-3.4 4.2-2.2-2.5-4.6 4.2ZM7.8 8.1a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z'
