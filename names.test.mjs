@@ -32,3 +32,7 @@ test("a clicked element is a button, and a component that draws its own face is 
   assert.deepEqual(lines(`<InfoPress onclick={go} />\n<Press onclick={go}><Icon name="x" /></Press>`), [2]);
   assert.deepEqual(lines(`{#each items as it}<button>{@render line(it)}</button>{/each}`), []);
 });
+
+test("a surface drawn on with the pointer steps out of the tree instead of taking a name", () => {
+  assert.deepEqual(lines(`<svg role="presentation" onclick={draw}></svg>\n<svg onclick={draw}></svg>`), [2]);
+});
