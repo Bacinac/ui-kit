@@ -14,6 +14,7 @@
 		size = 'normal',
 		type = 'button',
 		href,
+		download = false,
 		disabled = false,
 		selected = false,
 		title,
@@ -29,6 +30,9 @@
 		type?: 'button' | 'submit';
 		/** a way somewhere rather than a thing done: drawn as a button, followed as a link */
 		href?: string;
+		/** the link hands over a file rather than going to a page, so the page's
+		 *  own router must leave it alone */
+		download?: boolean;
 		disabled?: boolean;
 		/** for a button standing in a set of choices: this is the one in force */
 		selected?: boolean;
@@ -43,7 +47,7 @@
 </script>
 
 {#if href}
-	<a class="btn {tone} {size}" class:selected {href} {title} aria-label={label}>
+	<a class="btn {tone} {size}" class:selected {href} download={download ? '' : undefined} {title} aria-label={label}>
 		{@render children()}
 	</a>
 {:else}
