@@ -6,6 +6,7 @@
 
 export { theme, type Theme } from './theme.svelte';
 export { toasts, type Toast, type ToastKind } from './toasts.svelte';
+export { dialog, type DialogKind, type DialogRequest } from './dialogs.svelte';
 export {
 	i18n,
 	t,
@@ -32,6 +33,7 @@ export type { Tone } from './Button.svelte';
 export { default as Card } from './Card.svelte';
 export { default as Chips } from './Chips.svelte';
 export { default as Dialog } from './Dialog.svelte';
+export { default as Dialogs } from './Dialogs.svelte';
 export { default as Field } from './Field.svelte';
 export { default as Meter } from './Meter.svelte';
 export { default as Notice } from './Notice.svelte';
@@ -54,6 +56,8 @@ export type { Fact } from './PageHead.svelte';
 export { default as Stats } from './Stats.svelte';
 export type { Stat } from './Stats.svelte';
 export { default as SaveBar } from './SaveBar.svelte';
+export { default as SaveButton } from './SaveButton.svelte';
 export { default as Toasts } from './Toasts.svelte';
+export { default as Toggle } from './Toggle.svelte';
 export { default as SettingField } from './SettingField.svelte';
 export type { FieldSetting } from './SettingField.svelte';

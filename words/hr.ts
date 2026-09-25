@@ -3,8 +3,10 @@
 // again throws at boot.
 
 export const hr = {
+	'common.cancel': 'Odustani',
 	'common.close': 'Zatvori',
 	'common.confirm': 'Potvrdi',
+	'common.ok': 'U redu',
 	'common.requestFailed': 'Greška: {detail}',
 	'common.save': 'Spremi',
 	'common.saving': 'Spremam…',

@@ -3,7 +3,7 @@
 	// modules' settings pages as the same forty lines of CSS twice, which is the
 	// drift this package exists to stop.
 
-	import Button from './Button.svelte';
+	import SaveButton from './SaveButton.svelte';
 	import { t } from './i18n.svelte';
 
 	let {
@@ -21,9 +21,7 @@
 {#if dirty}
 	<div class="save-bar">
 		<span class="unsaved">{t('settings.unsaved')}</span>
-		<Button type="submit" tone="primary" disabled={saving}>
-			{saving ? t('common.saving') : t('common.save')}
-		</Button>
+		<SaveButton type="submit" {dirty} {saving} />
 	</div>
 {/if}
 
