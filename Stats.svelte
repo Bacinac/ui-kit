@@ -6,7 +6,7 @@
 	export type Stat = {
 		label: string;
 		value: number | string;
-		tone?: 'ok' | 'warn';
+		tone?: 'ok' | 'warn' | 'err';
 		href?: string;
 	};
 </script>
@@ -66,6 +66,9 @@
 	}
 	.tile.warn b {
 		color: var(--warn);
+	}
+	.tile.err b {
+		color: var(--danger);
 	}
 	a.tile {
 		color: inherit;

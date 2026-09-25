@@ -8,6 +8,8 @@
 </script>
 
 <script lang="ts">
+	import type { Snippet } from 'svelte';
+
 	// A small set, chosen among: one of them, or as many as you like. Pills
 	// rather than checkboxes because the same row has to work under a mouse and
 	// under a D-pad, where a tick box the size of a word is a target and a tick
@@ -21,6 +23,8 @@
 		chosen = $bindable(),
 		many = false,
 		all = '',
+		disabled = false,
+		face,
 		onpick
 	}: {
 		picks: Pick[];
@@ -29,6 +33,10 @@
 		many?: boolean;
 		/** the label of the take-everything pill; absent means no such pill */
 		all?: string;
+		disabled?: boolean;
+		/** a pill that shows more than its word — a sign, a dot for something
+		 *  live behind it; the label stays what a screen reader says */
+		face?: Snippet<[Pick]>;
 		/** told which pill was pressed, for a choice that acts rather than
 		 *  merely being recorded. A row that saves as you press it cannot use
 		 *  the bound value: that fires on the way in as well. */
@@ -50,6 +58,7 @@
 			type="button"
 			class="pick"
 			class:on={every}
+			{disabled}
 			onclick={() => (chosen = every ? [] : picks.map((p) => p.key))}
 		>
 			{all}
@@ -61,9 +70,11 @@
 			class="pick"
 			class:on={chosen.includes(pick.key)}
 			aria-pressed={many ? chosen.includes(pick.key) : undefined}
+			aria-label={face ? pick.label : undefined}
+			{disabled}
 			onclick={() => press(pick.key)}
 		>
-			{pick.label}{#if pick.note}<span class="note">{pick.note}</span>{/if}
+			{#if face}{@render face(pick)}{:else}{pick.label}{/if}{#if pick.note}<span class="note">{pick.note}</span>{/if}
 		</button>
 	{/each}
 </div>
@@ -84,10 +95,15 @@
 		background: transparent;
 		color: inherit;
 		font: inherit;
+		font-size: var(--field-fs);
 		cursor: pointer;
 	}
-	.pick:hover {
+	.pick:hover:not(:disabled) {
 		border-color: var(--accent);
+	}
+	.pick:disabled {
+		opacity: 0.55;
+		cursor: default;
 	}
 	.pick.on {
 		background: var(--accent);

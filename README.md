@@ -36,6 +36,9 @@ Frame
 - `Heading` — what introduces a block within a page
 - `Dialog` — a window over the page: heading, way out, Escape, and the keyboard
   kept inside it
+- `Dialogs` with `dialog` (`dialogs.svelte.ts`) — a question put to the person:
+  `await dialog.confirm(…)` / `dialog.alert(…)`, drawn by the one `<Dialogs />`
+  the product mounts in its frame
 
 Controls
 - `Button` (`tone`, `size="small"`, `href`), `ArmedButton` — the one confirm for
@@ -43,6 +46,9 @@ Controls
 - `Picks` — the one row of choices, one or many
 - `Field` — a labelled control: its own input (`value`, `type`), or a label and
   hint around a control handed to it
+- `SaveButton` — the one Save: open only when `dirty` and not `saving`;
+  `SaveBar` carries it at the foot of a settings form
+- `Toggle` — on or off, for what takes effect the moment it is flipped
 - `Tabs`, `SearchBox`, `SettingField`, `Chips`, `SaveBar`
 - `Tag` — the pill a list hangs a fact or a state on (`tone`, `onpicture`,
   `dashed`), or a kind of thing (`kind`, painted by the palette's
@@ -76,6 +82,10 @@ A product defines, for light in `:root` and for dark in `.dark`: `--bg`,
 Nothing in the kit falls back to a colour of its own, so a palette that forgets
 one shows it at once. A product may add names of its own beside them — a
 fainter text, the colour written on the accent — the kit paints only with these.
+
+Density is the product's too: `--field-pad` and `--field-fs` size every field
+and every row of `Picks`. The kit's defaults are the reading size a television
+wants; a product dense with settings sets them smaller in its `:root`.
 
 ## How a product consumes it
 

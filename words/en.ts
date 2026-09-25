@@ -1,8 +1,10 @@
 // The same words in English, key for key and in the same order.
 
 export const en = {
+	'common.cancel': 'Cancel',
 	'common.close': 'Close',
 	'common.confirm': 'Confirm',
+	'common.ok': 'OK',
 	'common.requestFailed': 'Error: {detail}',
 	'common.save': 'Save',
 	'common.saving': 'Saving…',
