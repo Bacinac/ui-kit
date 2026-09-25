@@ -34,14 +34,6 @@
 	--fs-2xl: 1.5rem; /* the name of the page */
 }
 
-/* How much room a field takes, typed into or picked among (Picks). A television
-   wants the reading size at ten feet; a settings screen with forty fields on it
-   wants the dense size. The look is the kit's, the density the product's. */
-:root {
-	--field-pad: 0.5rem 0.75rem;
-	--field-fs: var(--fs-l);
-}
-
 /* What is drawn over a picture. A picture is not themed, so nothing laid on it
    is: white words on a black veil in every theme, at the few strengths the
    product uses — thin to dim what is around a thing, the veil a label sits on,

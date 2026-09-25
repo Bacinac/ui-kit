@@ -31,13 +31,14 @@ a {
 input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])),
 select,
 textarea {
-	padding: var(--field-pad);
+	/* the density is the product's to set (README); unset, the television's */
+	padding: var(--field-pad, 0.5rem 0.75rem);
 	border-radius: var(--radius-s);
 	border: 1px solid var(--border);
 	background: var(--surface);
 	color: var(--text);
 	font: inherit;
-	font-size: var(--field-fs);
+	font-size: var(--field-fs, var(--fs-l));
 }
 
 input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])):focus,

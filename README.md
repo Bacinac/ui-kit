@@ -84,8 +84,9 @@ one shows it at once. A product may add names of its own beside them — a
 fainter text, the colour written on the accent — the kit paints only with these.
 
 Density is the product's too: `--field-pad` and `--field-fs` size every field
-and every row of `Picks`. The kit's defaults are the reading size a television
-wants; a product dense with settings sets them smaller in its `:root`.
+and every row of `Picks`. Unset, a field takes the reading size a television
+wants and `Picks` the size of the text around them; a product dense with
+settings sets both in its `:root`.
 
 ## How a product consumes it
 
