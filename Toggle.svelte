@@ -72,8 +72,8 @@
 		width: var(--knob);
 		height: var(--knob);
 		border-radius: 999px;
-		background: #fff;
-		box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+		background: var(--bg);
+		box-shadow: var(--shadow-s);
 		transition: left 0.12s ease;
 	}
 	.on .knob {
