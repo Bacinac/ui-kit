@@ -127,3 +127,9 @@ and `words/check.mjs` — given the product's families and the directories of th
 packages it is built on — holds them to that. `src` names the frontend's source
 under the repository (`frontend/src` unless said), and `named` lists the words a
 server hands over whole, each with where they are read from.
+
+## Licence
+
+[PolyForm Noncommercial 1.0.0](LICENSE.md) — free for personal and
+noncommercial use; a commercial licence on request. Outside contributions
+(pull requests) are not taken. Required Notice: Copyright (c) 2026 Ivo Bošković.
