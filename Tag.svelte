@@ -155,4 +155,8 @@
 		background: var(--danger);
 		color: var(--bg);
 	}
+	.onpicture.kind {
+		background: var(--hue);
+		color: var(--bg);
+	}
 </style>
