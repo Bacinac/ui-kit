@@ -95,7 +95,7 @@
 		background: transparent;
 		color: inherit;
 		font: inherit;
-		font-size: var(--field-fs);
+		font-size: var(--field-fs, 1em);
 		cursor: pointer;
 	}
 	.pick:hover:not(:disabled) {
