@@ -143,4 +143,16 @@
 		background: var(--accent);
 		color: var(--bg);
 	}
+	.onpicture.ok {
+		background: var(--ok);
+		color: var(--bg);
+	}
+	.onpicture.warn {
+		background: var(--warn);
+		color: var(--bg);
+	}
+	.onpicture.err {
+		background: var(--danger);
+		color: var(--bg);
+	}
 </style>

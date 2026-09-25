@@ -2,12 +2,14 @@
 	/** one number the page opens with, and what it counts. `href` is where the
 	 * things it counted can be seen: a number that names a set the person can
 	 * be shown is a way in, and one that names nothing they could look at is
-	 * just a number. */
+	 * just a number. `detail` is what the number is made of — how many of the
+	 * cameras are on, how many of the faces have a name — read under it. */
 	export type Stat = {
 		label: string;
 		value: number | string;
 		tone?: 'ok' | 'warn' | 'err';
 		href?: string;
+		detail?: string;
 	};
 </script>
 
@@ -28,11 +30,13 @@
 			<a class="tile {stat.tone ?? ''}" href={stat.href}>
 				<b>{typeof stat.value === 'number' ? formatNumber(stat.value) : stat.value}</b>
 				<span>{stat.label}</span>
+				{#if stat.detail}<small>{stat.detail}</small>{/if}
 			</a>
 		{:else}
 			<div class="tile {stat.tone ?? ''}">
 				<b>{typeof stat.value === 'number' ? formatNumber(stat.value) : stat.value}</b>
 				<span>{stat.label}</span>
+				{#if stat.detail}<small>{stat.detail}</small>{/if}
 			</div>
 		{/if}
 	{/each}
@@ -59,6 +63,10 @@
 	}
 	.tile span {
 		font-size: var(--fs-s);
+		color: var(--muted);
+	}
+	.tile small {
+		font-size: var(--fs-xs);
 		color: var(--muted);
 	}
 	.tile.ok b {
