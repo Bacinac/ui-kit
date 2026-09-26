@@ -89,7 +89,9 @@ Behaviour
   adds what only the product can tell keeps the tab in use, and `held` says so
 - `settings.svelte.ts` — `SettingsDraft`: what is stored, the draft over it,
   `dirty`, and a save that sends only what changed
-- `i18n.svelte.ts` — the runtime, `registerModule()`, and the formatters every
+- `i18n.svelte.ts` — the runtime, `registerModule()`, `i18n.extend()` for the
+  words a server hands over after the boot (what an installation added says),
+  and the formatters every
   number, size, date and length on a screen goes through: `formatNumber`,
   `formatBytes`, `formatDate`, `formatDateTime`, `formatTime`, `formatRuntime`,
   `duration`, `plural`
