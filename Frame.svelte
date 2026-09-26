@@ -247,17 +247,17 @@
 				{#each more as group, g (g)}
 					<div class="group">
 						{#each group as s (s.href)}
+							<a href={s.href} class:on={on(s)} aria-current={on(s) ? 'page' : undefined}
+								>{s.label}</a
+							>
 							{#if s.children}
-								<p class="title">{s.label}</p>
-								{#each s.children as c (c.href)}
-									<a href={c.href} class:on={on(c)} aria-current={on(c) ? 'page' : undefined}
-										>{c.label}</a
-									>
-								{/each}
-							{:else}
-								<a href={s.href} class:on={on(s)} aria-current={on(s) ? 'page' : undefined}
-									>{s.label}</a
-								>
+								<div class="children">
+									{#each s.children as c (c.href)}
+										<a href={c.href} class:on={on(c)} aria-current={on(c) ? 'page' : undefined}
+											>{c.label}</a
+										>
+									{/each}
+								</div>
 							{/if}
 						{/each}
 					</div>
@@ -584,15 +584,6 @@
 			margin: 0 auto 0.5rem;
 			border-radius: 999px;
 			background: var(--border);
-		}
-		.title {
-			margin: 0;
-			padding: 0.25rem 0.75rem;
-			color: var(--muted);
-			font-size: var(--fs-xs);
-			font-weight: 600;
-			letter-spacing: 0.04em;
-			text-transform: uppercase;
 		}
 	}
 </style>
