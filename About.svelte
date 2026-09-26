@@ -91,6 +91,8 @@
 		border-radius: var(--radius-l);
 	}
 	header {
+		display: flex;
+		justify-content: center;
 		padding: 2rem;
 		border-bottom: 1px solid var(--border);
 	}

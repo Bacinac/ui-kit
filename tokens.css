@@ -34,6 +34,14 @@
 	--fs-2xl: 1.5rem; /* the name of the page */
 }
 
+/* One face for every product. Named as Tailwind names it, so a product built
+   on Tailwind takes the kit's through its own utilities instead of keeping a
+   second stack beside it. */
+:root {
+	--font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans',
+		Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
 /* What is drawn over a picture. A picture is not themed, so nothing laid on it
    is: white words on a black veil in every theme, at the few strengths the
    product uses — thin to dim what is around a thing, the veil a label sits on,
