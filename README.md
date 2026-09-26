@@ -59,6 +59,11 @@ Controls
 - `Notice`, `Progress`, `Meter`, `Stats`, `Letters`, `Icon`, `Toasts`
 - `NewVersion` — the bar a tab running an older build shows, with the way to
   reload it
+- `About` — the page that says what the product is, who made it and which
+  build the tab runs; the product hands over its mark (`brand`), its words and
+  its `VersionWatch`'s `booted`
+- `Signature` — the line at the foot of a frame: the maker, the build, the way
+  to `/about`. Who the maker is lives once, in `maker.ts`
 
 Behaviour
 - `http.ts` — `request()`: the one way a page asks its backend. A refusal is a

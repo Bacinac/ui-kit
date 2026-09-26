@@ -13,6 +13,15 @@ const SEEN = 'kit.version.seen';
 const POLL_MS = 120_000;
 const QUIET_MS = 300_000;
 
+/** What a product's /version says about the build it serves. */
+export type Revision = {
+	version: string;
+	sha?: string;
+	branch?: string;
+	committed_at?: string | null;
+	dirty?: boolean;
+};
+
 export type Surroundings = {
 	reload: () => void;
 	/** Nobody would lose anything to a reload now. */

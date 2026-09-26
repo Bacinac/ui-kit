@@ -1,6 +1,16 @@
 // The same words in English, key for key and in the same order.
 
 export const en = {
+	'about.author': 'Author',
+	'about.contact': 'Contact',
+	'about.date': 'Date',
+	'about.dirty': 'local changes',
+	'about.heading.stack': 'Technology',
+	'about.heading.what': 'What it actually does',
+	'about.heading.why': 'What sets it apart',
+	'about.revision': 'Revision',
+	'about.version': 'Version',
+	'about.year': 'Year',
 	'common.cancel': 'Cancel',
 	'common.close': 'Close',
 	'common.confirm': 'Confirm',
