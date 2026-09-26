@@ -72,9 +72,9 @@ describe('VersionWatch', () => {
 		const around = surroundings(true);
 		const w = new VersionWatch<Rev>(served({ version: '0.1.603' }, { version: '0.1.603' }, { version: '0.1.604' }), around);
 		await w.boot();
-		await w.check();
+		expect(await w.check()).toBe(false);
 		expect(around.reload).not.toHaveBeenCalled();
-		await w.check();
+		expect(await w.check()).toBe(true);
 		expect(around.reload).toHaveBeenCalledOnce();
 	});
 

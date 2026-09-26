@@ -80,14 +80,16 @@ export class VersionWatch<R extends { version: string }> {
 		}
 	}
 
-	async check(): Promise<void> {
+	/** Whether the tab is now being reloaded for a newer build: whatever the
+	 *  caller was about to do, the page doing it is going away. */
+	async check(): Promise<boolean> {
 		if (!this.booted) {
 			await this.boot();
-			return;
+			return false;
 		}
 		const rev = await this.#ask();
 		if (rev?.version && rev.version !== this.booted.version) this.available = rev.version;
-		this.#reloadIfIdle();
+		return this.#reloadIfIdle();
 	}
 
 	reload(): void {
@@ -108,8 +110,10 @@ export class VersionWatch<R extends { version: string }> {
 		});
 	}
 
-	#reloadIfIdle(): void {
-		if (this.available && !this.held && this.#surroundings().idle()) this.reload();
+	#reloadIfIdle(): boolean {
+		if (!this.available || this.held || !this.#surroundings().idle()) return false;
+		this.reload();
+		return true;
 	}
 
 	#surroundings(): Surroundings {
