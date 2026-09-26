@@ -31,7 +31,8 @@ export type Catalogs = Record<Locale, Record<string, string>>;
 
 class I18n {
 	locale = $state<Locale>('hr');
-	#catalogs: Catalogs = { hr: {}, en: {} };
+	#registered: Catalogs = { hr: {}, en: {} };
+	#catalogs = $state.raw<Catalogs>({ hr: {}, en: {} });
 
 	/** Called once per module, before anything renders. The kit's own words go
 	    at the bottom, then the words of each package the module is built on,
@@ -50,8 +51,26 @@ class I18n {
 				}
 				Object.assign(merged, layer[locale]);
 			}
-			this.#catalogs[locale] = merged;
+			this.#registered[locale] = merged;
 		}
+		this.#catalogs = this.#registered;
+	}
+
+	/** Words the build cannot know: what an installation added to the product
+	    says, handed over by its server after the boot. Laid over everything
+	    registered under the same rule — a word said again stops it — and
+	    replacing whatever an earlier call laid there, so asking twice is not
+	    saying twice. Everything already on screen is said again with them. */
+	extend(catalogs: Catalogs) {
+		const next: Catalogs = { hr: {}, en: {} };
+		for (const locale of ['hr', 'en'] as Locale[]) {
+			const said = Object.keys(catalogs[locale] ?? {}).filter((k) => k in this.#registered[locale]);
+			if (said.length) {
+				throw new Error(`i18n: ${said.join(', ')} is already said beneath — an extension must not say it again`);
+			}
+			next[locale] = { ...this.#registered[locale], ...catalogs[locale] };
+		}
+		this.#catalogs = next;
 	}
 
 	get catalogs(): Catalogs {
