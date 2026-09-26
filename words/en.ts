@@ -23,4 +23,7 @@ export const en = {
 	'settings.secretSet': '•••••••• (set — leave blank to keep)',
 	'settings.secretUnset': 'not set',
 	'settings.unsaved': 'Unsaved changes',
+	'version.available': 'Version {version} is available.',
+	'version.installed': 'Updated to version {version}.',
+	'version.reload': 'Reload',
 } as const;

@@ -25,4 +25,7 @@ export const hr = {
 	'settings.secretSet': '•••••••• (postavljeno — ostavite prazno za nepromijenjeno)',
 	'settings.secretUnset': 'nije postavljeno',
 	'settings.unsaved': 'Nespremljene promjene',
+	'version.available': 'Dostupna je nova verzija {version}.',
+	'version.installed': 'Aplikacija je ažurirana na verziju {version}.',
+	'version.reload': 'Osvježi',
 } as const;
