@@ -3,6 +3,16 @@
 // again throws at boot.
 
 export const hr = {
+	'about.author': 'Autor',
+	'about.contact': 'Kontakt',
+	'about.date': 'Datum',
+	'about.dirty': 'lokalne izmjene',
+	'about.heading.stack': 'Tehnologija',
+	'about.heading.what': 'Što stvarno radi',
+	'about.heading.why': 'Po čemu se razlikuje',
+	'about.revision': 'Revizija',
+	'about.version': 'Verzija',
+	'about.year': 'Godina',
 	'common.cancel': 'Odustani',
 	'common.close': 'Zatvori',
 	'common.confirm': 'Potvrdi',
