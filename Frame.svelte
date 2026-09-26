@@ -403,6 +403,9 @@
 	main {
 		flex: 1;
 		padding: var(--shell-main-top) var(--frame-gutter) calc(3rem + var(--shell-bar-h));
+		--frame-room: calc(
+			100dvh - var(--shell-header) - var(--shell-main-top) - 3rem - var(--shell-bar-h)
+		);
 	}
 
 	.account {

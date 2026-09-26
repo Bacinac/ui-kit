@@ -42,7 +42,8 @@ Frame
   a bottom bar of the sections named in `tabs` (four, or five when one would be
   left over) and a sheet for the rest. The page scrolls, not a box inside it.
   It measures its top bar into `--shell-header`, its bottom bar into
-  `--shell-bar-h`, and says its top padding as `--shell-main-top`
+  `--shell-bar-h`, says its top padding as `--shell-main-top`, and gives a page
+  that fills the screen instead of scrolling the height it has as `--frame-room`
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
   header. It reads the header's height from `--shell-header` and the frame's top
   padding from `--shell-main-top`, and writes its own height to `--page-head`
