@@ -74,7 +74,8 @@ Behaviour
 - `version.svelte.ts` — `VersionWatch`: which build the tab runs, whether the
   server serves a newer one, a reload once nobody is using the tab, and after a
   reload the build it now runs. The product hands it the call that reads its
-  `/version` and starts it once from its frame with `watch()`
+  `/version` and starts it once from its frame with `watch()`; `holdWhile()`
+  adds what only the product can tell keeps the tab in use, and `held` says so
 - `settings.svelte.ts` — `SettingsDraft`: what is stored, the draft over it,
   `dirty`, and a save that sends only what changed
 - `i18n.svelte.ts` — the runtime, `registerModule()`, and the formatters every

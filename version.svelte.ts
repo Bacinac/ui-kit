@@ -36,6 +36,8 @@ export class VersionWatch<R extends { version: string }> {
 
 	#source: () => Promise<R | null>;
 	#around: Surroundings | null;
+	#holds: (() => boolean)[] = [];
+	#watching = false;
 
 	constructor(source: () => Promise<R | null>, around: Surroundings | null = null) {
 		this.#source = source;
@@ -44,6 +46,16 @@ export class VersionWatch<R extends { version: string }> {
 
 	get label(): string {
 		return this.booted?.version ?? '';
+	}
+
+	/** In use for a reason only the product can see: a film playing in an
+	 *  engine outside the page, say, which no element on it knows about. */
+	holdWhile(busy: () => boolean): void {
+		this.#holds.push(busy);
+	}
+
+	get held(): boolean {
+		return this.#holds.some((busy) => busy());
 	}
 
 	async #ask(): Promise<R | null> {
@@ -83,9 +95,11 @@ export class VersionWatch<R extends { version: string }> {
 	}
 
 	/** Boot, then ask every two minutes and whenever the tab is looked at again.
-	 *  Lives as long as the tab, so there is nothing to stop. */
+	 *  Lives as long as the tab, so there is nothing to stop, and a frame
+	 *  mounted again starts nothing twice. */
 	watch(everyMs = POLL_MS): void {
-		if (typeof window === 'undefined') return;
+		if (this.#watching || typeof window === 'undefined') return;
+		this.#watching = true;
 		void this.boot();
 		setInterval(() => void this.check(), everyMs);
 		document.addEventListener('visibilitychange', () => {
@@ -95,7 +109,7 @@ export class VersionWatch<R extends { version: string }> {
 	}
 
 	#reloadIfIdle(): void {
-		if (this.available && this.#surroundings().idle()) this.reload();
+		if (this.available && !this.held && this.#surroundings().idle()) this.reload();
 	}
 
 	#surroundings(): Surroundings {
