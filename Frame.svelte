@@ -560,7 +560,7 @@
 			z-index: 40;
 			display: block;
 			border: none;
-			background: rgb(0 0 0 / 0.4);
+			background: var(--veil-thin);
 			cursor: default;
 		}
 		.sheet {
