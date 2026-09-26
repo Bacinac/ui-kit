@@ -78,6 +78,21 @@ describe('VersionWatch', () => {
 		expect(around.reload).toHaveBeenCalledOnce();
 	});
 
+	it('leaves a tab the product says is in use until it is not', async () => {
+		const around = surroundings(true);
+		let playing = true;
+		const w = new VersionWatch<Rev>(served({ version: '0.1.603' }, { version: '0.1.604' }), around);
+		w.holdWhile(() => playing);
+		await w.boot();
+		await w.check();
+		expect(w.available).toBe('0.1.604');
+		expect(w.held).toBe(true);
+		expect(around.reload).not.toHaveBeenCalled();
+		playing = false;
+		await w.check();
+		expect(around.reload).toHaveBeenCalledOnce();
+	});
+
 	it('takes a server that does not answer as no news', async () => {
 		const around = surroundings(true);
 		const w = new VersionWatch<Rev>(served(new Error('down'), { version: '0.1.603' }, new Error('down')), around);
