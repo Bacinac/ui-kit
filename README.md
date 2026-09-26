@@ -37,11 +37,12 @@ Ground
 
 Frame
 - `Frame` — the frame every page stands in: a sidebar with the product's mark
-  (`brand`), its `sections` in groups and the `Signature`; a top bar with what
+  (`brand`, an image the frame sizes and centres in a band as tall as the top
+  bar), its `sections` in groups and the `Signature`; a top bar with what
   only the product says on every page (`bar`) and the account menu; on a phone
   a bottom bar of the sections named in `tabs` (four, or five when one would be
   left over) and a sheet for the rest. The page scrolls, not a box inside it.
-  It measures its top bar into `--shell-header`, its bottom bar into
+  It says its top bar's height as `--shell-header`, measures its bottom bar into
   `--shell-bar-h`, says its top padding as `--shell-main-top`, and gives a page
   that fills the screen instead of scrolling the height it has as `--frame-room`
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
@@ -71,7 +72,8 @@ Controls
 - `NewVersion` — the bar a tab running an older build shows, with the way to
   reload it
 - `About` — the page that says what the product is, who made it and which
-  build the tab runs; the product hands over its mark (`brand`), its words and
+  build the tab runs; the product hands over its mark (`brand`, sized by the
+  page like the frame sizes it), its words and
   its `VersionWatch`'s `booted`
 - `Signature` — the line at the foot of a frame: the maker, the build, the way
   to `/about`. Who the maker is lives once, in `maker.ts`

@@ -106,7 +106,6 @@
 		menu = false;
 	});
 
-	let tall = $state(0);
 	let low = $state(0);
 
 	function away(e: MouseEvent) {
@@ -121,7 +120,7 @@
 
 <svelte:window onclick={away} onkeydown={key} />
 
-<div class="frame" style:--shell-header="{tall}px" style:--shell-bar-h="{low}px">
+<div class="frame" style:--shell-bar-h="{low}px">
 	<aside>
 		<a href="/" class="brand">{@render brand()}</a>
 		<nav>
@@ -146,7 +145,7 @@
 	</aside>
 
 	<div class="column">
-		<header bind:clientHeight={tall}>
+		<header>
 			<a href="/" class="brand">{@render brand()}</a>
 			<div class="bar">{@render bar?.()}</div>
 			{#if account}
@@ -287,6 +286,22 @@
 		/* said out loud because a page head has to cancel it: pinned, the head
 		   rises by exactly this much */
 		--shell-main-top: 1.5rem;
+		/* The sidebar's mark sits in a band as tall as the top bar, so the line
+		   under the one runs on under the other; every product's mark stands at
+		   one height, whatever it hands in. */
+		--frame-top: 3.5rem;
+		--frame-mark: 1.75rem;
+		--shell-header: var(--frame-top);
+	}
+	/* What the kit draws does not take its line height from the product's own
+	   base styles, or one product's sidebar would stand taller than another's. */
+	aside,
+	header,
+	.menu,
+	.tabs,
+	.sheet {
+		box-sizing: border-box;
+		line-height: 1.25;
 	}
 
 	aside {
@@ -297,7 +312,7 @@
 		flex-shrink: 0;
 		width: 14rem;
 		height: 100dvh;
-		padding: 1rem;
+		padding: 0 1rem 1rem;
 		overflow-y: auto;
 		border-right: 1px solid var(--border);
 		background: var(--surface);
@@ -308,8 +323,19 @@
 		color: inherit;
 		text-decoration: none;
 	}
+	.brand :global(img),
+	.brand :global(svg) {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		height: var(--frame-mark);
+	}
 	aside .brand {
-		margin-bottom: 1.5rem;
+		flex-shrink: 0;
+		justify-content: center;
+		height: var(--frame-top);
+		margin: 0 -1rem 1rem;
+		border-bottom: 1px solid var(--border);
 	}
 	nav {
 		display: flex;
@@ -384,8 +410,8 @@
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
-		min-height: 3.25rem;
-		padding: 0.5rem var(--frame-gutter);
+		height: var(--frame-top);
+		padding: 0 var(--frame-gutter);
 		border-bottom: 1px solid var(--border);
 		background: var(--bg);
 	}
@@ -501,6 +527,7 @@
 	@media (max-width: 767.98px) {
 		.frame {
 			--frame-gutter: 1rem;
+			--frame-mark: 1.5rem;
 		}
 		aside,
 		.who {

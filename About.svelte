@@ -96,6 +96,13 @@
 		padding: 2rem;
 		border-bottom: 1px solid var(--border);
 	}
+	header :global(img),
+	header :global(svg) {
+		display: block;
+		width: auto;
+		max-width: 100%;
+		height: 3rem;
+	}
 	.text {
 		display: grid;
 		gap: 1.5rem;
