@@ -19,9 +19,10 @@ each product's own layer (`opus-ui` for OPUS).
 ## What is in it
 
 Ground
-- `tokens.css` — shape, type scale, what is laid over a picture, shadows. The
-  palette is not here: the product defines it (below). Seven text sizes
-  (`--fs-2xs` … `--fs-2xl`) and no other
+- `tokens.css` — shape, type scale, the one face (`--font-sans`, which a
+  Tailwind product takes through its own utilities), what is laid over a
+  picture, shadows. The palette is not here: the product defines it
+  (below). Seven text sizes (`--fs-2xs` … `--fs-2xl`) and no other
 - `base.css` — document defaults: body, links, fields (what is typed into —
   not sliders, tick boxes or pickers), tables, `.fields`, `.action-row`, `.muted`
 - `names.mjs` — every button, link and clicked element has a name a screen
