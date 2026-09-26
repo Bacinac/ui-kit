@@ -28,6 +28,9 @@ Ground
   reader can say: words on its face, or `aria-label` (`label` on `Button`)
   when the face is a sign. A surface drawn on with the pointer says
   `role="presentation"` instead. Every product's check runs it over its `src`
+- `type.mjs` — every size of text is one of the seven steps: a size written
+  out below 2rem, or Tailwind's in-between `text-sm`/`base`/`lg`/`3xl`, fails.
+  Every product's check runs it over its `src`
 
 Frame
 - `PageHead` — a page's title, counted facts and ways in, pinned under the
