@@ -11,6 +11,7 @@
 		actions,
 		collapsible = false,
 		open = false,
+		ontoggle,
 		children
 	}: {
 		/** the panel's heading, when a line of text is all it is */
@@ -22,6 +23,8 @@
 		/** the card folds, and its heading is what unfolds it */
 		collapsible?: boolean;
 		open?: boolean;
+		/** told what the person chose, for a page that remembers it */
+		ontoggle?: (open: boolean) => void;
 		children: Snippet;
 	} = $props();
 
@@ -38,7 +41,7 @@
 		<header class:folded={collapsible && !shown}>
 			{#if collapsible}
 				<button type="button" class="toggle" aria-expanded={shown}
-					onclick={() => (shown = !shown)}>
+					onclick={() => { shown = !shown; ontoggle?.(shown); }}>
 					<span class="caret" class:down={shown}>›</span>
 					{#if heading}{@render heading()}{:else}<h2>{title}</h2>{/if}
 				</button>
