@@ -365,6 +365,10 @@
 		background: var(--surface-2);
 		color: var(--accent);
 	}
+	.group > a {
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
 	.children {
 		display: flex;
 		flex-direction: column;
