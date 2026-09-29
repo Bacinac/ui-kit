@@ -78,6 +78,13 @@
 		(s.href === '/' ? pathname === '/' : pathname === s.href || pathname.startsWith(s.href + '/'));
 
 	const all = $derived(sections.flat());
+	// A phone has no sidebar to light, so its top bar says where you are, in the
+	// sidebar's own word: no page names itself.
+	const here = $derived.by(() => {
+		const s = all.find(on);
+		const c = s?.children?.find(on);
+		return c ? { label: c.label, section: false } : s ? { label: s.label, section: true } : null;
+	});
 	const tabbed = $derived.by(() => {
 		const order = tabs ?? all.map((s) => s.href);
 		return order
@@ -147,6 +154,7 @@
 	<div class="column">
 		<header>
 			<a href="/" class="brand">{@render brand()}</a>
+			{#if here}<span class="here" class:section={here.section}>{here.label}</span>{/if}
 			<div class="bar">{@render bar?.()}</div>
 			{#if account}
 				<div class="account" bind:this={menuEl}>
@@ -522,6 +530,7 @@
 		border-top: 1px solid var(--border);
 	}
 	.narrow,
+	.here,
 	.tabs,
 	.scrim,
 	.sheet {
@@ -539,6 +548,19 @@
 		}
 		header .brand {
 			display: flex;
+		}
+		.here {
+			display: block;
+			flex: 0 1 auto;
+			min-width: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: 600;
+		}
+		.here.section {
+			text-transform: uppercase;
+			letter-spacing: 0.02em;
 		}
 		.menu .narrow {
 			display: block;

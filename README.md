@@ -40,12 +40,13 @@ Frame
   (`brand`, an image the frame sizes and centres in a band as tall as the top
   bar), its `sections` in groups and the `Signature`; a top bar with what
   only the product says on every page (`bar`) and the account menu; on a phone
-  a bottom bar of the sections named in `tabs` (four, or five when one would be
+  the top bar names where you are, in the sidebar's word, and a bottom bar of the sections named in `tabs` (four, or five when one would be
   left over) and a sheet for the rest. The page scrolls, not a box inside it.
   It says its top bar's height as `--shell-header`, measures its bottom bar into
   `--shell-bar-h`, says its top padding as `--shell-main-top`, and gives a page
   that fills the screen instead of scrolling the height it has as `--frame-room`
-- `PageHead` — a page's title, counted facts and ways in, pinned under the
+- `PageHead` — a page's counted facts, ways in and actions, never its name
+  (the frame lights where you are, and on a phone says it), pinned under the
   header. It reads the header's height from `--shell-header` and the frame's top
   padding from `--shell-main-top`, and writes its own height to `--page-head`
 - `Heading` — what introduces a block within a page

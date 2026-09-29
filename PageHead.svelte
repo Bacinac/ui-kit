@@ -1,6 +1,8 @@
 <script lang="ts">
-	// What a page says about itself before it says anything else: what it is, how
-	// much of it there is, and the handful of ways into it.
+	// What a page says about itself before it says anything else: how much of it
+	// there is, and the handful of ways into it. Never its name: the frame lights
+	// where you are, and a page naming itself again was a second name for one
+	// place that drifted from the first.
 	//
 	// Written once because it was written three times — a title over counts in
 	// the player, a tab strip in the library, and a heading with nothing under it
@@ -21,7 +23,6 @@
 	export type Fact = { text: string; tone?: Tone; kind?: string; icon?: string };
 
 	let {
-		title = '',
 		facts = [],
 		ways,
 		aside,
@@ -29,13 +30,11 @@
 		behind = '',
 		sticky = true
 	}: {
-		/** empty draws no line at all */
-		title?: string;
 		/** what there is, counted — each in its kind's own colour */
 		facts?: Fact[];
 		/** the ways into this page: tabs, filters, a row of buttons */
 		ways?: Snippet;
-		/** anything that belongs opposite the title */
+		/** what the page offers to do, at its right */
 		aside?: Snippet;
 		/** a line or two under the facts — what is being pointed at right now.
 		 *  Clamped, because a head whose height follows its text moves the shelf
@@ -75,15 +74,7 @@
 		<div class="scrim"></div>
 	{/if}
 
-	{#if title || aside}
-	<div class="line">
-		<!-- a surface that says where you are somewhere else — the television
-		     lights the section in its own navigation — passes no title, and gets
-		     no empty line where one would have been -->
-		{#if title}<h1>{title}</h1>{/if}
-		{#if aside}<div class="aside">{@render aside()}</div>{/if}
-	</div>
-	{/if}
+	{#if aside}<div class="aside">{@render aside()}</div>{/if}
 
 	{#if facts.length}
 		<div class="facts">
@@ -168,19 +159,12 @@
 		margin-top: calc(-1 * var(--shell-main-top, 0px));
 		padding-top: calc(var(--shell-main-top, 0px) + 0.9rem);
 	}
-	.line {
-		display: flex;
-		align-items: baseline;
-		gap: 1rem;
-		flex-wrap: wrap;
-	}
-	h1 {
-		margin: 0;
-		font-size: var(--fs-2xl);
-		line-height: 1.1;
-	}
 	.aside {
-		margin-left: auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		align-items: center;
+		justify-content: flex-end;
 	}
 	.facts {
 		display: flex;
