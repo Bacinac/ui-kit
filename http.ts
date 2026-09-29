@@ -1,7 +1,8 @@
 // The one way a page asks its backend. A refusal is said as a toast carrying the
 // backend's own detail, a server that does not answer is said as well, and the
 // caller is handed the parsed body — or null, so a success path is a truthiness
-// check and never has to read the response twice.
+// check and never has to read the response twice. `send` and `refusal` are the
+// transport under it, for a product whose client throws instead.
 
 import { t } from './i18n.svelte';
 import { toasts } from './toasts.svelte';
@@ -25,9 +26,52 @@ export type Asking = {
 	on?: Record<number, (body: Record<string, unknown>) => void>;
 	latest?: Latest;
 	/** a failure the page says itself — beside what failed, or by asking again —
-	 *  instead of the toast. Status 0 is a server that did not answer. */
+	 *  instead of the toast. It is handed the sentence the toast would have said;
+	 *  status 0 is a server that did not answer. */
 	failed?: (detail: string, status: number) => void;
 };
+
+/** A request that did not do what was asked. The message is the one a reader is
+ *  shown; `detail` is the backend's own sentence, empty when it gave none, and
+ *  status 0 is a server that did not answer. */
+export class ApiError extends Error {
+	constructor(
+		readonly status: number,
+		message: string,
+		readonly detail = ''
+	) {
+		super(message);
+	}
+}
+
+export type Sending = RequestInit & { deadlineMs?: number };
+
+// A request nobody answers must end, or its spinner never does. Above the longest
+// operation a backend bounds itself, so the deadline cuts a hung connection, never
+// a slow answer.
+const DEADLINE_MS = 180_000;
+/** A whole file moving runs as long as the data does: the deadline covers
+ *  reading the body too. */
+export const TRANSFER_MS = 30 * 60_000;
+
+function lost(why: unknown): ApiError {
+	const late = why instanceof DOMException && why.name === 'TimeoutError';
+	return new ApiError(0, t(late ? 'common.timeout' : 'common.unreachable'));
+}
+
+/** The transport under every call: a deadline, and a server that did not answer
+ *  told apart from one that is slow. The caller's own abort passes untouched. */
+export async function send(url: string, init: Sending = {}): Promise<Response> {
+	const { deadlineMs = DEADLINE_MS, ...rest } = init;
+	const deadline = AbortSignal.timeout(deadlineMs);
+	const signal = rest.signal ? AbortSignal.any([rest.signal, deadline]) : deadline;
+	try {
+		return await fetch(url, { ...rest, signal });
+	} catch (why) {
+		if (rest.signal?.aborted) throw why;
+		throw lost(deadline.aborted ? deadline.reason : why);
+	}
+}
 
 let unauthorized: (() => void) | null = null;
 
@@ -37,19 +81,23 @@ export function onUnauthorized(then: () => void) {
 	unauthorized = then;
 }
 
-function detailOf(body: Record<string, unknown>, status: number): string {
+function detailOf(body: Record<string, unknown>): string {
 	const detail = body.detail;
 	if (typeof detail === 'string') return detail;
 	// a malformed request is answered with a list of objects, and String() of
 	// that is "[object Object]"
 	if (Array.isArray(detail)) {
-		const said = detail
+		return detail
 			.map((d) => (d as { msg?: string })?.msg)
 			.filter(Boolean)
 			.join('; ');
-		if (said) return said;
 	}
-	return String(status);
+	return '';
+}
+
+function refusedWith(body: Record<string, unknown>, status: number): ApiError {
+	const detail = detailOf(body);
+	return new ApiError(status, detail || t('common.failed', { status }), detail);
 }
 
 async function bodyOf(resp: Response): Promise<Record<string, unknown> | null> {
@@ -67,15 +115,20 @@ async function bodyOf(resp: Response): Promise<Record<string, unknown> | null> {
 // of its own to keep a late answer off the screen.
 const never = <T>() => new Promise<T>(() => {});
 
-function refused(asking: Asking, detail: string, status: number): null {
-	if (asking.failed) asking.failed(detail, status);
-	else toasts.error(status ? t('common.requestFailed', { detail }) : detail);
+/** Why the backend refused, read from its answer. */
+export async function refusal(resp: Response): Promise<ApiError> {
+	return refusedWith((await bodyOf(resp).catch(() => null)) ?? {}, resp.status);
+}
+
+function refused(asking: Asking, error: ApiError): null {
+	if (asking.failed) asking.failed(error.message, error.status);
+	else toasts.error(error.message);
 	return null;
 }
 
 async function asked<T>(
 	url: string,
-	init: RequestInit,
+	init: Sending,
 	asking: Asking,
 	read: (resp: Response) => Promise<T | null>
 ): Promise<T | null> {
@@ -84,11 +137,11 @@ async function asked<T>(
 	const gone = () => Boolean(latest?.aborted || init.signal?.aborted);
 	let resp: Response;
 	try {
-		resp = await fetch(url, latest ? { ...init, signal } : init);
+		resp = await send(url, latest ? { ...init, signal } : init);
 	} catch (why) {
 		if (gone()) return never();
 		console.error(`${init.method ?? 'GET'} ${url}:`, why);
-		return refused(asking, t('common.unreachable'), 0);
+		return refused(asking, why instanceof ApiError ? why : lost(why));
 	}
 	if (gone()) return never();
 	if (resp.ok) {
@@ -98,12 +151,12 @@ async function asked<T>(
 		} catch (why) {
 			if (gone()) return never();
 			console.error(`${init.method ?? 'GET'} ${url}:`, why);
-			return refused(asking, t('common.unreachable'), 0);
+			return refused(asking, lost(why));
 		}
 		if (gone()) return never();
 		if (said === null) {
 			console.error(`${init.method ?? 'GET'} ${url}: the answer is not what was asked for`);
-			return refused(asking, String(resp.status), resp.status);
+			return refused(asking, refusedWith({}, resp.status));
 		}
 		return said;
 	}
@@ -114,17 +167,18 @@ async function asked<T>(
 		handle(body);
 		return null;
 	}
+	const error = refusedWith(body, resp.status);
 	if (resp.status === 401 && unauthorized) {
 		unauthorized();
-		asking.failed?.(detailOf(body, resp.status), resp.status);
+		asking.failed?.(error.message, error.status);
 		return null;
 	}
-	return refused(asking, detailOf(body, resp.status), resp.status);
+	return refused(asking, error);
 }
 
 export async function request<T = unknown>(
 	url: string,
-	init: RequestInit = {},
+	init: Sending = {},
 	asking: Asking = {}
 ): Promise<T | null> {
 	return asked(url, init, asking, async (resp) => (await bodyOf(resp)) as T | null);
@@ -134,7 +188,7 @@ export async function request<T = unknown>(
  *  page — failing exactly as `request` does. */
 export async function bytes(
 	url: string,
-	init: RequestInit = {},
+	init: Sending = {},
 	asking: Asking = {}
 ): Promise<ArrayBuffer | null> {
 	return asked(url, init, asking, (resp) => resp.arrayBuffer());

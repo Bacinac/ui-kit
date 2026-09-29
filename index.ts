@@ -22,7 +22,19 @@ export {
 	type Locale,
 	type Word
 } from './i18n.svelte';
-export { request, bytes, json, onUnauthorized, Latest, type Asking } from './http';
+export {
+	request,
+	bytes,
+	json,
+	send,
+	refusal,
+	onUnauthorized,
+	ApiError,
+	Latest,
+	TRANSFER_MS,
+	type Asking,
+	type Sending
+} from './http';
 export { withLang } from './lang';
 export { cssUrl } from './css';
 export { recall, keep, forget } from './stored';

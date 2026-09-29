@@ -81,9 +81,13 @@ Controls
 Behaviour
 - `http.ts` — `request()`: the one way a page asks its backend. A refusal is a
   toast with the backend's detail, a server that does not answer is said, a 204
-  is a success, `on` handles the statuses a call expects, `Latest` keeps a
-  superseded answer off the screen, `onUnauthorized` lets the product show its
-  door on a 401. `json()` builds a JSON body
+  is a success, `on` handles the statuses a call expects, `failed` says it on the
+  page instead, `Latest` keeps a superseded answer off the screen,
+  `onUnauthorized` lets the product show its door on a 401. `json()` builds a
+  JSON body. Under it, for a product whose client throws: `send()` (a deadline
+  of three minutes, `TRANSFER_MS` for a whole file, a server that is slow told
+  apart from one that is gone) and `refusal()`, the `ApiError` a refused answer
+  means
 - `version.svelte.ts` — `VersionWatch`: which build the tab runs, whether the
   server serves a newer one, a reload once nobody is using the tab, and after a
   reload the build it now runs. The product hands it the call that reads its
