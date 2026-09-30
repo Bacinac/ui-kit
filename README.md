@@ -56,6 +56,22 @@ Frame
   `await dialog.confirm(…)` / `dialog.alert(…)`, drawn by the one `<Dialogs />`
   the product mounts in its frame
 
+Help
+- `help.ts` — a product's articles, kept the same way in every product: one
+  directory holding `index.json` (every article's slug, group, the pages it
+  explains, and its title and summary in both languages) and a body per
+  language, `<slug>.hr.md` and `<slug>.en.md`, in a small markdown
+  (`renderMarkdown`). The product builds one `Help` from the index and an eager
+  `import.meta.glob` of the bodies, and hands it to the `Frame`, whose top bar
+  then carries a "?" that opens the article of the page you are on, or the index
+- `HelpIndex`, `HelpPage` — the two pages `/help` and `/help/[slug]` put up;
+  `HelpPage` takes `after`, for what a product adds under an article
+- `Hint` — the "?" beside a control: one line from the product's words and the
+  way into an article
+- `articles.mjs` — every article whole in both languages, every link between
+  them, every Hint and every page an article names real. Every product's check
+  runs it over its help directory and its `src`
+
 Controls
 - `Button` (`tone`, `size="small"`, `href`), `ArmedButton` — the one confirm for
   what does not come back

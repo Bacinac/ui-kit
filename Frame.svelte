@@ -41,12 +41,14 @@
 	import type { Snippet } from 'svelte';
 	import { t } from './i18n.svelte';
 	import Signature from './Signature.svelte';
+	import type { Help } from './help';
 
 	let {
 		pathname,
 		sections,
 		tabs,
 		account,
+		help,
 		version = '',
 		focus = false,
 		brand,
@@ -60,6 +62,9 @@
 		 * first; the first ones in order when not said */
 		tabs?: string[];
 		account?: Account;
+		/** the product's articles: the top bar's "?" opens the one explaining
+		 * the page you are on, and the index where none does */
+		help?: Help;
 		/** the build, for the signature */
 		version?: string;
 		/** a page doing something that needs the bottom of a phone to itself */
@@ -103,6 +108,11 @@
 	});
 	const onBar = $derived(lone ? [...tabbed, lone] : tabbed);
 	const more = $derived(lone ? [] : rest);
+
+	const helpHref = $derived.by(() => {
+		const a = help?.forPage(pathname);
+		return a ? `/help/${a.slug}` : '/help';
+	});
 
 	let sheet = $state(false);
 	let menu = $state(false);
@@ -156,6 +166,18 @@
 			<a href="/" class="brand">{@render brand()}</a>
 			{#if here}<span class="here" class:section={here.section}>{here.label}</span>{/if}
 			<div class="bar">{@render bar?.()}</div>
+			{#if help}
+				<a
+					href={helpHref}
+					class="help"
+					class:on={pathname === '/help' || pathname.startsWith('/help/')}
+					aria-label={t('help.title')}
+					title={t('help.title')}
+					>{@render mark(
+						'<circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.8-2.8 2.8"/><path d="M12 16.8h.01"/>'
+					)}</a
+				>
+			{/if}
 			{#if account}
 				<div class="account" bind:this={menuEl}>
 					<button
@@ -446,6 +468,26 @@
 		);
 	}
 
+	.help {
+		display: grid;
+		flex-shrink: 0;
+		place-items: center;
+		width: 2rem;
+		height: 2rem;
+		border-radius: var(--radius-s);
+		color: var(--muted);
+	}
+	.help:hover {
+		background: var(--surface-2);
+		color: var(--text);
+	}
+	.help.on {
+		color: var(--accent);
+	}
+	.help svg {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
 	.account {
 		position: relative;
 	}
