@@ -87,6 +87,38 @@ test('with the source: every Hint leads to an article, every page is a route', (
 	);
 });
 
+test('a product of several apps names its pages per app, each read against its own routes', () => {
+	const root = tree({
+		'help/index.json': JSON.stringify([
+			entry('shelf', { pages: { library: ['/tags', '/gone'], player: ['/music'] } }),
+			entry('house', { pages: { player: ['/settings'], library: ['/settings'] } }),
+			entry('flat', { pages: ['/x'] }),
+			entry('stray', { pages: { radio: ['/y'] } })
+		]),
+		...Object.fromEntries(
+			['shelf', 'house', 'flat', 'stray'].flatMap((s) => [
+				[`help/${s}.hr.md`, 'x'],
+				[`help/${s}.en.md`, 'x']
+			])
+		),
+		'library/routes/tags/+page.svelte': '',
+		'library/routes/settings/+page.svelte': '',
+		'library/lib/A.svelte': '<Hint text={t("a")} article="none" />'
+	});
+	const off = checkHelp(join(root, 'help'), { library: join(root, 'library'), player: null });
+	assert.deepEqual(
+		off.map((o) => o.replace(/^.*?(Hint|index)/, '$1')),
+		[
+			'index.json[0] (shelf): no route serves library /gone',
+			'index.json[2] (flat): pages are not named per app (library, player)',
+			'index.json[3] (stray): radio is not an app of the product',
+			'Hint leads to none, which is no article'
+		]
+	);
+	const one = checkHelp(join(root, 'help'), join(root, 'library'));
+	assert.ok(one.some((o) => o.includes('(shelf): pages are named per app, and the product is one')));
+});
+
 test('a route is found through groups and params, and only where a page is', () => {
 	const root = tree({
 		'routes/(app)/+page.svelte': '',

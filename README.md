@@ -63,14 +63,18 @@ Help
   language, `<slug>.hr.md` and `<slug>.en.md`, in a small markdown
   (`renderMarkdown`). The product builds one `Help` from the index and an eager
   `import.meta.glob` of the bodies, and hands it to the `Frame`, whose top bar
-  then carries a "?" that opens the article of the page you are on, or the index
+  then carries a "?" that opens the article of the page you are on, or the index.
+  A product of several apps, each its own origin (OPUS), names an article's
+  pages per app and tells `Help` which app is asking
 - `HelpIndex`, `HelpPage` — the two pages `/help` and `/help/[slug]` put up;
   `HelpPage` takes `after`, for what a product adds under an article
 - `Hint` — the "?" beside a control: one line from the product's words and the
   way into an article
 - `articles.mjs` — every article whole in both languages, every link between
   them, every Hint and every page an article names real. Every product's check
-  runs it over its help directory and its `src`
+  runs it over its help directory and its `src`; a product of several apps
+  names each, with the source of the one checking (`library=src downloads
+  player`)
 
 Controls
 - `Button` (`tone`, `size="small"`, `href`), `ArmedButton` — the one confirm for

@@ -4,7 +4,10 @@
 //
 //   index.json       — every article in the order the index lists them: its
 //                      slug, group, the pages it explains, and its title and
-//                      summary in both languages
+//                      summary in both languages. A product of several apps
+//                      (OPUS: Library, Downloads, Player — each its own origin,
+//                      so `/settings` is three pages) names its pages per app:
+//                      `{"library": ["/tags"], "player": ["/music"]}`.
 //   <slug>.hr.md     — the body, in Croatian
 //   <slug>.en.md     — the body, in English
 //
@@ -19,8 +22,9 @@ export type HelpGroup = 'concepts' | 'operating';
 export type HelpEntry = {
 	slug: string;
 	group: HelpGroup;
-	/** the addresses this article explains — the frame's "?" opens it there */
-	pages?: string[];
+	/** the addresses this article explains — the frame's "?" opens it there —
+	 * or, in a product of several apps, those addresses per app */
+	pages?: string[] | Record<string, string[]>;
 	title: Record<Locale, string>;
 	summary: Record<Locale, string>;
 };
@@ -29,10 +33,13 @@ export type HelpArticle = HelpEntry & { body: Record<Locale, string> };
 
 export class Help {
 	readonly articles: HelpArticle[];
+	private readonly app: string | undefined;
 
 	/** `files` is what `import.meta.glob('<dir>/*.md', { query: '?raw',
-	 * import: 'default', eager: true })` hands the product, keyed by path. */
-	constructor(index: HelpEntry[], files: Record<string, string>) {
+	 * import: 'default', eager: true })` hands the product, keyed by path;
+	 * `app` is which of the product's apps is asking, where its articles name
+	 * their pages per app. */
+	constructor(index: HelpEntry[], files: Record<string, string>, app?: string) {
 		const bodies = new Map(
 			Object.entries(files).map(([path, text]) => [path.slice(path.lastIndexOf('/') + 1), text])
 		);
@@ -41,7 +48,16 @@ export class Help {
 			if (text === undefined) throw new Error(`help: ${slug}.${locale}.md is missing`);
 			return text;
 		};
+		for (const e of index)
+			if (e.pages && !Array.isArray(e.pages) && app === undefined)
+				throw new Error(`help: ${e.slug} names its pages per app, and no app was given`);
+		this.app = app;
 		this.articles = index.map((e) => ({ ...e, body: { hr: body(e.slug, 'hr'), en: body(e.slug, 'en') } }));
+	}
+
+	private pagesOf(a: HelpEntry): string[] {
+		if (!a.pages) return [];
+		return Array.isArray(a.pages) ? a.pages : (a.pages[this.app!] ?? []);
 	}
 
 	bySlug(slug: string): HelpArticle | undefined {
@@ -54,7 +70,7 @@ export class Help {
 		let best: HelpArticle | undefined;
 		let length = -1;
 		for (const a of this.articles)
-			for (const p of a.pages ?? [])
+			for (const p of this.pagesOf(a))
 				if ((pathname === p || pathname.startsWith(p + '/')) && p.length > length) {
 					best = a;
 					length = p.length;

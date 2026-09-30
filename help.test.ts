@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Help, renderMarkdown, type HelpEntry } from './help';
 
-const entry = (slug: string, pages?: string[]): HelpEntry => ({
+const entry = (slug: string, pages?: HelpEntry['pages']): HelpEntry => ({
 	slug,
 	group: 'concepts',
 	pages,
@@ -32,6 +32,22 @@ describe('Help', () => {
 		expect(help.forPage('/settings/zones/3')?.slug).toBe('zones');
 		expect(help.forPage('/settingsx')).toBeUndefined();
 		expect(help.forPage('/cameras')).toBeUndefined();
+	});
+
+	it('reads the pages of the app asking, in a product of several', () => {
+		const index = [
+			entry('library', { library: ['/settings'] }),
+			entry('house', { player: ['/settings/house'] }),
+			entry('home', { player: ['/settings'] })
+		];
+		const player = new Help(index, files('library', 'house', 'home'), 'player');
+		expect(player.forPage('/settings')?.slug).toBe('home');
+		expect(player.forPage('/settings/house')?.slug).toBe('house');
+		expect(new Help(index, files('library', 'house', 'home'), 'library').forPage('/settings/house')?.slug).toBe(
+			'library'
+		);
+		expect(new Help(index, files('library', 'house', 'home'), 'downloads').forPage('/settings')).toBeUndefined();
+		expect(() => new Help(index, files('library', 'house', 'home'))).toThrow('no app was given');
 	});
 });
 
