@@ -671,10 +671,16 @@
 		header .brand {
 			display: flex;
 		}
+		.bar {
+			flex: 0 1 auto;
+			overflow: hidden;
+		}
+		/* where you are gives way first, down to its first letters; what the
+		   product says on every page next, and the frame's own controls never */
 		.here {
 			display: block;
-			flex: 0 1 auto;
-			min-width: 0;
+			flex: 1 1 0;
+			min-width: 2rem;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
