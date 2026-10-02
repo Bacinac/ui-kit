@@ -395,9 +395,14 @@
 		background: var(--surface-2);
 		color: var(--accent);
 	}
+	/* Capitals stand taller than lower case at one size, so at the pages' size
+	   they read as a headline; a step down, spaced and a touch heavier, they
+	   read as the label over the pages, which is what they are. */
 	.group > a {
+		font-size: var(--fs-s);
+		font-weight: 500;
 		text-transform: uppercase;
-		letter-spacing: 0.02em;
+		letter-spacing: 0.06em;
 	}
 	.children {
 		display: flex;
