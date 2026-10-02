@@ -34,6 +34,10 @@ Ground
 - `type.mjs` — every size of text is one of the seven steps: a size written
   out below 2rem, or Tailwind's in-between `text-sm`/`base`/`lg`/`3xl`, fails.
   Every product's check runs it over its `src`
+- `linkcard.mjs` — the card a shared link to a public demo shows: title,
+  description and the product's picture (its `social-preview.png`), written
+  into the built `index.html`, the only thing a link reader sees of a
+  single-page app. Every product's demo build runs it
 
 Frame
 - `Frame` — the frame every page stands in: a sidebar with the product's mark
