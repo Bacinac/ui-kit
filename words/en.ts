@@ -22,6 +22,7 @@ export const en = {
 	'common.timeout': 'The server is not answering.',
 	'common.unreachable': 'The server cannot be reached.',
 	'frame.account': 'Account',
+	'frame.actions': 'Actions',
 	'frame.logout': 'Sign out',
 	'frame.more': 'More',
 	'frame.signedInAs': 'Signed in as',

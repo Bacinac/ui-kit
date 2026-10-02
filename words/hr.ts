@@ -24,6 +24,7 @@ export const hr = {
 	'common.timeout': 'Poslužitelj ne odgovara.',
 	'common.unreachable': 'Poslužitelj nije dostupan.',
 	'frame.account': 'Račun',
+	'frame.actions': 'Radnje',
 	'frame.logout': 'Odjava',
 	'frame.more': 'Više',
 	'frame.signedInAs': 'Prijavljeni ste kao',

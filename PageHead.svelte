@@ -25,7 +25,6 @@
 	let {
 		facts = [],
 		ways,
-		aside,
 		under,
 		behind = '',
 		sticky = true
@@ -34,8 +33,6 @@
 		facts?: Fact[];
 		/** the ways into this page: tabs, filters, a row of buttons */
 		ways?: Snippet;
-		/** what the page offers to do, at its right */
-		aside?: Snippet;
 		/** a line or two under the facts — what is being pointed at right now.
 		 *  Clamped, because a head whose height follows its text moves the shelf
 		 *  under it every time a remote does. */
@@ -74,7 +71,6 @@
 		<div class="scrim"></div>
 	{/if}
 
-	{#if aside}<div class="aside">{@render aside()}</div>{/if}
 
 	{#if facts.length}
 		<div class="facts">
@@ -97,9 +93,10 @@
 		display: grid;
 		gap: 0.6rem;
 		background: var(--bg);
-		/* the same room under it on every page, so the first thing on one screen
-		   begins where the first thing on the next one does */
-		padding: 0.9rem 0 1.4rem;
+		/* nothing over it, so it begins where a page without one begins; the same
+		   room under it on every page, so the first thing on one screen begins
+		   where the first thing on the next one does */
+		padding: 0 0 1.4rem;
 		isolation: isolate;
 	}
 	.behind,
@@ -157,14 +154,7 @@
 	   drew it over whatever stands there. */
 	.pinned:first-child {
 		margin-top: calc(-1 * var(--shell-main-top, 0px));
-		padding-top: calc(var(--shell-main-top, 0px) + 0.9rem);
-	}
-	.aside {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		align-items: center;
-		justify-content: flex-end;
+		padding-top: var(--shell-main-top, 0px);
 	}
 	.facts {
 		display: flex;

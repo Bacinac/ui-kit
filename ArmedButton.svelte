@@ -57,6 +57,7 @@
 	{disabled}
 	{title}
 	{label}
+	stays
 	onclick={press}
 	onmouseleave={disarm}
 	onblur={disarm}

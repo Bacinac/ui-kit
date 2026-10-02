@@ -38,8 +38,10 @@
 	// page's own scroll on the way back, and a phone hides its address bar only
 	// for it.
 
-	import type { Snippet } from 'svelte';
+	import { onDestroy, type Snippet } from 'svelte';
+	import { actions } from './actions.svelte';
 	import { t } from './i18n.svelte';
+	import { narrow } from './narrow.svelte';
 	import Signature from './Signature.svelte';
 	import type { Help } from './help';
 
@@ -114,24 +116,39 @@
 		return a ? `/help/${a.slug}` : '/help';
 	});
 
+	// Said while the frame is being made, before the page under it is: a page
+	// that drew its actions until an effect told it not to would flash them.
+	actions.hosts += 1;
+	onDestroy(() => (actions.hosts -= 1));
+
 	let sheet = $state(false);
 	let menu = $state(false);
 	let menuEl = $state<HTMLElement>();
+	let acts = $state(false);
+	let actsEl = $state<HTMLElement>();
+	let popEl = $state<HTMLElement>();
 	$effect(() => {
 		void pathname;
 		sheet = false;
 		menu = false;
+		acts = false;
 	});
 
 	let low = $state(0);
 
 	function away(e: MouseEvent) {
-		if (menu && !menuEl?.contains(e.target as Node)) menu = false;
+		const at = e.target as Element;
+		if (menu && !menuEl?.contains(at)) menu = false;
+		// an action picked from the phone's list has been done; the list goes
+		const pick = at.closest('button, a');
+		const done = !!pick && !!popEl?.contains(pick) && !pick.closest('[data-stays]');
+		if (acts && (!actsEl?.contains(at) || done)) acts = false;
 	}
 	function key(e: KeyboardEvent) {
 		if (e.key !== 'Escape') return;
 		menu = false;
 		sheet = false;
+		acts = false;
 	}
 </script>
 
@@ -166,6 +183,27 @@
 			<a href="/" class="brand">{@render brand()}</a>
 			{#if here}<span class="here" class:section={here.section}>{here.label}</span>{/if}
 			<div class="bar">{@render bar?.()}</div>
+			{#if actions.current}
+				{#if narrow.current}
+					<div class="acts" bind:this={actsEl}>
+						<button
+							type="button"
+							class="help toggle"
+							class:on={acts}
+							aria-haspopup="true"
+							aria-expanded={acts}
+							aria-label={t('frame.actions')}
+							title={t('frame.actions')}
+							onclick={() => (acts = !acts)}>{@render mark(MORE)}</button
+						>
+						{#if acts}
+							<div class="pop" bind:this={popEl}>{@render actions.current()}</div>
+						{/if}
+					</div>
+				{:else}
+					<div class="acts">{@render actions.current()}</div>
+				{/if}
+			{/if}
 			{#if help}
 				<a
 					href={helpHref}
@@ -464,6 +502,43 @@
 		align-items: center;
 		gap: 0.75rem;
 		min-width: 0;
+	}
+	.acts {
+		position: relative;
+		display: flex;
+		flex-shrink: 0;
+		gap: 0.5rem;
+		align-items: center;
+	}
+	.toggle {
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+	/* set off from what the product says on every page, which follows it */
+	.acts:not(:last-child) {
+		padding-right: 0.75rem;
+		border-right: 1px solid var(--border);
+	}
+	.pop {
+		position: absolute;
+		top: calc(100% + 0.4rem);
+		right: 0;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		min-width: 12rem;
+		padding: 0.4rem;
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		background: var(--surface);
+		box-shadow: var(--shadow-m);
+	}
+	.pop :global(.btn) {
+		justify-content: flex-start;
+		width: 100%;
 	}
 	main {
 		flex: 1;

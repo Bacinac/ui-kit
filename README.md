@@ -45,7 +45,12 @@ Frame
   It says its top bar's height as `--shell-header`, measures its bottom bar into
   `--shell-bar-h`, says its top padding as `--shell-main-top`, and gives a page
   that fills the screen instead of scrolling the height it has as `--frame-room`
-- `PageHead` — a page's counted facts, ways in and actions, never its name
+- `PageActions` — what a page offers to do. The frame draws it at the right
+  of its top bar, the same on every page, so a page's content begins at the
+  same height whether it has actions or not; on a phone it is behind one
+  button. Never a row of buttons of the page's own. A surface without the
+  frame (a television, a wall) gets it where the page put it
+- `PageHead` — a page's counted facts and ways in, never its name or actions
   (the frame lights where you are, and on a phone says it), pinned under the
   header. It reads the header's height from `--shell-header` and the frame's top
   padding from `--shell-main-top`, and writes its own height to `--page-head`

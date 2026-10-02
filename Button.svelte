@@ -17,6 +17,7 @@
 		download = false,
 		disabled = false,
 		selected = false,
+		stays = false,
 		title,
 		label,
 		onclick,
@@ -36,6 +37,8 @@
 		disabled?: boolean;
 		/** for a button standing in a set of choices: this is the one in force */
 		selected?: boolean;
+		/** its press is not the end of the choice, so a list it was picked from stays open */
+		stays?: boolean;
 		title?: string;
 		/** what a screen reader says for a button whose face is a sign rather than a word */
 		label?: string;
@@ -58,6 +61,7 @@
 		{disabled}
 		{title}
 		aria-label={label}
+		data-stays={stays || undefined}
 		{onclick}
 		{onmouseleave}
 		{onblur}

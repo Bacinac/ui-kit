@@ -73,6 +73,7 @@ export { default as HelpIndex } from './HelpIndex.svelte';
 export { default as HelpPage } from './HelpPage.svelte';
 export { default as Hint } from './Hint.svelte';
 export { default as PageHead } from './PageHead.svelte';
+export { default as PageActions } from './PageActions.svelte';
 export type { Fact } from './PageHead.svelte';
 export { default as Stats } from './Stats.svelte';
 export type { Stat } from './Stats.svelte';
