@@ -90,7 +90,7 @@
 		tabindex="-1"
 		bind:this={panel}
 	>
-		<header class:bare={!title}>
+		<header class:bare={!title} class:withActions={!!actions}>
 			{#if title}
 				<div class="titles">
 					<h2 id="{uid}-title">{title}</h2>
@@ -181,6 +181,7 @@
 	h2 {
 		margin: 0;
 		font-size: var(--fs-l);
+		overflow-wrap: anywhere;
 	}
 	.subtitle {
 		color: var(--muted);
@@ -191,6 +192,8 @@
 	}
 	.actions {
 		display: flex;
+		flex: none;
+		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
 	}
@@ -216,5 +219,22 @@
 		min-height: 0;
 		flex: 1;
 		padding: 1rem 1.1rem 1.2rem;
+	}
+	@media (max-width: 640px) {
+		header.withActions:not(.bare) {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) auto;
+		}
+		.withActions .titles {
+			grid-column: 1;
+		}
+		.withActions .close {
+			grid-column: 2;
+			grid-row: 1;
+		}
+		.withActions .actions {
+			grid-column: 1 / -1;
+			grid-row: 2;
+		}
 	}
 </style>
