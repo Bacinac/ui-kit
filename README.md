@@ -109,6 +109,8 @@ Controls
   to `/about`. Who the maker is lives once, in `maker.ts`
 
 Behaviour
+- `layers.ts` — overlay ownership and one dismissal of the top layer. A product's
+  native Back handler calls `dismissLayer()` before its page navigation.
 - `http.ts` — `request()`: the one way a page asks its backend. A refusal is a
   toast with the backend's detail, a server that does not answer is said, a 204
   is a success, `on` handles the statuses a call expects, `failed` says it on the

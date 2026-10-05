@@ -40,7 +40,7 @@
 		'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 	onMount(() => {
-		const here = layer();
+		const here = layer(() => (onescape ?? onclose)());
 		const before = document.activeElement as HTMLElement | null;
 		const overflow = document.body.style.overflow;
 		document.body.style.overflow = 'hidden';
@@ -50,6 +50,7 @@
 			if (!here.top() || !panel) return;
 			if (event.key === 'Escape') {
 				event.preventDefault();
+				event.stopImmediatePropagation();
 				(onescape ?? onclose)();
 				return;
 			}
@@ -67,9 +68,9 @@
 			}
 		}
 
-		window.addEventListener('keydown', key);
+		window.addEventListener('keydown', key, true);
 		return () => {
-			window.removeEventListener('keydown', key);
+			window.removeEventListener('keydown', key, true);
 			here.drop();
 			document.body.style.overflow = overflow;
 			before?.focus();

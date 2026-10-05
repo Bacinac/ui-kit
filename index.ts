@@ -7,6 +7,7 @@
 export { theme, type Theme } from './theme.svelte';
 export { toasts, type Toast, type ToastKind } from './toasts.svelte';
 export { dialog, type DialogKind, type DialogRequest } from './dialogs.svelte';
+export { dismissLayer } from './layers';
 export {
 	i18n,
 	t,

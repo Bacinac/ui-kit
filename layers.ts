@@ -3,10 +3,11 @@
 // at once — so everything that closes on Escape asks here whether it is the one
 // on top before it does.
 
-const stack: symbol[] = [];
+type Layer = { close: () => void };
+const stack: Layer[] = [];
 
-export function layer() {
-	const me = Symbol();
+export function layer(close: () => void) {
+	const me = { close };
 	stack.push(me);
 	return {
 		top: () => stack.at(-1) === me,
@@ -15,4 +16,11 @@ export function layer() {
 			if (at >= 0) stack.splice(at, 1);
 		}
 	};
+}
+
+export function dismissLayer(): boolean {
+	const top = stack.at(-1);
+	if (!top) return false;
+	top.close();
+	return true;
 }
