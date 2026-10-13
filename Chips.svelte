@@ -1,47 +1,39 @@
 <script lang="ts">
-	// A list of short values, edited as the list it is. Storing them as one
-	// comma-separated line is the store's business; making somebody read and
-	// punctuate that line is not.
+	// A list of short values, edited as the list it is. How a store keeps them is
+	// the store's business; making somebody read and punctuate one line is not.
+	// A value may hold a comma ('Pips, Chips & Videoclips'), so only Enter or
+	// leaving the field ends one.
 
 	let {
 		id,
 		label,
-		value = $bindable(),
+		values = $bindable(),
 		placeholder = ''
 	}: {
 		id: string;
 		label: string;
-		/** the stored form: values joined by commas */
-		value: string;
+		values: string[];
 		placeholder?: string;
 	} = $props();
 
 	let entry = $state('');
 
-	let items = $derived(
-		value.split(',').map((v) => v.trim()).filter(Boolean)
-	);
-
-	function commit(next: string[]) {
-		value = next.join(',');
-	}
-
 	function add() {
 		const fresh = entry.trim();
-		if (fresh && !items.includes(fresh)) commit([...items, fresh]);
+		if (fresh && !values.includes(fresh)) values = [...values, fresh];
 		entry = '';
 	}
 
 	function drop(item: string) {
-		commit(items.filter((v) => v !== item));
+		values = values.filter((v) => v !== item);
 	}
 
 	function key(event: KeyboardEvent) {
-		if (event.key === 'Enter' || event.key === ',') {
+		if (event.key === 'Enter') {
 			event.preventDefault();
 			add();
-		} else if (event.key === 'Backspace' && !entry && items.length) {
-			commit(items.slice(0, -1));
+		} else if (event.key === 'Backspace' && !entry && values.length) {
+			values = values.slice(0, -1);
 		}
 	}
 </script>
@@ -49,7 +41,7 @@
 <div class="chips">
 	<label for={id}>{label}</label>
 	<div class="box">
-		{#each items as item (item)}
+		{#each values as item (item)}
 			<span class="chip">
 				{item}
 				<button type="button" onclick={() => drop(item)} aria-label={item}>×</button>

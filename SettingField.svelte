@@ -67,7 +67,11 @@
 		/>
 	</div>
 {:else if setting.kind === 'list'}
-	<Chips id={setting.key} label={t(`field.${setting.label}`)} bind:value />
+	<Chips
+		id={setting.key}
+		label={t(`field.${setting.label}`)}
+		bind:values={() => listed, (next) => (value = next.join(','))}
+	/>
 {:else}
 <div class="row">
 	<label class="label" for={setting.key}>
