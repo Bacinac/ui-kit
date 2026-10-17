@@ -83,6 +83,8 @@ export { default as SaveButton } from './SaveButton.svelte';
 export { default as Toasts } from './Toasts.svelte';
 export { default as NewVersion } from './NewVersion.svelte';
 export { default as About } from './About.svelte';
+export { default as AiProviderCard, AI_PROVIDERS } from './AiProviderCard.svelte';
+export type { AiCall, AiRole, AiSetting } from './AiProviderCard.svelte';
 export { default as Signature } from './Signature.svelte';
 export { default as Toggle } from './Toggle.svelte';
 export { default as SettingField } from './SettingField.svelte';

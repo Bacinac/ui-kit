@@ -107,6 +107,11 @@ Controls
   its `VersionWatch`'s `booted`
 - `Signature` — the line at the foot of a frame: the maker, the build, the way
   to `/about`. Who the maker is lives once, in `maker.ts`
+- `AiProviderCard` — one AI provider's key and a model per role, over
+  home-core's `/ai` routes: the product hands over its `roles` (worded by it)
+  and `call`, its own JSON request; each role offers only the live models that
+  can do it; Test pings every chosen model, Remove deletes the key.
+  `AI_PROVIDERS` holds each provider's name and where its keys are issued
 
 Behaviour
 - `layers.ts` — overlay ownership and one dismissal of the top layer. A product's
