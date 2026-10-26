@@ -60,7 +60,7 @@ export { default as SearchBox } from './SearchBox.svelte';
 export { default as Tag } from './Tag.svelte';
 export type { Tone as TagTone } from './Tag.svelte';
 export { default as Letters } from './Letters.svelte';
-export { initialOf, compareHr, lettersOf } from './letters';
+export { filedAs, initialOf, compareHr, lettersOf } from './letters';
 export { default as Tabs } from './Tabs.svelte';
 export type { Tab } from './Tabs.svelte';
 export { default as Icon } from './Icon.svelte';

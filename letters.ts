@@ -4,9 +4,11 @@
 // names on the shelf, and they are Croatian whoever is looking at them. The
 // three digraphs are single letters — Ljubav files under Lj, after L and
 // before M — and a letter a foreign name brought with it files under the
-// letter beneath its accent. Player's catalogue orders its shelves by this same
-// rule on the server; Library sorts its wall here. One alphabet, so a letter in
-// the rail always has a card under it.
+// letter beneath its accent. An English article is not part of the name a
+// band files under: The Doors are written so and stand under D. Player's
+// catalogue orders its shelves by this same rule on the server; Library sorts
+// its wall here. One alphabet, so a letter in the rail always has a card under
+// it.
 
 const ALPHABET = [
 	'a', 'b', 'c', 'č', 'ć', 'd', 'dž', 'đ', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
@@ -22,11 +24,16 @@ const MARK = -2;
 const DIGIT = -1;
 const FOREIGN = ALPHABET.length;
 
+/** The name as it files: without the English article it is written with. */
+export function filedAs(name: string): string {
+	return (name ?? '').trim().replace(/^the\s+/i, '');
+}
+
 /** What a name files under: a rail's worth of letter, capitalised the way a
  *  digraph is written — `Lj`, not `LJ`. Digits and punctuation file under `#`,
  *  a script the alphabet does not hold under `?`. */
 export function initialOf(name: string): string {
-	const text = (name ?? '').trim().normalize('NFC');
+	const text = filedAs(name).normalize('NFC');
 	if (!text) return '#';
 	const first = text[0];
 	if (/\d/.test(first)) return '#';
@@ -42,7 +49,7 @@ export function initialOf(name: string): string {
 type Piece = [rank: number, text: string];
 
 function key(text: string): Piece[] {
-	const lowered = (text ?? '').normalize('NFC').toLocaleLowerCase('hr');
+	const lowered = filedAs(text).normalize('NFC').toLocaleLowerCase('hr');
 	const out: Piece[] = [];
 	let at = 0;
 	while (at < lowered.length) {
