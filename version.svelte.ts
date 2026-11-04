@@ -2,7 +2,7 @@
 // never reaches an open tab by itself: the tab keeps the code it loaded, so a
 // window left open — a wall panel, a live grid — would run the old one until
 // someone reloads it, and would break on the first lazy chunk the deploy
-// removed. The watcher says a newer build is there, reloads a tab nobody is
+// removed. The watcher notes a newer build, reloads a tab nobody is
 // using, and after a reload says what the tab now runs.
 
 import { t } from './i18n.svelte';

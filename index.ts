@@ -81,7 +81,6 @@ export type { Stat } from './Stats.svelte';
 export { default as SaveBar } from './SaveBar.svelte';
 export { default as SaveButton } from './SaveButton.svelte';
 export { default as Toasts } from './Toasts.svelte';
-export { default as NewVersion } from './NewVersion.svelte';
 export { default as About } from './About.svelte';
 export { default as AiProviderCard, AI_PROVIDERS } from './AiProviderCard.svelte';
 export type { AiCall, AiRole, AiSetting } from './AiProviderCard.svelte';
