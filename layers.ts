@@ -24,3 +24,23 @@ export function dismissLayer(): boolean {
 	top.close();
 	return true;
 }
+
+let holding = 0;
+let before = '';
+
+/** Keeps the page behind from scrolling until the returned release is called.
+ *  Counted, because overlays stand over one another and go away in any order:
+ *  each remembering the page for itself ends with the last one putting back the
+ *  lock it found, and that lock outlives every page after it. */
+export function holdScroll(): () => void {
+	if (!holding++) {
+		before = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+	}
+	let held = true;
+	return () => {
+		if (!held) return;
+		held = false;
+		if (!--holding) document.body.style.overflow = before;
+	};
+}

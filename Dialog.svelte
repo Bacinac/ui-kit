@@ -6,7 +6,7 @@
 
 	import { onMount, type Snippet } from 'svelte';
 	import { t } from './i18n.svelte';
-	import { layer } from './layers';
+	import { holdScroll, layer } from './layers';
 
 	let {
 		title = '',
@@ -42,8 +42,7 @@
 	onMount(() => {
 		const here = layer(() => (onescape ?? onclose)());
 		const before = document.activeElement as HTMLElement | null;
-		const overflow = document.body.style.overflow;
-		document.body.style.overflow = 'hidden';
+		const release = holdScroll();
 		panel?.focus();
 
 		function key(event: KeyboardEvent) {
@@ -72,7 +71,7 @@
 		return () => {
 			window.removeEventListener('keydown', key, true);
 			here.drop();
-			document.body.style.overflow = overflow;
+			release();
 			before?.focus();
 		};
 	});
