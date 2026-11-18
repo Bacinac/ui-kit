@@ -18,7 +18,8 @@
 		why,
 		stack,
 		aside,
-		build
+		build,
+		children
 	}: {
 		/** the product's own mark, drawn large across the top */
 		brand: Snippet;
@@ -35,6 +36,8 @@
 		aside?: string;
 		/** the build this tab runs, once the product's /version has said */
 		build: Revision | null;
+		/** the product's own sections after the stack, in the same type */
+		children?: Snippet;
 	} = $props();
 
 	const year = new Date().getFullYear();
@@ -57,6 +60,7 @@
 			<Heading label={t('about.heading.stack')} />
 			<p>{stack}</p>
 		</section>
+		{@render children?.()}
 		{#if aside}<p class="aside">{aside}</p>{/if}
 	</div>
 	<dl>
@@ -111,7 +115,8 @@
 		line-height: 1.6;
 		color: var(--muted);
 	}
-	p {
+	p,
+	.text :global(p) {
 		margin: 0;
 	}
 	.tagline {
