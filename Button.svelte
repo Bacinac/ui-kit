@@ -94,6 +94,17 @@
 		border-radius: 6px;
 		font-size: var(--fs-s);
 	}
+	/* a fingertip needs about 44 px whatever the type size says */
+	@media (pointer: coarse) {
+		.btn {
+			min-width: 44px;
+			min-height: 44px;
+		}
+		.small {
+			min-width: 40px;
+			min-height: 40px;
+		}
+	}
 	.btn:hover:not(:disabled) {
 		border-color: var(--accent);
 	}
