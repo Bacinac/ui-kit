@@ -19,6 +19,7 @@
 		stack,
 		aside,
 		build,
+		contact = MAKER.email,
 		children
 	}: {
 		/** the product's own mark, drawn large across the top */
@@ -36,6 +37,8 @@
 		aside?: string;
 		/** the build this tab runs, once the product's /version has said */
 		build: Revision | null;
+		/** where the product is written to, when not its maker's own address */
+		contact?: string;
 		/** the product's own sections after the stack, in the same type */
 		children?: Snippet;
 	} = $props();
@@ -79,7 +82,7 @@
 		<dt>{t('about.author')}</dt>
 		<dd>{MAKER.name}</dd>
 		<dt>{t('about.contact')}</dt>
-		<dd><a href="mailto:{MAKER.email}">{MAKER.email}</a></dd>
+		<dd><a href="mailto:{contact}">{contact}</a></dd>
 		<dt>{t('about.year')}</dt>
 		<dd>© {year}</dd>
 	</dl>
