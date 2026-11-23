@@ -34,6 +34,20 @@
 	--fs-2xl: 1.5rem; /* the name of the page */
 }
 
+/* A finger is not a pointer. Where the screen is a phone's or is touched, every
+   control is at least --tap on its short side and no text is smaller than
+   --fs-xs; a component grows its own box to --tap, so this query is written
+   once. With a pointer --tap is 0 and nothing changes. */
+:root {
+	--tap: 0px;
+}
+@media (max-width: 767.98px), (pointer: coarse) {
+	:root {
+		--tap: 2.75rem;
+		--fs-2xs: var(--fs-xs);
+	}
+}
+
 /* One face for every product. Named as Tailwind names it, so a product built
    on Tailwind takes the kit's through its own utilities instead of keeping a
    second stack beside it. */

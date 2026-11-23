@@ -33,32 +33,43 @@
 	{disabled}
 	{onclick}
 >
-	<span class="knob"></span>
+	<span class="track"><span class="knob"></span></span>
 </button>
 
 <style>
 	/* The knob's travel is the track less the knob and both gaps, worked out
-	   from the same three lengths, so the two sizes cannot drift apart. */
+	   from the same three lengths, so the two sizes cannot drift apart. The
+	   button is what a finger hits and is never smaller than --tap; the track
+	   is drawn inside it at its own size. */
 	.switch {
 		--track: 2.75rem;
 		--knob: 1.25rem;
 		--gap: 0.125rem;
-		position: relative;
+		--height: calc(var(--knob) + 2 * var(--gap));
+		display: inline-grid;
+		place-items: center;
 		flex: none;
-		width: var(--track);
-		height: calc(var(--knob) + 2 * var(--gap));
+		width: max(var(--tap), var(--track));
+		height: max(var(--tap), var(--height));
 		padding: 0;
 		border: none;
 		border-radius: 999px;
-		background: var(--border);
+		background: none;
 		cursor: pointer;
-		transition: background 0.12s ease;
 	}
 	.small {
 		--track: 2.25rem;
 		--knob: 1rem;
 	}
-	.on {
+	.track {
+		position: relative;
+		width: var(--track);
+		height: var(--height);
+		border-radius: 999px;
+		background: var(--border);
+		transition: background 0.12s ease;
+	}
+	.on .track {
 		background: var(--accent);
 	}
 	.switch:disabled {

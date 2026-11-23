@@ -17,6 +17,7 @@
 		download = false,
 		disabled = false,
 		selected = false,
+		square = false,
 		stays = false,
 		title,
 		label,
@@ -37,6 +38,9 @@
 		disabled?: boolean;
 		/** for a button standing in a set of choices: this is the one in force */
 		selected?: boolean;
+		/** its face is a sign rather than a word, so it is as wide as it is tall;
+		 *  give it a `label` */
+		square?: boolean;
 		/** its press is not the end of the choice, so a list it was picked from stays open */
 		stays?: boolean;
 		title?: string;
@@ -50,13 +54,14 @@
 </script>
 
 {#if href}
-	<a class="btn {tone} {size}" class:selected {href} download={download ? '' : undefined} {title} aria-label={label}>
+	<a class="btn {tone} {size}" class:selected class:square {href} download={download ? '' : undefined} {title} aria-label={label}>
 		{@render children()}
 	</a>
 {:else}
 	<button
 		class="btn {tone} {size}"
 		class:selected
+		class:square
 		{type}
 		{disabled}
 		{title}
@@ -76,7 +81,10 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.4em;
-		padding: 0.45rem 1.1rem;
+		--pad-y: 0.45rem;
+		padding: var(--pad-y) 1.1rem;
+		min-width: var(--tap);
+		min-height: var(--tap);
 		border-radius: 8px;
 		border: 1px solid var(--border);
 		background: var(--surface);
@@ -90,20 +98,14 @@
 		transition: border-color 0.12s ease, background 0.12s ease;
 	}
 	.small {
-		padding: 0.2rem 0.6rem;
+		--pad-y: 0.2rem;
+		padding: var(--pad-y) 0.6rem;
 		border-radius: 6px;
 		font-size: var(--fs-s);
 	}
-	/* a fingertip needs about 44 px whatever the type size says */
-	@media (pointer: coarse) {
-		.btn {
-			min-width: 44px;
-			min-height: 44px;
-		}
-		.small {
-			min-width: 40px;
-			min-height: 40px;
-		}
+	.square {
+		padding-inline: 0;
+		min-width: max(var(--tap), calc(1.35em + 2 * var(--pad-y) + 2px));
 	}
 	.btn:hover:not(:disabled) {
 		border-color: var(--accent);

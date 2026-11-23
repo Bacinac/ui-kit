@@ -89,6 +89,12 @@
 		place-items: center;
 		width: 1.1rem;
 		height: 1.1rem;
+		/* what a finger hits reaches --tap; the margin gives back what the
+		   button grew, so the chip stays the height of its word */
+		box-sizing: content-box;
+		padding: max(0px, calc((var(--tap) - 1.1rem) / 2));
+		margin: min(0px, calc((1.1rem - var(--tap)) / 2));
+		background-clip: content-box;
 		border: none;
 		border-radius: 999px;
 		background: none;

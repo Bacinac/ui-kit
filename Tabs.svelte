@@ -48,6 +48,7 @@
 		   accidental */
 		flex: 1 1 0;
 		min-width: 0;
+		min-height: var(--tap);
 		padding: 0.45rem 0.9rem;
 		border-radius: 8px 8px 0 0;
 		border: 1px solid var(--border);

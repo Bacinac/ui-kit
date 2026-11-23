@@ -90,6 +90,8 @@
 		align-items: baseline;
 		gap: 0.4rem;
 		padding: 0.35rem 0.9rem;
+		/* grown in padding, not height, so the label and its note keep one baseline */
+		padding-block: max(0.35rem, calc((var(--tap) - 1lh - 2px) / 2));
 		border-radius: var(--radius-pill);
 		border: 1px solid var(--border);
 		background: transparent;

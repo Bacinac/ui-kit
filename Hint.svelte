@@ -28,7 +28,7 @@
 
 <span class="hint" bind:this={root}>
 	<button type="button" aria-label={t('help.title')} aria-expanded={open} onclick={() => (open = !open)}
-		>?</button
+		><span class="mark">?</span></button
 	>
 	{#if open}
 		<span class="pop" role="note" bind:this={pop} style:translate="{shift}px 0">
@@ -45,24 +45,35 @@
 		vertical-align: middle;
 	}
 	button {
+		/* what a finger hits reaches --tap around the drawn "?"; the margin
+		   gives back what it grew, so the line it stands in keeps its height */
+		display: grid;
+		place-items: center;
+		padding: max(0px, calc((var(--tap) - 1rem) / 2));
+		margin: min(0px, calc((1rem - var(--tap)) / 2));
+		border: none;
+		background: none;
+		color: var(--muted);
+		font: inherit;
+		cursor: pointer;
+	}
+	.mark {
 		display: grid;
 		place-items: center;
 		width: 1rem;
 		height: 1rem;
-		padding: 0;
 		border: 1px solid var(--border);
 		border-radius: 50%;
-		background: none;
-		color: var(--muted);
-		font: inherit;
 		font-size: var(--fs-2xs);
 		line-height: 1;
-		cursor: pointer;
 	}
 	button:hover,
 	button[aria-expanded='true'] {
-		border-color: var(--accent);
 		color: var(--accent);
+	}
+	button:hover .mark,
+	button[aria-expanded='true'] .mark {
+		border-color: var(--accent);
 	}
 	.pop {
 		position: absolute;

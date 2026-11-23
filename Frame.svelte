@@ -388,6 +388,7 @@
 	.brand {
 		display: flex;
 		align-items: center;
+		min-height: var(--tap);
 		color: inherit;
 		text-decoration: none;
 	}

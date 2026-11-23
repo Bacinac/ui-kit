@@ -39,6 +39,30 @@ textarea {
 	color: var(--text);
 	font: inherit;
 	font-size: var(--field-fs, var(--fs-l));
+	min-height: var(--tap);
+}
+
+/* a slider is dragged by the thumb a finger can find; the track stays drawn
+   at the middle of the taller box */
+input:where([type='range']) {
+	min-height: var(--tap);
+}
+
+/* A cell that is a link is a way into that row, and a row on a phone is
+   touched, not clicked. */
+:where(td, th, dd) > a {
+	display: inline-block;
+	min-width: var(--tap);
+	padding-block: max(0px, calc((var(--tap) - 1lh) / 2));
+}
+
+/* A link or a disclosure a page draws as words, not as a button: as tall as a
+   finger needs, its words in the middle. */
+.tap {
+	display: inline-block;
+	min-width: var(--tap);
+	min-height: var(--tap);
+	align-content: center;
 }
 
 input:where(:not([type='range'], [type='checkbox'], [type='radio'], [type='file'], [type='color'])):focus,

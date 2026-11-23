@@ -24,9 +24,13 @@ Ground
 - `tokens.css` — shape, type scale, the one face (`--font-sans`, which a
   Tailwind product takes through its own utilities), what is laid over a
   picture, shadows. The palette is not here: the product defines it
-  (below). Seven text sizes (`--fs-2xs` … `--fs-2xl`) and no other
+  (below). Seven text sizes (`--fs-2xs` … `--fs-2xl`) and no other. `--tap`
+  is what a finger needs: 0 with a pointer, 2.75rem on a phone-wide or
+  touched screen, where `--fs-2xs` also rises to `--fs-xs`; every kit control
+  grows its own box to it
 - `base.css` — document defaults: body, links, fields (what is typed into —
-  not sliders, tick boxes or pickers), tables, `.fields`, `.action-row`, `.muted`
+  not sliders, tick boxes or pickers), tables, `.fields`, `.action-row`, `.muted`,
+  and `.tap` for a link or disclosure a page draws as words
 - `names.mjs` — every button, link and clicked element has a name a screen
   reader can say: words on its face, or `aria-label` (`label` on `Button`)
   when the face is a sign. A surface drawn on with the pointer says
@@ -86,7 +90,7 @@ Help
   player`)
 
 Controls
-- `Button` (`tone`, `size="small"`, `href`), `ArmedButton` — the one confirm for
+- `Button` (`tone`, `size="small"`, `href`, `square` for a sign with a `label`), `ArmedButton` — the one confirm for
   what does not come back
 - `Picks` — the one row of choices, one or many
 - `Field` — a labelled control: its own input (`value`, `type`), or a label and
